@@ -7,6 +7,8 @@ window.ANIVIET_CONFIG = {
   chatApi: "https://chatbox.aniviet.workers.dev",
   contentApi: "https://content-worker.aniviet.workers.dev",
   oauthSyncApi: "https://oauth-sync-aniviet.aniviet.workers.dev",
+  // Phương án 2: worker trung gian khi bị chặn CORS. Để "" để tắt.
+  corsP2Api: "https://cors-error-p2-handling.aniviet.workers.dev",
   anilistApi: "https://anilist-proxyql.aniviet.workers.dev",
   mywaifulistApi: "https://aniviet-to-mywaifulist.aniviet.workers.dev",
   watchPartyApi: "https://aniviet-watchparty.aniviet.workers.dev",
