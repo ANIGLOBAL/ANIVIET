@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Lúc Đó, Tôi Đã Chuyển Sinh Thành Slime (Phần 1) - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: #ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1080px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:250px minmax(0,1fr); gap:26px; padding:22px 0 0; }
+    @media (max-width:760px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:220px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.5rem,4vw,2.2rem); letter-spacing:-.02em; line-height:1.15; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .meta-lines { margin-top:.9rem; color:var(--muted); font-size:.82rem; line-height:1.7; }
+    .watch-desc { margin-top:1rem; color:#aaa; font-size:.9rem; line-height:1.75; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .watch-desc.open { -webkit-line-clamp:unset; }
+    .desc-toggle { background:none; border:none; color:var(--accent); font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; padding:.3rem 0; display:none; }
+    .ep-section { margin-top:1.9rem; }
+    .ep-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.85rem; }
+    .ep-head h3 { margin:0; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-select { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { border-radius:999px; border:1px solid var(--border); background:transparent; color:#bbb; font:inherit; font-size:.78rem; font-weight:600; padding:.38rem .85rem; cursor:pointer; transition:all .15s ease; }
+    .chip:hover { color:#fff; border-color:#555; }
+    .chip.active { background:var(--accent); border-color:var(--accent); color:#000; }
+    .ep-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:.5rem; }
+    .ep { border:1px solid var(--border); background:#1c1c1c; color:#fff; border-radius:9px; font:inherit; font-size:.78rem; font-weight:600; padding:.55rem .2rem; text-align:center; cursor:pointer; transition:all .15s ease; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ep:hover { border-color:var(--accent); background:rgba(255,255,255,.05); transform:translateY(-1px); }
+    .site-footer { border-top:1px solid rgba(255,255,255,.08); padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; margin-top:34px; }
+    .site-footer p { margin:4px 0; }
+    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:1.25rem; }
+    .modal-overlay.active { display:flex; }
+    .modal { width:min(960px,100%); background:#101010; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); gap:10px; }
+    .modal-title { font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .close-btn { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; cursor:pointer; padding:0 .25rem; flex-shrink:0; }
+    .close-btn:hover { color:#fff; }
+    .modal-body iframe { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="back-row">
+      <a href="../../../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://phim.nguonc.com/public/images/Film/2658.jpg" alt="Lúc Đó, Tôi Đã Chuyển Sinh Thành Slime (Phần 1)"></div>
+      <div>
+        <h1 class="watch-title">Lúc Đó, Tôi Đã Chuyển Sinh Thành Slime (Phần 1)</h1>
+        <p class="watch-orig">Tensei shitara Slime Datta Ken, That Time I Got Reincarnated as a Slime</p>
+        <div class="watch-meta"><span class="pill hot">Số tập: 24 (Hoàn tất)</span><span class="pill">Thời lượng: 23 phút/tập</span><span class="pill">Quốc gia: Nhật Bản</span><span class="pill">Năm: 2018</span><span class="pill">Hành Động</span><span class="pill">Hoạt Hình</span><span class="pill">Phim Hài</span><span class="pill">Giả Tưởng</span><span class="pill">Chất lượng: HD - Vietsub</span><span class="pill">Ngôn ngữ: Vietsub</span><span class="pill">Định dạng: Phim bộ</span></div>
+        <div class="meta-lines">Trailer: <button class="trailer-btn" id="trailerBtn" hidden><span class="tb-icon">▶</span> Xem trailer/PV</button> <button class="trailer-btn" id="teaserBtn" hidden><span class="tb-icon">▶</span> Xem teaser</button></div>
+        <p class="watch-desc" id="desc">Satoru Mikami, 37 tuổi, là một nhân viên công ty điển hình, người hoàn toàn hài lòng với lối sống đơn điệu của mình ở Tokyo, ngoại trừ việc không thể hạ gục bạn gái dù chỉ một lần trong đời. Giữa một cuộc gặp gỡ tình cờ với đồng nghiệp của mình, anh ta trở thành nạn nhân của một kẻ tấn công ngẫu nhiên trên đường phố và bị đâm.</p>
+        <button class="desc-toggle" id="descToggle">Xem th&#234;m</button>
+      </div>
+    </div>
+    <section class="ep-section">
+      <div class="ep-head">
+        <h3>Xem phim</h3>
+        <div class="lang-select" id="langSelect"></div>
+      </div>
+      <div class="ep-grid" id="epGrid"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <div class="modal-overlay" id="playerModal">
+    <div class="modal">
+      <div class="modal-head">
+        <span class="modal-title" id="modalTitle"></span>
+        <button class="close-btn" id="closeBtn">&times;</button>
+      </div>
+      <div class="modal-body"><iframe id="playerIframe" src="" allowfullscreen></iframe></div>
+    </div>
+  </div>
+  <script>
+        var episodes=[
+      { num: 1, url: 'https://embed11.streamc.xyz/embed.php?hash=be12b2f0bb06b87a30f7be4ef448bd77' },
+      { num: 2, url: 'https://embed11.streamc.xyz/embed.php?hash=0ef63c6b0fb04ab9052ec11003b0cd7e' },
+      { num: 3, url: 'https://embed11.streamc.xyz/embed.php?hash=6cb9bbf76be2a8ef50772ac0c116e222' },
+      { num: 4, url: 'https://embed11.streamc.xyz/embed.php?hash=20e16558d4201c86e11762aca8688798' },
+      { num: 5, url: 'https://embed11.streamc.xyz/embed.php?hash=1bd1f3e8b52b25a201f480e51dd475d8' },
+      { num: 6, url: 'https://embed11.streamc.xyz/embed.php?hash=6c21085eaf337590786828d61bea4b34' },
+      { num: 7, url: 'https://embed11.streamc.xyz/embed.php?hash=a1e3568949dc7fc70dcda6fb2fe2702a' },
+      { num: 8, url: 'https://embed11.streamc.xyz/embed.php?hash=a2efc9e4eaaa2a825530a27fca783726' },
+      { num: 9, url: 'https://embed11.streamc.xyz/embed.php?hash=b8884f101ffbe5015c35b681db449102' },
+      { num: 10, url: 'https://embed11.streamc.xyz/embed.php?hash=58bff44623ffb94c2a6b7a0782306e88' },
+      { num: 11, url: 'https://embed11.streamc.xyz/embed.php?hash=aa5d8c46029529b7f30ad88c4f8662bd' },
+      { num: 12, url: 'https://embed12.streamc.xyz/embed.php?hash=ac5f3513134e5eaeca68759f8337b38b' },
+      { num: 13, url: 'https://embed12.streamc.xyz/embed.php?hash=819fb080763bb340897018064d828068' },
+      { num: 14, url: 'https://embed12.streamc.xyz/embed.php?hash=afebf2e6cd0e795054efca1e56e28c60' },
+      { num: 15, url: 'https://embed12.streamc.xyz/embed.php?hash=5d214dc5083174cef1fecf27cec82045' },
+      { num: 16, url: 'https://embed12.streamc.xyz/embed.php?hash=b5c8b2bf9b0947fa6bdf74d6a94399b5' },
+      { num: 17, url: 'https://embed12.streamc.xyz/embed.php?hash=5229469295c67543062d98f95e4ab641' },
+      { num: 18, url: 'https://embed12.streamc.xyz/embed.php?hash=55cdd0b34bfac6e73bf82722f2a135b8' },
+      { num: 19, url: 'https://embed12.streamc.xyz/embed.php?hash=c238c564d44dfa0cd1b6c5bd2185c161' },
+      { num: 20, url: 'https://embed12.streamc.xyz/embed.php?hash=08cc83e982a265eada2f51c364ea548d' },
+      { num: 21, url: 'https://embed12.streamc.xyz/embed.php?hash=2d9acf82af3e9b21a7657eb4c7f71517' },
+      { num: 22, url: 'https://embed12.streamc.xyz/embed.php?hash=388dda82d501ba7037220f7d3c5abcb3' },
+      { num: 23, url: 'https://embed12.streamc.xyz/embed.php?hash=28ecb5dcf5995e0817a5f57b2b7b667f' },
+      { num: 24, url: 'https://embed13.streamc.xyz/embed.php?hash=c7c65ecb308865763c1060cd9269cb33' }
+    ];
+    var list=document.getElementById('epGrid'),modal=document.getElementById('playerModal'),iframe=document.getElementById('playerIframe'),modalTitle=document.getElementById('modalTitle'),closeBtn=document.getElementById('closeBtn');
+    var HAS_SERVERS=(typeof servers!=='undefined');
+    var CL=HAS_SERVERS?(typeof currentLang!=='undefined'?currentLang:Object.keys(servers)[0]):null;
+    var LABELS={vietsub:'Vietsub',longtieng:'Lồng tiếng',thuyetminh:'Thuyết minh'};
+    function renderEps(){
+      list.innerHTML='';
+      var frag=document.createDocumentFragment();
+      var eps=HAS_SERVERS?(servers[CL]||[]):episodes;
+      eps.forEach(function(ep){
+        var c=document.createElement('button');c.className='ep';c.textContent=ep.num;
+        c.addEventListener('click',function(){openPlayer(ep.num,ep.url)});
+        frag.appendChild(c);
+      });
+      list.appendChild(frag);
+    }
+    if(HAS_SERVERS){
+      var sel=document.getElementById('langSelect');
+      sel.innerHTML=Object.keys(servers).map(function(k){return '<button class="chip'+(k===CL?' active':'')+'" data-lang="'+k+'">'+(LABELS[k]||k)+'</button>'}).join('');
+      sel.addEventListener('click',function(e){
+        var b=e.target.closest('.chip');if(!b)return;
+        this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');CL=b.getAttribute('data-lang');renderEps();
+      });
+    }
+    renderEps();
+    function openPlayer(num,url){modalTitle.textContent=num;iframe.src=url;modal.classList.add('active');document.body.style.overflow='hidden'}
+    function closePlayer(){modal.classList.remove('active');iframe.src='';document.body.style.overflow=''}
+    closeBtn.addEventListener('click',closePlayer);modal.addEventListener('click',function(e){if(e.target===modal)closePlayer()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closePlayer()});
+    var descEl=document.getElementById('desc'),dt=document.getElementById('descToggle');
+    if(dt){dt.style.display='inline-block';dt.addEventListener('click',function(){var open=descEl.classList.toggle('open');dt.textContent=open?'Thu gọn':'Xem thêm';});}
+  </script>
+<script src="../../../../../chatbox.js"></script>
+</body>
+</html>

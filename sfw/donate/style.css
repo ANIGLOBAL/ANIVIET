@@ -1,0 +1,56 @@
+:root {
+  --header-gradient: linear-gradient(135deg, #f7971e, #ffd200);
+  --accent-color: #f7971e;
+  --ep-color: #d62828;
+}
+
+.donate-header {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.donate-header h1 {
+  font-size: 28px;
+  color: #f7971e;
+  margin-bottom: 12px;
+}
+
+.donate-desc {
+  max-width: 700px;
+  margin: 0 auto;
+  line-height: 1.7;
+  color: #ccc;
+}
+
+.donate-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  flex-wrap: wrap;
+  margin: 30px 0 40px;
+}
+
+.donate-image-box {
+  padding: 12px;
+  background: #fff;
+  border-radius: 12px;
+}
+
+.donate-img {
+  width: 260px;
+  height: 260px;
+  object-fit: contain;
+  display: block;
+  border-radius: 8px;
+}
+
+.donate-note {
+  max-width: 380px;
+  line-height: 1.8;
+  color: #bbb;
+}
+
+.donate-note strong {
+  color: #fff;
+}

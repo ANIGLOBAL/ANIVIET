@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='%23ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Đọc truyện - Classroom of the Elite: 2-nensei-hen 2nd Stage - ANIVIETDB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *{box-sizing:border-box}
+    body.reader-mode{background:#111;min-height:100vh;font-family:'Roboto',sans-serif;margin:0;padding:0}
+    .reader-bar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:#1a1a2e;flex-wrap:wrap;border-bottom:1px solid #333}
+    .reader-bar .reader-left{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+    .reader-bar a{color:#fff;text-decoration:none;font-size:14px;white-space:nowrap}
+    .reader-bar a:hover{color:#a78bfa}
+    .reader-bar .reader-title{color:#eee;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .reader-bar .reader-lang{font-size:11px;font-weight:700;color:#111;background:#ffd75e;border-radius:10px;padding:3px 10px;white-space:nowrap}
+    .reader-bar .reader-nav{display:flex;gap:8px}
+    .reader-bar button{padding:8px 16px;border:none;border-radius:6px;background:#e84393;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+    .reader-bar button:disabled{opacity:.4;cursor:default}
+    .reader-pages{max-width:980px;margin:0 auto;padding:16px 8px 60px}
+    .reader-pages img{display:block;width:100%;height:auto;margin:0 auto 2px;border-radius:2px;background:#000}
+    .reader-loading{padding:80px 20px;text-align:center;color:#888}
+    @media (max-width:600px){.reader-bar .reader-title{display:none}.reader-bar a{font-size:13px}}
+  </style>
+</head>
+<body class="reader-mode">
+  <div class="reader-bar">
+    <div class="reader-left">
+      <a href="index.html">&larr; Về trang truyện</a>
+      <span class="reader-title" id="readerTitle">Đang tải...</span>
+      <span class="reader-lang" id="readerLang">Vietsub</span>
+    </div>
+    <div class="reader-nav">
+      <button id="readerPrev" disabled>&#9664; Chương trước</button>
+      <button id="readerNext" disabled>Chương sau &#9654;</button>
+    </div>
+  </div>
+  <div class="reader-pages" id="readerPages"></div>
+  <script src="data.js"></script>
+  <script>
+    var pagesEl = document.getElementById('readerPages');
+    var titleEl = document.getElementById('readerTitle');
+    var prevBtn = document.getElementById('readerPrev');
+    var nextBtn = document.getElementById('readerNext');
+    var curV = 0, curC = 0;
+    function qs(n){var m = new RegExp('[?&]' + n + '=([^&]*)').exec(location.search);return m ? decodeURIComponent(m[1]) : null;}
+    function total(){var t = 0;MANGA_DATA.volumes.forEach(function(v){t += v.chapters.length;});return t;}
+    function flatIndexOf(vi, ci){var k = 0;for(var i = 0; i < vi; i++) k += MANGA_DATA.volumes[i].chapters.length;return k + ci;}
+    function atFlat(fi){for(var i = 0; i < MANGA_DATA.volumes.length; i++){var v = MANGA_DATA.volumes[i];if(fi < v.chapters.length) return {vi:i, ci:fi};fi -= v.chapters.length;}return {vi:0, ci:0};}
+    function label(ch){return 'Chương ' + (ch.n === '' ? 'khác' : ch.n) + (ch.t ? ' - ' + ch.t : '');}
+    function openAt(vi, ci){
+      curV = vi; curC = ci;
+      var ch = MANGA_DATA.volumes[vi].chapters[ci];
+      titleEl.textContent = MANGA_DATA.volumes[vi].name + ' - ' + label(ch);
+      history.replaceState(null, '', '?v=' + vi + '&c=' + ci);
+      pagesEl.innerHTML = '<div class="reader-loading">Đang tải...</div>';
+      setTimeout(function(){
+        pagesEl.innerHTML = '';
+        ch.p.forEach(function(url){
+          var img = document.createElement('img');
+          img.loading = 'lazy';
+          img.src = url;
+          img.alt = '';
+          pagesEl.appendChild(img);
+        });
+        window.scrollTo(0, 0);
+      }, 50);
+      var fi = flatIndexOf(vi, ci);
+      prevBtn.disabled = fi <= 0;
+      nextBtn.disabled = fi >= total() - 1;
+    }
+    var v0 = parseInt(qs('v'), 10);
+    var c0 = parseInt(qs('c'), 10);
+    if (isNaN(v0)) v0 = 0;
+    if (isNaN(c0)) c0 = 0;
+    openAt(v0, c0);
+    prevBtn.addEventListener('click', function(){var fi = flatIndexOf(curV, curC);if(fi > 0){var p = atFlat(fi - 1);openAt(p.vi, p.ci);}});
+    nextBtn.addEventListener('click', function(){var fi = flatIndexOf(curV, curC);if(fi < total() - 1){var n = atFlat(fi + 1);openAt(n.vi, n.ci);}});
+    document.addEventListener('keydown', function(e){
+      if (e.key === 'ArrowLeft'){var fi = flatIndexOf(curV, curC);if(fi > 0){var p = atFlat(fi - 1);openAt(p.vi, p.ci);}}
+      if (e.key === 'ArrowRight'){var fi = flatIndexOf(curV, curC);if(fi < total() - 1){var n = atFlat(fi + 1);openAt(n.vi, n.ci);}}
+    });
+  </script>
+<script src="../../../chatbox.js"></script>
+</body>
+</html>

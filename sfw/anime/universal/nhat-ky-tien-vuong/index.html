@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Nhật Ký Thường Ngày Của Tiên Vương - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: #ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1080px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:250px minmax(0,1fr); gap:26px; padding:22px 0 0; }
+    @media (max-width:760px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:220px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.5rem,4vw,2.2rem); letter-spacing:-.02em; line-height:1.15; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .meta-lines { margin-top:.9rem; color:var(--muted); font-size:.82rem; line-height:1.7; }
+    .watch-desc { margin-top:1rem; color:#aaa; font-size:.9rem; line-height:1.75; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .watch-desc.open { -webkit-line-clamp:unset; }
+    .desc-toggle { background:none; border:none; color:var(--accent); font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; padding:.3rem 0; display:none; }
+    .ep-section { margin-top:1.9rem; }
+    .ep-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.85rem; }
+    .ep-head h3 { margin:0; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-select { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { border-radius:999px; border:1px solid var(--border); background:transparent; color:#bbb; font:inherit; font-size:.78rem; font-weight:600; padding:.38rem .85rem; cursor:pointer; transition:all .15s ease; }
+    .chip:hover { color:#fff; border-color:#555; }
+    .chip.active { background:var(--accent); border-color:var(--accent); color:#000; }
+    .ep-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:.5rem; }
+    .ep { border:1px solid var(--border); background:#1c1c1c; color:#fff; border-radius:9px; font:inherit; font-size:.78rem; font-weight:600; padding:.55rem .2rem; text-align:center; cursor:pointer; transition:all .15s ease; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ep:hover { border-color:var(--accent); background:rgba(255,255,255,.05); transform:translateY(-1px); }
+    .site-footer { border-top:1px solid rgba(255,255,255,.08); padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; margin-top:34px; }
+    .site-footer p { margin:4px 0; }
+    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:1.25rem; }
+    .modal-overlay.active { display:flex; }
+    .modal { width:min(960px,100%); background:#101010; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); gap:10px; }
+    .modal-title { font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .close-btn { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; cursor:pointer; padding:0 .25rem; flex-shrink:0; }
+    .close-btn:hover { color:#fff; }
+    .modal-body iframe { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="back-row">
+      <a href="../../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://phim.nguonc.com/public/images/Film/2984.jpg" alt="Nhật Ký Thường Ngày Của Tiên Vương"></div>
+      <div>
+        <h1 class="watch-title">Nhật Ký Thường Ngày Của Tiên Vương</h1>
+        <p class="watch-orig">The Daily Life of the Immortal King</p>
+        <p class="watch-desc" style="-webkit-line-clamp:unset;margin-top:.8rem;">Loạt phim hoạt hình Trung Quốc kể về cậu học sinh trung học Wang Ling - thiên tài tu tiên từ nhỏ, cố gắng che giấu sức mạnh khủng khiếp của mình để sống một cuộc sống bình thường.</p>
+      </div>
+    </div>
+    <section class="ep-section"><div class="ep-head"><h3>Th&#7913; t&#7921; xem &#273;&#250;ng</h3></div><div class="watch-meta"><span class="pill hot">Phần 1</span> <span class="pill">&#8594;</span><span class="pill hot">Phần 2</span> <span class="pill">&#8594;</span><span class="pill hot">Phần 3</span> <span class="pill">&#8594;</span><span class="pill hot">Phần 4</span> <span class="pill">&#8594;</span><span class="pill hot">Phần 5</span></div></section>
+    <section class="ep-section">
+      <div class="ep-head"><h3>C&#225;c ph&#7847;n</h3></div>
+      <div class="hub-grid" id="hubGrid"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <script>
+        var entries = [
+      { label: 'Phần 1', sub: '15 tập • 2020', thumb: 'https://phim.nguonc.com/public/images/Film/2984.jpg', page: 'phan-1/', color: '#a1c4fd' },
+      { label: 'Phần 2', sub: '12 tập • 2021', thumb: 'https://phim.nguonc.com/public/images/Film/3377.png', page: 'phan-2/', color: '#bdb2ff' },
+      { label: 'Phần 3', sub: '12 tập • 2022', thumb: 'https://phim.nguonc.com/public/images/Film/119526.jpg', page: 'phan-3/', color: '#ffd1ff' },
+      { label: 'Phần 4', sub: '12 tập • 2023', thumb: 'https://phim.nguonc.com/public/images/Film/138753.jpg', page: 'phan-4/', color: '#ffc3a0' },
+      { label: 'Phần 5', sub: '12 tập • 2024', thumb: 'https://phim.nguonc.com/public/images/Post/4/nhat-ky-thuong-ngay-cua-tien-vuong-phan-5-1.jpg', page: 'phan-5/', color: '#ff9a9e' }
+    ];
+    var grid=document.getElementById('hubGrid');
+    entries.forEach(function(e){
+      var card=document.createElement('a');
+      card.className='hub-card';
+      card.href=e.page;
+      card.innerHTML='<div class="hub-thumb"><img src="'+e.thumb+'" alt="'+e.label+'" loading="lazy"></div><div class="hub-body"><h3>'+e.label+'</h3><p>'+e.sub+'</p></div>';
+      grid.appendChild(card);
+    });
+  </script>
+  <style>
+    .hub-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; }
+    .hub-card { position:relative; background:var(--card); border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+    .hub-card:hover { transform:translateY(-5px); box-shadow:0 14px 32px #ff5e002e; border-color:var(--accent); }
+    .hub-thumb { aspect-ratio:2/3; overflow:hidden; background:#222; }
+    .hub-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .3s ease; }
+    .hub-card:hover .hub-thumb img { transform:scale(1.06); }
+    .hub-body { padding:10px 12px 12px; }
+    .hub-body h3 { margin:0; font-size:14px; font-weight:600; color:#fff; line-height:1.3; }
+    .hub-body p { margin:3px 0 0; font-size:12px; color:var(--muted); }
+  </style>
+<script src="../../../../chatbox.js"></script>
+</body>
+</html>

@@ -6,7 +6,8 @@ window.ANIVIET_CONFIG = {
   shopApi: "https://shop-system.aniviet.workers.dev",
   chatApi: "https://chatbox.aniviet.workers.dev",
   contentApi: "https://content-worker.aniviet.workers.dev",
-  anilistApi: "https://aniviet-to-anilist.aniviet.workers.dev",
+  oauthSyncApi: "https://oauth-sync-aniviet.aniviet.workers.dev",
+  anilistApi: "https://anilist-proxyql.aniviet.workers.dev",
   mywaifulistApi: "https://aniviet-to-mywaifulist.aniviet.workers.dev",
   watchPartyApi: "https://aniviet-watchparty.aniviet.workers.dev",
 };

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Doraemon: Nobita và Mê Cung Thiếc - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: #ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1080px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:250px minmax(0,1fr); gap:26px; padding:22px 0 0; }
+    @media (max-width:760px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:220px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.5rem,4vw,2.2rem); letter-spacing:-.02em; line-height:1.15; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .meta-lines { margin-top:.9rem; color:var(--muted); font-size:.82rem; line-height:1.7; }
+    .watch-desc { margin-top:1rem; color:#aaa; font-size:.9rem; line-height:1.75; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .watch-desc.open { -webkit-line-clamp:unset; }
+    .desc-toggle { background:none; border:none; color:var(--accent); font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; padding:.3rem 0; display:none; }
+    .ep-section { margin-top:1.9rem; }
+    .ep-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.85rem; }
+    .ep-head h3 { margin:0; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-select { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { border-radius:999px; border:1px solid var(--border); background:transparent; color:#bbb; font:inherit; font-size:.78rem; font-weight:600; padding:.38rem .85rem; cursor:pointer; transition:all .15s ease; }
+    .chip:hover { color:#fff; border-color:#555; }
+    .chip.active { background:var(--accent); border-color:var(--accent); color:#000; }
+    .ep-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:.5rem; }
+    .ep { border:1px solid var(--border); background:#1c1c1c; color:#fff; border-radius:9px; font:inherit; font-size:.78rem; font-weight:600; padding:.55rem .2rem; text-align:center; cursor:pointer; transition:all .15s ease; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ep:hover { border-color:var(--accent); background:rgba(255,255,255,.05); transform:translateY(-1px); }
+    .site-footer { border-top:1px solid rgba(255,255,255,.08); padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; margin-top:34px; }
+    .site-footer p { margin:4px 0; }
+    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:1.25rem; }
+    .modal-overlay.active { display:flex; }
+    .modal { width:min(960px,100%); background:#101010; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); gap:10px; }
+    .modal-title { font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .close-btn { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; cursor:pointer; padding:0 .25rem; flex-shrink:0; }
+    .close-btn:hover { color:#fff; }
+    .modal-body iframe { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="back-row">
+      <a href="../../../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://phim.nguonc.com/public/images/Film/j3pr1JEpKmDL3n6h6CQwXHY0gkU.jpg" alt="Doraemon: Nobita và Mê Cung Thiếc"></div>
+      <div>
+        <h1 class="watch-title">Doraemon: Nobita và Mê Cung Thiếc</h1>
+        <p class="watch-orig">Doraemon: Nobita and the Tin Labyrinth</p>
+        <div class="watch-meta"><span class="pill hot">Số tập: FULL (100 phút)</span><span class="pill">Quốc gia: Nhật Bản</span><span class="pill">Năm: 1993</span><span class="pill">Phiêu Lưu</span><span class="pill">Hoạt Hình</span><span class="pill">Gia Đình</span><span class="pill">Chất lượng: HD - Lồng Tiếng</span><span class="pill">Ngôn ngữ: Lồng Tiếng</span><span class="pill">Định dạng: Phim lẻ</span></div>
+        
+        <p class="watch-desc" id="desc">Bố Nobita tình cờ thấy một quảng cáo kỳ lạ về một khu nghỉ dưỡng tuyệt vời trên truyền hình vào lúc nửa đêm. Đang buồn ngủ, anh ấy đặt chỗ trước dù thậm chí không nhận ra mình đang nói chuyện với quảng cáo. Ngày hôm sau, anh thảo luận với gia đình về kế hoạch kỳ nghỉ của họ, chỉ để nhận ra rằng anh không thể tìm thấy nơi nào trên trái đất. Đột nhiên, mặc dù có một chiếc vali trong phòng Nobita và bị tò mò như vậy, cậu mở nó ra chỉ để tìm thấy cánh cổng dẫn đến một khu nghỉ dưỡng xinh đẹp được quản lý bởi những con rô bốt thiếc. Vẫn tốt hơn, nó hoàn toàn miễn phí. Có vẻ như có một chương trình nghị sự ẩn đằng sau người mời họ đến đó.</p>
+        <button class="desc-toggle" id="descToggle">Xem th&#234;m</button>
+      </div>
+    </div>
+    <section class="ep-section">
+      <div class="ep-head">
+        <h3>Xem phim</h3>
+        <div class="lang-select" id="langSelect"></div>
+      </div>
+      <div class="ep-grid" id="epGrid"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <div class="modal-overlay" id="playerModal">
+    <div class="modal">
+      <div class="modal-head">
+        <span class="modal-title" id="modalTitle"></span>
+        <button class="close-btn" id="closeBtn">&times;</button>
+      </div>
+      <div class="modal-body"><iframe id="playerIframe" src="" allowfullscreen></iframe></div>
+    </div>
+  </div>
+  <script>
+        var servers={"longtieng":[{"num":"FULL","url":"https://embed18.streamc.xyz/embed.php?hash=bea295d935577ebe1a8d2a2ef9625478"}]};
+    var currentLang="longtieng";
+    var list=document.getElementById('epGrid'),modal=document.getElementById('playerModal'),iframe=document.getElementById('playerIframe'),modalTitle=document.getElementById('modalTitle'),closeBtn=document.getElementById('closeBtn');
+    var HAS_SERVERS=(typeof servers!=='undefined');
+    var CL=HAS_SERVERS?(typeof currentLang!=='undefined'?currentLang:Object.keys(servers)[0]):null;
+    var LABELS={vietsub:'Vietsub',longtieng:'Lồng tiếng',thuyetminh:'Thuyết minh'};
+    function renderEps(){
+      list.innerHTML='';
+      var frag=document.createDocumentFragment();
+      var eps=HAS_SERVERS?(servers[CL]||[]):episodes;
+      eps.forEach(function(ep){
+        var c=document.createElement('button');c.className='ep';c.textContent=ep.num;
+        c.addEventListener('click',function(){openPlayer(ep.num,ep.url)});
+        frag.appendChild(c);
+      });
+      list.appendChild(frag);
+    }
+    if(HAS_SERVERS){
+      var sel=document.getElementById('langSelect');
+      sel.innerHTML=Object.keys(servers).map(function(k){return '<button class="chip'+(k===CL?' active':'')+'" data-lang="'+k+'">'+(LABELS[k]||k)+'</button>'}).join('');
+      sel.addEventListener('click',function(e){
+        var b=e.target.closest('.chip');if(!b)return;
+        this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');CL=b.getAttribute('data-lang');renderEps();
+      });
+    }
+    renderEps();
+    function openPlayer(num,url){modalTitle.textContent=num;iframe.src=url;modal.classList.add('active');document.body.style.overflow='hidden'}
+    function closePlayer(){modal.classList.remove('active');iframe.src='';document.body.style.overflow=''}
+    closeBtn.addEventListener('click',closePlayer);modal.addEventListener('click',function(e){if(e.target===modal)closePlayer()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closePlayer()});
+    var descEl=document.getElementById('desc'),dt=document.getElementById('descToggle');
+    if(dt){dt.style.display='inline-block';dt.addEventListener('click',function(){var open=descEl.classList.toggle('open');dt.textContent=open?'Thu gọn':'Xem thêm';});}
+  </script>
+<script src="../../../../../chatbox.js"></script>
+</body>
+</html>

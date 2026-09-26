@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='%23ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Đọc truyện - Nhà Phê Bình Dị Chủng - ANIVIETDB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    body.reader-mode { background: #111; min-height: 100vh; }
+    .reader-bar { position: sticky; top: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 14px; background: #1a1a1a; flex-wrap: wrap; }
+    .reader-bar .reader-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
+    .reader-bar a { color: #fff; text-decoration: none; font-size: 14px; white-space: nowrap; }
+    .reader-bar a:hover { color: #667eea; }
+    .reader-bar .reader-title { color: #eee; font-size: 14px; font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .reader-bar .reader-lang { font-size: 11px; font-weight: 700; color: #111; background: #ffd75e; border-radius: 10px; padding: 3px 10px; white-space: nowrap; }
+    .reader-bar .reader-nav { display: flex; gap: 8px; }
+    .reader-bar button { padding: 8px 16px; border: none; border-radius: 6px; background: #667eea; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
+    .reader-bar button:disabled { opacity: 0.4; cursor: default; }
+    .reader-pages { max-width: 980px; margin: 0 auto; padding: 16px 8px 60px; }
+    .reader-pages img { display: block; width: 100%; height: auto; margin: 0 auto 2px; border-radius: 2px; }
+    .reader-loading { padding: 80px 20px; text-align: center; color: #888; }
+    @media (max-width: 600px) {
+      .reader-bar .reader-title { display: none; }
+      .reader-bar a { font-size: 13px; }
+    }
+  </style>
+</head>
+<body class="adult-mode reader-mode">
+  <div class="reader-bar">
+    <div class="reader-left">
+      <a href="index.html">&larr; Về trang truyện</a>
+      <span class="reader-title" id="readerTitle">Đang tải...</span>
+      <span class="reader-lang" id="readerLang"></span>
+    </div>
+    <div class="reader-nav">
+      <button id="readerPrev" disabled>&#9664; Chương trước</button>
+      <button id="readerNext" disabled>Chương sau &#9654;</button>
+    </div>
+  </div>
+  <div class="reader-pages" id="readerPages"></div>
+
+  <script src="../../../manga-config.js"></script>
+  <script>
+    var MANGA_ID = "1b2fddf9-1385-4f3c-b37a-cf86a9428b1a";
+    var FEED_LANG = "en";
+    var NSFW = true;
+    var chapterList = [];
+    var currentIndex = 0;
+    var currentLang = FEED_LANG;
+    var pagesEl = document.getElementById('readerPages');
+    var titleEl = document.getElementById('readerTitle');
+    var langEl = document.getElementById('readerLang');
+    var prevBtn = document.getElementById('readerPrev');
+    var nextBtn = document.getElementById('readerNext');
+
+    function langName(l) {
+      if (l === 'vi') return 'Vietsub';
+      if (l === 'en') return 'English';
+      return 'All';
+    }
+
+    function qs(name) {
+      var m = new RegExp('[?&]' + name + '=([^&]*)').exec(location.search);
+      return m ? decodeURIComponent(m[1]) : null;
+    }
+
+    function api(url) {
+      return fetch(window.MD_WORKER + url).then(function (r) {
+        if (!r.ok) {
+          return r.text().then(function (text) {
+            throw new Error('HTTP ' + r.status + ' ' + r.statusText + (text ? ': ' + text : ''));
+          });
+        }
+        return r.json();
+      });
+    }
+
+    function loadChapters() {
+      function fetchLang(lang) {
+        var lq = lang === 'all' ? '' : '&translatedLanguage[]=' + lang;
+        var cr = '&contentRating[]=safe&contentRating[]=suggestive';
+        if (NSFW) cr += '&contentRating[]=erotica&contentRating[]=pornographic';
+        var all = [];
+        var offset = 0;
+        function page() {
+          return api('/manga/' + MANGA_ID + '/feed?limit=500&offset=' + offset + '&order[chapter]=asc&includes[]=scanlation_group' + cr + lq)
+            .then(function (j) {
+              all = all.concat(j.data || []);
+              offset += 500;
+              if (j.data && j.data.length === 500) return page();
+              return all;
+            });
+        }
+        return page();
+      }
+
+      function chooseChapters() {
+        var want = qs('lang') || FEED_LANG;
+        currentLang = want;
+        return fetchLang(want).then(function (chapters) {
+          if (chapters.length) return chapters;
+          if (want === 'vi') {
+            return fetchLang('en').then(function (enChapters) {
+              if (enChapters.length) { currentLang = 'en'; return enChapters; }
+              currentLang = 'all';
+              return fetchLang('all');
+            });
+          }
+          if (want === 'en') {
+            currentLang = 'all';
+            return fetchLang('all');
+          }
+          return chapters;
+        });
+      }
+
+      chooseChapters().then(function (chapters) {
+        if (chapters.length > 0) {
+          chapterList = chapters;
+          langEl.textContent = langName(currentLang);
+          start();
+        } else {
+          showError('Chưa có chương nào trên MangaDex.');
+        }
+      }).catch(function () {
+        showError('Không tải được danh sách chương.');
+      });
+    }
+
+    function chapterLabel(ch) {
+      var a = ch.attributes;
+      var num = a.chapter ? 'Chương ' + a.chapter : 'Chương khác';
+      if (a.title) num += ': ' + a.title;
+      return num;
+    }
+
+    function start() {
+      var want = qs('ch');
+      var pi = parseInt(qs('p'), 10);
+      currentIndex = -1;
+      for (var i = 0; i < chapterList.length; i++) {
+        if (chapterList[i].id === want) { currentIndex = i; break; }
+      }
+      if (currentIndex === -1 && !isNaN(pi) && pi >= 0 && pi < chapterList.length) currentIndex = pi;
+      if (currentIndex === -1) currentIndex = 0;
+      openChapter(currentIndex);
+    }
+
+    function openChapter(i) {
+      if (i < 0 || i >= chapterList.length) return;
+      currentIndex = i;
+      var ch = chapterList[i];
+      titleEl.textContent = chapterLabel(ch);
+      history.replaceState(null, '', '?ch=' + ch.id + '&p=' + i + '&lang=' + currentLang);
+      pagesEl.innerHTML = '<div class="reader-loading">Đang tải...</div>';
+      api('/at-home/server/' + ch.id).then(function (j) {
+        var base = j.baseUrl;
+        var hash = j.chapter.hash;
+        var files = j.chapter.data || [];
+        pagesEl.innerHTML = '';
+        files.forEach(function (f) {
+          var img = document.createElement('img');
+          img.loading = 'lazy';
+          img.src = base + '/data/' + hash + '/' + f;
+          img.alt = '';
+          pagesEl.appendChild(img);
+        });
+        window.scrollTo(0, 0);
+      }).catch(function () { showError('Không tải được chương này.'); });
+      prevBtn.disabled = currentIndex <= 0;
+      nextBtn.disabled = currentIndex >= chapterList.length - 1;
+    }
+
+    function showError(msg) {
+      pagesEl.innerHTML = '<div class="reader-loading">' + msg.replace(/</g, '&lt;') + '</div>';
+    }
+
+    prevBtn.addEventListener('click', function () { if (currentIndex > 0) openChapter(currentIndex - 1); });
+    nextBtn.addEventListener('click', function () { if (currentIndex < chapterList.length - 1) openChapter(currentIndex + 1); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft' && currentIndex > 0) openChapter(currentIndex - 1);
+      if (e.key === 'ArrowRight' && currentIndex < chapterList.length - 1) openChapter(currentIndex + 1);
+    });
+
+    loadChapters();
+  </script>
+<script src="../../../chatbox.js"></script>
+</body>
+</html>

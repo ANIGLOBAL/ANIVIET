@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='ff5e00' text-anchor='middle'>A</text></svg>">
+<title>JoJo Phần 2 - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: #ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1080px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:250px minmax(0,1fr); gap:26px; padding:22px 0 0; }
+    @media (max-width:760px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:220px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.5rem,4vw,2.2rem); letter-spacing:-.02em; line-height:1.15; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .meta-lines { margin-top:.9rem; color:var(--muted); font-size:.82rem; line-height:1.7; }
+    .watch-desc { margin-top:1rem; color:#aaa; font-size:.9rem; line-height:1.75; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .watch-desc.open { -webkit-line-clamp:unset; }
+    .desc-toggle { background:none; border:none; color:var(--accent); font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; padding:.3rem 0; display:none; }
+    .ep-section { margin-top:1.9rem; }
+    .ep-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.85rem; }
+    .ep-head h3 { margin:0; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-select { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { border-radius:999px; border:1px solid var(--border); background:transparent; color:#bbb; font:inherit; font-size:.78rem; font-weight:600; padding:.38rem .85rem; cursor:pointer; transition:all .15s ease; }
+    .chip:hover { color:#fff; border-color:#555; }
+    .chip.active { background:var(--accent); border-color:var(--accent); color:#000; }
+    .ep-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:.5rem; }
+    .ep { border:1px solid var(--border); background:#1c1c1c; color:#fff; border-radius:9px; font:inherit; font-size:.78rem; font-weight:600; padding:.55rem .2rem; text-align:center; cursor:pointer; transition:all .15s ease; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ep:hover { border-color:var(--accent); background:rgba(255,255,255,.05); transform:translateY(-1px); }
+    .site-footer { border-top:1px solid rgba(255,255,255,.08); padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; margin-top:34px; }
+    .site-footer p { margin:4px 0; }
+    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:1.25rem; }
+    .modal-overlay.active { display:flex; }
+    .modal { width:min(960px,100%); background:#101010; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); gap:10px; }
+    .modal-title { font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .close-btn { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; cursor:pointer; padding:0 .25rem; flex-shrink:0; }
+    .close-btn:hover { color:#fff; }
+    .modal-body iframe { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="back-row">
+      <a href="../../../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://phim.nguonc.com/public/images/Film/1105.jpg" alt="JoJo's Bizarre Adventure: Stardust Crusaders"></div>
+      <div>
+        <h1 class="watch-title">JoJo's Bizarre Adventure: Stardust Crusaders</h1>
+        <p class="watch-orig">JoJo no Kimyou na Bouken Part 3: Stardust Crusaders</p>
+        <div class="watch-meta"><span class="pill hot">Số tập: 48 (Hoàn tất)</span><span class="pill">Quốc gia: Nhật Bản</span><span class="pill">Năm: 2014</span><span class="pill">Hoạt Hình</span><span class="pill">Chất lượng: HD - Vietsub</span><span class="pill">Ngôn ngữ: Vietsub</span><span class="pill">Định dạng: Phim bộ</span></div>
+        <div class="meta-lines">Trailer: <button class="trailer-btn" id="trailerBtn" hidden><span class="tb-icon">▶</span> Xem trailer/PV</button> <button class="trailer-btn" id="teaserBtn" hidden><span class="tb-icon">▶</span> Xem teaser</button></div>
+        <p class="watch-desc" id="desc">Câu chuyện bắt đầu tại nhà tù, nơi Kujo Jotaro (17 tuổi) - một tên đầu gấu chính hiệu - đang tự giam lỏng mình để khống chế một thế lực siêu nhiên mới vừa được thức tỉnh - Stand. Ông nội Joseph Joestar đến để giúp Jotaro kiểm soát sức mạnh và cùng nhau lên đường đánh bại Dio.</p>
+        <button class="desc-toggle" id="descToggle">Xem th&#234;m</button>
+      </div>
+    </div>
+    <section class="ep-section">
+      <div class="ep-head">
+        <h3>Xem phim</h3>
+        <div class="lang-select" id="langSelect"></div>
+      </div>
+      <div class="ep-grid" id="epGrid"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <div class="modal-overlay" id="playerModal">
+    <div class="modal">
+      <div class="modal-head">
+        <span class="modal-title" id="modalTitle"></span>
+        <button class="close-btn" id="closeBtn">&times;</button>
+      </div>
+      <div class="modal-body"><iframe id="playerIframe" src="" allowfullscreen></iframe></div>
+    </div>
+  </div>
+  <script>
+        var episodes=[{num:1,url:'https://embed14.streamc.xyz/embed.php?hash=5326de3e81a3b0f34db9b424a0d86f0b'},{num:2,url:'https://embed15.streamc.xyz/embed.php?hash=6d60205e6498db49881f79fccc2f6f8e'},{num:3,url:'https://embed15.streamc.xyz/embed.php?hash=6f749f2c610550c42b119de6e753cc9b'},{num:4,url:'https://embed15.streamc.xyz/embed.php?hash=58a12be36cf4cd2c62ac7e65befb71da'},{num:5,url:'https://embed15.streamc.xyz/embed.php?hash=20a9b57cbff39313ad7b87ced2c57e92'},{num:6,url:'https://embed15.streamc.xyz/embed.php?hash=fa75a49bb337bced0718e120a80ce410'},{num:7,url:'https://embed15.streamc.xyz/embed.php?hash=f13c9d80c3dc4df55520e63095745f02'},{num:8,url:'https://embed15.streamc.xyz/embed.php?hash=cd22d5f2830661393c8b6dce3717a42b'},{num:9,url:'https://embed15.streamc.xyz/embed.php?hash=68ee28b93e5ee63ca381f31138bbf640'},{num:10,url:'https://embed15.streamc.xyz/embed.php?hash=e7544e94c30a902c3e1de6863722de4f'},{num:11,url:'https://embed15.streamc.xyz/embed.php?hash=75800ed1fb926198ac03b7d6f6706dbf'},{num:12,url:'https://embed15.streamc.xyz/embed.php?hash=39a96e198f379c92e72ecfbe4d0ccecc'},{num:13,url:'https://embed13.streamc.xyz/embed.php?hash=70e3dc6978ef6d63752b1ea56b5568be'},{num:14,url:'https://embed13.streamc.xyz/embed.php?hash=4e0116adf16aa7e3abe022e8e02e02ec'},{num:15,url:'https://embed13.streamc.xyz/embed.php?hash=c0dfec384416ac7d410af159a1d61ee0'},{num:16,url:'https://embed13.streamc.xyz/embed.php?hash=fc5bf82d2574974c0147413649edac26'},{num:17,url:'https://embed13.streamc.xyz/embed.php?hash=cb4e133c01de2484664d8928b8cd956e'},{num:18,url:'https://embed13.streamc.xyz/embed.php?hash=7163a9efdbb9c07ff9b47d11780fc7da'},{num:19,url:'https://embed13.streamc.xyz/embed.php?hash=af0ac74fcc65d0ba574ca5d7607e3d36'},{num:20,url:'https://embed13.streamc.xyz/embed.php?hash=1438fc71c45a192325dfd8899cefaafd'},{num:21,url:'https://embed13.streamc.xyz/embed.php?hash=912b81c12f358d707b544dd7e1e472b8'},{num:22,url:'https://embed13.streamc.xyz/embed.php?hash=5b2c91e090796c7700ae96e123067eea'},{num:23,url:'https://embed13.streamc.xyz/embed.php?hash=2f1fab0669228ff7712232e98c5f1b0b'},{num:24,url:'https://embed13.streamc.xyz/embed.php?hash=32f9374dd1a02bcdf51b37523eb9083a'},{num:25,url:'https://embed13.streamc.xyz/embed.php?hash=42cf5541dae8eb2283848db80586eb67'},{num:26,url:'https://embed13.streamc.xyz/embed.php?hash=d8c2c31d18e2b2521690fc085444407f'},{num:27,url:'https://embed13.streamc.xyz/embed.php?hash=4d6b0e0a1f26b9cbe19dcd0886a8b33f'},{num:28,url:'https://embed13.streamc.xyz/embed.php?hash=7da8c19aa4c5edaf26079f4a22a02feb'},{num:29,url:'https://embed13.streamc.xyz/embed.php?hash=b2953e303916dad161d3783d3797f9e4'},{num:30,url:'https://embed13.streamc.xyz/embed.php?hash=3c2a25b128deda04bfb9e04e170b9b77'},{num:31,url:'https://embed13.streamc.xyz/embed.php?hash=a55fabed83f27cd06ef85a7c50c8ae78'},{num:32,url:'https://embed13.streamc.xyz/embed.php?hash=519fe4d6d01869c71d89515b7d1742f8'},{num:33,url:'https://embed13.streamc.xyz/embed.php?hash=d2598700deade3cdc142fba61b64b219'},{num:34,url:'https://embed13.streamc.xyz/embed.php?hash=d3b9137cee2ff96e6348d30092edaca5'},{num:35,url:'https://embed13.streamc.xyz/embed.php?hash=f301c7e0e715a8bd26954c6d9f920a52'},{num:36,url:'https://embed13.streamc.xyz/embed.php?hash=e3f73ac3e643ef01d6807a53fb150c3d'},{num:37,url:'https://embed13.streamc.xyz/embed.php?hash=4ac730a67f3ef2a4bf02d9fba3084a61'},{num:38,url:'https://embed12.streamc.xyz/embed.php?hash=11357c72dcfb0188e0967eab274d7e03'},{num:39,url:'https://embed12.streamc.xyz/embed.php?hash=7b3aa0e58d2f714631646ba4f0b40905'},{num:40,url:'https://embed12.streamc.xyz/embed.php?hash=923852c9504495a588657d58b6150b2b'},{num:41,url:'https://embed12.streamc.xyz/embed.php?hash=697343376dd5c2938b5325245004cc61'},{num:42,url:'https://embed12.streamc.xyz/embed.php?hash=da69b06b6b02137a86504a02464ba948'},{num:43,url:'https://embed12.streamc.xyz/embed.php?hash=ba8062c185d6fd0b69f578eb3323cf24'},{num:44,url:'https://embed12.streamc.xyz/embed.php?hash=882277719d216cfa35f17115e26996e3'},{num:45,url:'https://embed12.streamc.xyz/embed.php?hash=8331af9b6470b60ef86100a49d7eb63c'},{num:46,url:'https://embed12.streamc.xyz/embed.php?hash=cf7db3ddca79d9e5d6d29265d235401a'},{num:47,url:'https://embed12.streamc.xyz/embed.php?hash=9b14f9cc8cd6b7bdab80c6b37680e868'},{num:48,url:'https://embed12.streamc.xyz/embed.php?hash=486a655c854dd5b24295d2a3fb4bc03a'}];
+    var list=document.getElementById('epGrid'),modal=document.getElementById('playerModal'),iframe=document.getElementById('playerIframe'),modalTitle=document.getElementById('modalTitle'),closeBtn=document.getElementById('closeBtn');
+    var HAS_SERVERS=(typeof servers!=='undefined');
+    var CL=HAS_SERVERS?(typeof currentLang!=='undefined'?currentLang:Object.keys(servers)[0]):null;
+    var LABELS={vietsub:'Vietsub',longtieng:'Lồng tiếng',thuyetminh:'Thuyết minh'};
+    function renderEps(){
+      list.innerHTML='';
+      var frag=document.createDocumentFragment();
+      var eps=HAS_SERVERS?(servers[CL]||[]):episodes;
+      eps.forEach(function(ep){
+        var c=document.createElement('button');c.className='ep';c.textContent=ep.num;
+        c.addEventListener('click',function(){openPlayer(ep.num,ep.url)});
+        frag.appendChild(c);
+      });
+      list.appendChild(frag);
+    }
+    if(HAS_SERVERS){
+      var sel=document.getElementById('langSelect');
+      sel.innerHTML=Object.keys(servers).map(function(k){return '<button class="chip'+(k===CL?' active':'')+'" data-lang="'+k+'">'+(LABELS[k]||k)+'</button>'}).join('');
+      sel.addEventListener('click',function(e){
+        var b=e.target.closest('.chip');if(!b)return;
+        this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');CL=b.getAttribute('data-lang');renderEps();
+      });
+    }
+    renderEps();
+    function openPlayer(num,url){modalTitle.textContent=num;iframe.src=url;modal.classList.add('active');document.body.style.overflow='hidden'}
+    function closePlayer(){modal.classList.remove('active');iframe.src='';document.body.style.overflow=''}
+    closeBtn.addEventListener('click',closePlayer);modal.addEventListener('click',function(e){if(e.target===modal)closePlayer()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closePlayer()});
+    var descEl=document.getElementById('desc'),dt=document.getElementById('descToggle');
+    if(dt){dt.style.display='inline-block';dt.addEventListener('click',function(){var open=descEl.classList.toggle('open');dt.textContent=open?'Thu gọn':'Xem thêm';});}
+  </script>
+<script src="../../../../../chatbox.js"></script>
+</body>
+</html>

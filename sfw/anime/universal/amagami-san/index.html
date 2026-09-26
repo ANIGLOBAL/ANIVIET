@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Amagami-san Chi no Enmusubi - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: #ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1080px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:250px minmax(0,1fr); gap:26px; padding:22px 0 0; }
+    @media (max-width:760px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:220px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.5rem,4vw,2.2rem); letter-spacing:-.02em; line-height:1.15; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .meta-lines { margin-top:.9rem; color:var(--muted); font-size:.82rem; line-height:1.7; }
+    .watch-desc { margin-top:1rem; color:#aaa; font-size:.9rem; line-height:1.75; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .watch-desc.open { -webkit-line-clamp:unset; }
+    .desc-toggle { background:none; border:none; color:var(--accent); font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; padding:.3rem 0; display:none; }
+    .ep-section { margin-top:1.9rem; }
+    .ep-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.85rem; }
+    .ep-head h3 { margin:0; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-select { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { border-radius:999px; border:1px solid var(--border); background:transparent; color:#bbb; font:inherit; font-size:.78rem; font-weight:600; padding:.38rem .85rem; cursor:pointer; transition:all .15s ease; }
+    .chip:hover { color:#fff; border-color:#555; }
+    .chip.active { background:var(--accent); border-color:var(--accent); color:#000; }
+    .ep-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:.5rem; }
+    .ep { border:1px solid var(--border); background:#1c1c1c; color:#fff; border-radius:9px; font:inherit; font-size:.78rem; font-weight:600; padding:.55rem .2rem; text-align:center; cursor:pointer; transition:all .15s ease; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ep:hover { border-color:var(--accent); background:rgba(255,255,255,.05); transform:translateY(-1px); }
+    .site-footer { border-top:1px solid rgba(255,255,255,.08); padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; margin-top:34px; }
+    .site-footer p { margin:4px 0; }
+    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:1.25rem; }
+    .modal-overlay.active { display:flex; }
+    .modal { width:min(960px,100%); background:#101010; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); gap:10px; }
+    .modal-title { font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .close-btn { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; cursor:pointer; padding:0 .25rem; flex-shrink:0; }
+    .close-btn:hover { color:#fff; }
+    .modal-body iframe { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="back-row">
+      <a href="../../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://phim.nguonc.com/public/images/Film/143586.jpg" alt="Amagami-san Chi no Enmusubi"></div>
+      <div>
+        <h1 class="watch-title">Amagami-san Chi no Enmusubi</h1>
+        <p class="watch-orig">Tying the Knot with an Amagami Sister</p>
+        <div class="watch-meta"><span class="pill hot">Số tập: Hoàn tất (24/24)</span><span class="pill">Thời lượng: 23 phút/tập</span><span class="pill">Quốc gia: Nhật Bản</span><span class="pill">Năm: 2024</span><span class="pill">Lãng Mạn</span><span class="pill">Siêu Nhiên</span><span class="pill">Hài Hước</span><span class="pill">Chất lượng: HD - Vietsub</span><span class="pill">Ngôn ngữ: Vietsub</span><span class="pill">Định dạng: Phim bộ</span></div>
+        <div class="meta-lines">Trailer: <button class="trailer-btn" id="trailerBtn" hidden><span class="tb-icon">▶</span> Xem trailer/PV</button> <button class="trailer-btn" id="teaserBtn" hidden><span class="tb-icon">▶</span> Xem teaser</button></div>
+        <p class="watch-desc" id="desc">Uryuu Kamihate, một chàng trai mồ côi, vào chùa để chuẩn bị trở thành tu sĩ. Nhưng để hoàn thành khóa huấn luyện, cậu phải kết hôn với một trong ba chị em nhà Amagami - những cô gái đang trông coi ngôi đền.</p>
+        
+      </div>
+    </div>
+    <section class="ep-section">
+      <div class="ep-head">
+        <h3>Xem phim</h3>
+        <div class="lang-select" id="langSelect"></div>
+      </div>
+      <div class="ep-grid" id="epGrid"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <div class="modal-overlay" id="playerModal">
+    <div class="modal">
+      <div class="modal-head">
+        <span class="modal-title" id="modalTitle"></span>
+        <button class="close-btn" id="closeBtn">&times;</button>
+      </div>
+      <div class="modal-body"><iframe id="playerIframe" src="" allowfullscreen></iframe></div>
+    </div>
+  </div>
+  <script>
+        var episodes=[
+      { num: 'T\u1eadp 1', url: 'https://embed1.streamc.xyz/embed.php?hash=0ba3b84974541eb62632e0339cb8e120' },
+      { num: 'T\u1eadp 2', url: 'https://embed1.streamc.xyz/embed.php?hash=e2f4f5f117cbc61e9dbbc3be95f4e1fa' },
+      { num: 'T\u1eadp 3', url: 'https://embed1.streamc.xyz/embed.php?hash=e9a6752bb6e6b4b72d5ede423e1f1a32' },
+      { num: 'T\u1eadp 4', url: 'https://embed1.streamc.xyz/embed.php?hash=98c4d0c1ff255bb25a68b2ee1c88a35b' },
+      { num: 'T\u1eadp 5', url: 'https://embed1.streamc.xyz/embed.php?hash=96193bfa52d6ed05577debed248e765b' },
+      { num: 'T\u1eadp 6', url: 'https://embed1.streamc.xyz/embed.php?hash=a4cce1638c64913d07ce7a3e55f11dfc' },
+      { num: 'T\u1eadp 7', url: 'https://embed1.streamc.xyz/embed.php?hash=c0b6daf9546185728268ddc82cae5131' },
+      { num: 'T\u1eadp 8', url: 'https://embed1.streamc.xyz/embed.php?hash=5bc1099c04c47470e69c2ef0f79c15cd' },
+      { num: 'T\u1eadp 9', url: 'https://embed13.streamc.xyz/embed.php?hash=0564f656c30cca6c748703552bd57b8a' },
+      { num: 'T\u1eadp 10', url: 'https://embed13.streamc.xyz/embed.php?hash=39e3fab6622f1a25b1e3bf35730fdd63' },
+      { num: 'T\u1eadp 11', url: 'https://embed17.streamc.xyz/embed.php?hash=258c2852b298c677e50ee6f9c9361f4c' },
+      { num: 'T\u1eadp 12', url: 'https://embed14.streamc.xyz/embed.php?hash=9ba3a50f3ad35df7f83002d6e71d9aa5' },
+      { num: 'T\u1eadp 13', url: 'https://embed11.streamc.xyz/embed.php?hash=05a018e9e29bebb572c3c04b9488ea94' },
+      { num: 'T\u1eadp 14', url: 'https://embed11.streamc.xyz/embed.php?hash=f09f8bc7a347af323dee55682bf04e90' },
+      { num: 'T\u1eadp 15', url: 'https://embed12.streamc.xyz/embed.php?hash=0eae3d46f12d0963f46f05fc5a1631b4' },
+      { num: 'T\u1eadp 16', url: 'https://embed17.streamc.xyz/embed.php?hash=716d0d05aa54dfa5fe6088922b394ba2' },
+      { num: 'T\u1eadp 17', url: 'https://embed14.streamc.xyz/embed.php?hash=bc4cbe25077f0fcebef3f2233f70b52b' },
+      { num: 'T\u1eadp 18', url: 'https://embed17.streamc.xyz/embed.php?hash=53504f6582ac721cfa6701c7558ea9a9' },
+      { num: 'T\u1eadp 19', url: 'https://embed11.streamc.xyz/embed.php?hash=2f8b780fac5c3f0a45f9b9f51ff09334' },
+      { num: 'T\u1eadp 20', url: 'https://embed15.streamc.xyz/embed.php?hash=8b8e90cd1e12722d4993ee61522cba1e' },
+      { num: 'T\u1eadp 21', url: 'https://embed18.streamc.xyz/embed.php?hash=a718d4bae6e8511f72ecfc6dad15bc7a' },
+      { num: 'T\u1eadp 22', url: 'https://embed18.streamc.xyz/embed.php?hash=220908160074090b88ef9d9c915e4339' },
+      { num: 'T\u1eadp 23', url: 'https://embed14.streamc.xyz/embed.php?hash=47f89724547348915c34c34067d72d2d' },
+      { num: 'T\u1eadp 24', url: 'https://embed12.streamc.xyz/embed.php?hash=b2cb458b3f225691b49d53114117be9b' }
+    ];
+    var list=document.getElementById('epGrid'),modal=document.getElementById('playerModal'),iframe=document.getElementById('playerIframe'),modalTitle=document.getElementById('modalTitle'),closeBtn=document.getElementById('closeBtn');
+    var HAS_SERVERS=(typeof servers!=='undefined');
+    var CL=HAS_SERVERS?(typeof currentLang!=='undefined'?currentLang:Object.keys(servers)[0]):null;
+    var LABELS={vietsub:'Vietsub',longtieng:'Lồng tiếng',thuyetminh:'Thuyết minh'};
+    function renderEps(){
+      list.innerHTML='';
+      var frag=document.createDocumentFragment();
+      var eps=HAS_SERVERS?(servers[CL]||[]):episodes;
+      eps.forEach(function(ep){
+        var c=document.createElement('button');c.className='ep';c.textContent=ep.num;
+        c.addEventListener('click',function(){openPlayer(ep.num,ep.url)});
+        frag.appendChild(c);
+      });
+      list.appendChild(frag);
+    }
+    if(HAS_SERVERS){
+      var sel=document.getElementById('langSelect');
+      sel.innerHTML=Object.keys(servers).map(function(k){return '<button class="chip'+(k===CL?' active':'')+'" data-lang="'+k+'">'+(LABELS[k]||k)+'</button>'}).join('');
+      sel.addEventListener('click',function(e){
+        var b=e.target.closest('.chip');if(!b)return;
+        this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');CL=b.getAttribute('data-lang');renderEps();
+      });
+    }
+    renderEps();
+    function openPlayer(num,url){modalTitle.textContent=num;iframe.src=url;modal.classList.add('active');document.body.style.overflow='hidden'}
+    function closePlayer(){modal.classList.remove('active');iframe.src='';document.body.style.overflow=''}
+    closeBtn.addEventListener('click',closePlayer);modal.addEventListener('click',function(e){if(e.target===modal)closePlayer()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closePlayer()});
+    var descEl=document.getElementById('desc'),dt=document.getElementById('descToggle');
+    if(dt){dt.style.display='inline-block';dt.addEventListener('click',function(){var open=descEl.classList.toggle('open');dt.textContent=open?'Thu gọn':'Xem thêm';});}
+  </script>
+<script src="../../../../chatbox.js"></script>
+</body>
+</html>

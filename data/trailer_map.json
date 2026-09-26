@@ -1,0 +1,7 @@
+{
+  "anime/universal/death-note/": {
+    "pv": ["https://www.youtube.com/embed/VIDEO_ID_PV"],
+    "trailer": ["https://www.youtube.com/embed/VIDEO_ID_TRAILER"],
+    "teaser": ["https://www.youtube.com/embed/VIDEO_ID_TEASER"]
+  }
+}

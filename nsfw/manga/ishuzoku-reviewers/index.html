@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='%23ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Nhà Phê Bình Dị Chủng - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    :root { --accent:#ff4b5c; --bg:#131018; --card:#1d1822; --border:#2e2733; --muted:#9a86a8; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; padding:0 !important; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1000px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:230px minmax(0,1fr); gap:24px; padding:22px 0 0; }
+    @media (max-width:720px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:200px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.4rem,4vw,2rem); letter-spacing:-.02em; line-height:1.18; }
+    .adult-badge-tag { display:inline-block; vertical-align:middle; margin-left:8px; background:var(--accent); color:#fff; font-family:"Inter",sans-serif; font-size:.6rem; font-weight:800; padding:3px 8px; border-radius:6px; letter-spacing:.06em; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff4b5c66; color:var(--accent); font-weight:700; }
+    .watch-desc { margin-top:1.1rem; color:#aaa; font-size:.9rem; line-height:1.75; }
+
+    /* ===== Chapter list (transformed from grid) ===== */
+    .episodes, .volumes { margin-top:1.9rem; }
+    .episodes h2, .volumes h2 { margin:0 0 .85rem; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-note { color:#d8b24a; font-size:.8rem; margin-bottom:.7rem; }
+    .chapter-list { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .chapter-card {
+      display:flex !important; align-items:center; gap:14px; text-align:left;
+      padding:11px 16px; background:var(--card);
+      border-bottom:1px solid var(--border); border-radius:0 !important;
+      transition:background .15s ease;
+    }
+    .chapter-card:last-child { border-bottom:none; }
+    .chapter-card:hover { transform:none !important; box-shadow:none !important; background:#26262a; border-color:var(--border); }
+    .ch-num { color:var(--accent) !important; font-weight:700; font-size:.85rem; min-width:96px; flex-shrink:0; }
+    .ch-title { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--muted) !important; font-size:.8rem; margin:0 !important; }
+    .ch-loader { padding:34px 16px; text-align:center; color:var(--muted); font-size:.85rem; }
+
+    /* ===== Volume blocks ===== */
+    .volume-block { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; overflow:hidden; background:var(--card); }
+    .volume-title { display:flex; align-items:center; justify-content:space-between; padding:13px 16px; cursor:pointer; user-select:none; transition:background .15s ease; }
+    .volume-title:hover { background:#242428; }
+    .v-name { font-weight:700; font-size:.95rem; color:#fff; }
+    .v-meta { color:var(--muted); font-size:.78rem; margin-left:10px; }
+    .v-arrow { color:var(--muted); transition:transform .2s ease; }
+    .volume-title.open .v-arrow { transform:rotate(180deg); }
+    .chapter-grid { display:none; flex-direction:column; border-top:1px solid var(--border); }
+    .volume-block.open .chapter-grid { display:flex; }
+    .volume-block .chapter-card { padding-left:20px; }
+
+    /* ===== Footer ===== */
+    .footer { border-top:1px solid rgba(255,255,255,.08); margin-top:30px; padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; }
+    .footer p { margin:4px 0; }
+  </style>`;
+
+let done = 0, fails = [];
+for (const f of files) {
+  try {
+    let c = fs.readFileSync(f, 'utf8');
+    const rel = path.relative(ROOT, f).split(path.sep);
+    const zone = rel[0];
+    const nsfw = zone === 'nsfw';
+    const accent = nsfw ? '#ff4b5c' : '#ff5e00';
+    const bg = nsfw ? '#131018' : '#151515';
+    const card = nsfw ? '#1d1822' : '#1b1b1b';
+    const border = nsfw ? '#2e2733' : '#2a2a2a';
+    const muted = nsfw ? '#9a86a8' : '#8c8c8c';
+
+    // 1. replace fonts link
+    c = c.replace(/<link href="https:\/\/fonts\.googleapis\.com[^"]*" rel="stylesheet">/,
+      '<link rel="preconnect" href="https://fonts.googleapis.com">\n  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>\n  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">');
+
+    // 2. replace style block
+    const sStart = c.indexOf('  <style>');
+    const sEnd = c.indexOf('</style>', sStart) + '</style>'.length;
+    if (sStart < 0) { fails.push(f + ' | no style'); continue; }
+    const css = CSS.replace(/\{ACCENT\}/g, accent).replace(/\{BG\}/g, bg).replace(/\{CARD\}/g, card).replace(/\{BORDER\}/g, border).replace(/\{MUTED\}/g, muted);
+    c = c.slice(0, sStart) + css + c.slice(sEnd);
+
+    // 3. replace header: <body class="adult-mode">
+  <div class="container">
+    <div class="back-row">
+      <a href="../../index.html" class="back-link">&larr; NSFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://uploads.mangadex.org/covers/1b2fddf9-1385-4f3c-b37a-cf86a9428b1a/4c0dc86d-1b46-4b14-ac92-88ee623a01b4.jpg" alt="([\s\S]*?)/, c);
+    const alt = m1(/class="alt-title"[^>]*>([\s\S]*?)]*class="poster"[^>]*src="([^"]+)"/) || c.match(/class="poster"[^>]*src="([^"]+)"/);
+    const desc = m1(/class="description"[^>]*>([\s\S]*?)/, c);
+
+    // meta rows -> pills
+    const pills = [];
+    let mm;
+    const rowRe = /\s*]*class="label"[^>]*>([\s\S]*?)\s*]*>([\s\S]*?)\s*/g;
+    while ((mm = rowRe.exec(c))) {
+      const label = mm[1].trim();
+      const value = mm[2].trim();
+      if (/thể loại/i.test(label)) value.split(/,\s*/).forEach(g => { if (g.trim()) pills.push('' + g.trim() + ''); });
+      else if (/tình trạng/i.test(label)) pills.unshift('' + label + ': ' + value + '');
+      else pills.push('' + label + ': ' + value + '');
+    }
+    // tag chips
+    const tagRow = c.match(/([\s\S]*?)/);
+    if (tagRow) [...tagRow[1].matchAll(/([^/g)].forEach(t => pills.push('' + t[1] + ''));
+
+    const bodyCls = //.test(c) ? '' : '';
+    const header = `${bodyCls}
+  
+    
+      &larr; ${zone.toUpperCase()} Danh m&#7909;c
+      ANIVIETDB
+    
+    
+      ${posterM ? ']+>/g, '') + '" loading="lazy">' : ''}
+      
+        ${title}" loading="lazy"></div>
+      <div>
+        <h1 class="watch-title">([\s\S]*?)<\/h1>/, c);
+    const alt = m1(/class="alt-title"[^>]*>([\s\S]*?)</, c);
+    const posterM = c.match(/<img[^>]*class="poster"[^>]*src="([^"]+)"/) || c.match(/class="poster"[^>]*src="([^"]+)"/);
+    const desc = m1(/class="description"[^>]*>([\s\S]*?)<\/div>/, c);
+
+    // meta rows -> pills
+    const pills = [];
+    let mm;
+    const rowRe = /<tr>\s*<td[^>]*class="label"[^>]*>([\s\S]*?)<\/td>\s*<td[^>]*>([\s\S]*?)<\/td>\s*<\/tr>/g;
+    while ((mm = rowRe.exec(c))) {
+      const label = mm[1].trim();
+      const value = mm[2].trim();
+      if (/thể loại/i.test(label)) value.split(/,\s*/).forEach(g => { if (g.trim()) pills.push('<span class="pill">' + g.trim() + '</span>'); });
+      else if (/tình trạng/i.test(label)) pills.unshift('<span class="pill hot">' + label + ': ' + value + '</span>');
+      else pills.push('<span class="pill">' + label + ': ' + value + '</span>');
+    }
+    // tag chips
+    const tagRow = c.match(/<div class="tags-row">([\s\S]*?)<\/div>/);
+    if (tagRow) [...tagRow[1].matchAll(/<span class="tag-chip">([^<]*)<\/span>/g)].forEach(t => pills.push('<span class="pill">' + t[1] + '</span>'));
+
+    const bodyCls = /<body class="adult-mode">/.test(c) ? '<body class="adult-mode">' : '<body>';
+    const header = `${bodyCls}
+  <div class="container">
+    <div class="back-row">
+      <a href="../../index.html" class="back-link">&larr; ${zone.toUpperCase()} Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      ${posterM ? '<div class="watch-poster"><img src="' + posterM[1] + '" alt="' + title.replace(/<[^>]+>/g, '') + '" loading="lazy"></div>' : ''}
+      <div>
+        <h1 class="watch-title">${title}</h1>
+        <p class="watch-orig">]*>([\s\S]*?)</p>
+        <div class="watch-meta"><span class="pill hot">Tình trạng: Đang ra</span><span class="pill">Năm: 2016</span><span class="pill">Monsters</span><span class="pill">Comedy</span><span class="pill">Adventure</span><span class="pill">Magic</span><span class="pill">Fantasy</span><span class="pill">Monster Girls</span><span class="pill">Slice of Life</span><span class="pill">Ngôn ngữ: Tiếng Anh</span><span class="pill">Nguồn: MangaDex</span></div>
+      </div>
+    </div>
+    <p class="watch-desc">]*>([\s\S]*?)<\/div>/, c);
+
+    // meta rows -> pills
+    const pills = [];
+    let mm;
+    const rowRe = /<tr>\s*<td[^>]*class="label"[^>]*>([\s\S]*?)<\/td>\s*<td[^>]*>([\s\S]*?)<\/td>\s*<\/tr>/g;
+    while ((mm = rowRe.exec(c))) {
+      const label = mm[1].trim();
+      const value = mm[2].trim();
+      if (/thể loại/i.test(label)) value.split(/,\s*/).forEach(g => { if (g.trim()) pills.push('<span class="pill">' + g.trim() + '</span>'); });
+      else if (/tình trạng/i.test(label)) pills.unshift('<span class="pill hot">' + label + ': ' + value + '</span>');
+      else pills.push('<span class="pill">' + label + ': ' + value + '</span>');
+    }
+    // tag chips
+    const tagRow = c.match(/<div class="tags-row">([\s\S]*?)<\/div>/);
+    if (tagRow) [...tagRow[1].matchAll(/<span class="tag-chip">([^<]*)<\/span>/g)].forEach(t => pills.push('<span class="pill">' + t[1] + '</span>'));
+
+    const bodyCls = /<body class="adult-mode">/.test(c) ? '<body class="adult-mode">' : '<body>';
+    const header = `${bodyCls}
+  <div class="container">
+    <div class="back-row">
+      <a href="../../index.html" class="back-link">&larr; ${zone.toUpperCase()} Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span></p>
+    <div class="episodes"><h2>Danh sách chương</h2><div class="lang-note" id="langNote" style="display:none;"></div><div class="episode-list" id="chapterList"></div></div>
+
+    <div class="footer"><p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p><p>Trang web sưu tầm cá nhân - Phi thương mại. Nguồn: MangaDex.</p></div>
+  </div>
+
+  <div class="vi-popup-overlay" id="viPopup">
+    <div class="vi-popup">
+      <h3 class="vi-popup-title">Thông báo</h3>
+      <p class="vi-popup-msg">Xin lỗi vì sự bất tiện nhưng chưa có bản việt mong ae thông cảm, team chúng mình sẽ mau chóng hoàn thiện càng sớm càng tốt.</p>
+      <div class="vi-popup-actions">
+        <button class="vi-continue" id="viPopupOk">OK, tôi hiểu</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../../../manga-config.js"></script>
+  <script>
+    var MANGA_ID = "1b2fddf9-1385-4f3c-b37a-cf86a9428b1a";
+    var FEED_LANG = "en";
+    var NSFW = true;
+    var chapterList = [];
+    var chapterLang = FEED_LANG;
+    var listEl = document.getElementById('chapterList');
+    var langNoteEl = document.getElementById('langNote');
+
+    var viPopup = document.getElementById('viPopup');
+    document.getElementById('viPopupOk').addEventListener('click', function () {
+      viPopup.classList.remove('active');
+    });
+    viPopup.classList.add('active');
+
+    function api(url) {
+      return fetch(window.MD_WORKER + url).then(function (r) {
+        if (!r.ok) {
+          return r.text().then(function (text) {
+            throw new Error('HTTP ' + r.status + ' ' + r.statusText + (text ? ': ' + text : ''));
+          });
+        }
+        return r.json();
+      });
+    }
+
+    function langName(l) {
+      if (l === 'vi') return 'Tiếng Việt';
+      if (l === 'en') return 'Tiếng Anh';
+      return 'Toàn bộ ngôn ngữ (nếu có)';
+    }
+
+    function setLangNote(lang) {
+      langNoteEl.textContent = 'Đang hiển thị bản: ' + langName(lang);
+      langNoteEl.style.display = '';
+    }
+
+    function loadChapters() {
+      function fetchLang(lang) {
+        var lq = lang === 'all' ? '' : '&translatedLanguage[]=' + lang;
+        var cr = '&contentRating[]=safe&contentRating[]=suggestive';
+        if (NSFW) cr += '&contentRating[]=erotica&contentRating[]=pornographic';
+        var all = [];
+        var offset = 0;
+        function page() {
+          return api('/manga/' + MANGA_ID + '/feed?limit=500&offset=' + offset + '&order[chapter]=asc&includes[]=scanlation_group' + cr + lq)
+            .then(function (j) {
+              all = all.concat(j.data || []);
+              offset += 500;
+              if (j.data && j.data.length === 500) return page();
+              return all;
+            });
+        }
+        return page();
+      }
+
+      function chooseChapters() {
+        var usedLang = FEED_LANG;
+        if (FEED_LANG === 'vi') {
+          return fetchLang('vi').then(function (viChapters) {
+            if (viChapters.length) {
+              usedLang = 'vi';
+              return viChapters;
+            }
+            return fetchLang('en').then(function (enChapters) {
+              if (enChapters.length) {
+                usedLang = 'en';
+                return enChapters;
+              }
+              usedLang = 'all';
+              return fetchLang('all');
+            });
+          }).then(function (chapters) {
+            chapterLang = usedLang;
+            return chapters;
+          });
+        }
+        return fetchLang('en').then(function (enChapters) {
+          if (enChapters.length) {
+            chapterLang = 'en';
+            return enChapters;
+          }
+          chapterLang = 'all';
+          return fetchLang('all');
+        });
+      }
+
+      chooseChapters().then(function (chapters) {
+        if (chapters.length > 0) {
+          chapterList = chapters;
+          setLangNote(chapterLang);
+          renderList();
+        } else {
+          listEl.innerHTML = '<div style="padding:40px 20px;text-align:center;"><p style="font-size:15px;color:#888;">Chưa có chương nào trên MangaDex.</p><a href="../../" style="display:inline-block;margin-top:14px;padding:10px 22px;border-radius:8px;background:#667eea;color:#fff;text-decoration:none;font-weight:600;">&larr; Quay lại trang chủ</a></div>';
+        }
+      }).catch(function () {
+        listEl.innerHTML = '<div style="padding:40px 20px;text-align:center;"><p style="font-size:15px;color:#888;">Không tải được danh sách chương.</p><a href="../../" style="display:inline-block;margin-top:14px;padding:10px 22px;border-radius:8px;background:#667eea;color:#fff;text-decoration:none;font-weight:600;">&larr; Quay lại trang chủ</a></div>';
+      });
+    }
+
+    function chapterLabel(ch) {
+      var a = ch.attributes;
+      var num = a.chapter ? 'Chương ' + a.chapter : 'Chương khác';
+      if (a.title) num += ': ' + a.title;
+      return num;
+    }
+
+    function renderList() {
+      listEl.innerHTML = '';
+      chapterList.forEach(function (ch, i) {
+        var c = document.createElement('a');
+        c.className = 'episode-card';
+        c.href = 'reader.html?ch=' + ch.id + (i > 0 ? '&p=' + i : '') + '&lang=' + chapterLang;
+        c.innerHTML = '<span class="ep-num">' + chapterLabel(ch).replace(/</g, '&lt;') + '</span>';
+        listEl.appendChild(c);
+      });
+    }
+
+    loadChapters();
+  </script>
+<script src="../../../chatbox.js"></script>
+</body>
+</html>

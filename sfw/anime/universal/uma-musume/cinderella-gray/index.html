@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Uma Musume Cinderella Gray - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: #ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1080px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:250px minmax(0,1fr); gap:26px; padding:22px 0 0; }
+    @media (max-width:760px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:220px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.5rem,4vw,2.2rem); letter-spacing:-.02em; line-height:1.15; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .meta-lines { margin-top:.9rem; color:var(--muted); font-size:.82rem; line-height:1.7; }
+    .watch-desc { margin-top:1rem; color:#aaa; font-size:.9rem; line-height:1.75; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .watch-desc.open { -webkit-line-clamp:unset; }
+    .desc-toggle { background:none; border:none; color:var(--accent); font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; padding:.3rem 0; display:none; }
+    .ep-section { margin-top:1.9rem; }
+    .ep-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.85rem; }
+    .ep-head h3 { margin:0; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-select { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { border-radius:999px; border:1px solid var(--border); background:transparent; color:#bbb; font:inherit; font-size:.78rem; font-weight:600; padding:.38rem .85rem; cursor:pointer; transition:all .15s ease; }
+    .chip:hover { color:#fff; border-color:#555; }
+    .chip.active { background:var(--accent); border-color:var(--accent); color:#000; }
+    .ep-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:.5rem; }
+    .ep { border:1px solid var(--border); background:#1c1c1c; color:#fff; border-radius:9px; font:inherit; font-size:.78rem; font-weight:600; padding:.55rem .2rem; text-align:center; cursor:pointer; transition:all .15s ease; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ep:hover { border-color:var(--accent); background:rgba(255,255,255,.05); transform:translateY(-1px); }
+    .site-footer { border-top:1px solid rgba(255,255,255,.08); padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; margin-top:34px; }
+    .site-footer p { margin:4px 0; }
+    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:1.25rem; }
+    .modal-overlay.active { display:flex; }
+    .modal { width:min(960px,100%); background:#101010; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); gap:10px; }
+    .modal-title { font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .close-btn { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; cursor:pointer; padding:0 .25rem; flex-shrink:0; }
+    .close-btn:hover { color:#fff; }
+    .modal-body iframe { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="back-row">
+      <a href="../../../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://phim.nguonc.com/public/images/Post/2/uma-musume-cinderella-gray.jpg" alt="Uma Musume: Cinderella Gray"></div>
+      <div>
+        <h1 class="watch-title">Uma Musume: Cinderella Gray</h1>
+        <p class="watch-orig">Umamusume: Cinderella Gray</p>
+        <div class="watch-meta"><span class="pill hot">Số tập: 23 (Hoàn tất)</span><span class="pill">Quốc gia: Nhật Bản</span><span class="pill">Năm: 2025</span><span class="pill">Hoạt Hình</span><span class="pill">Chính Kịch</span><span class="pill">Chất lượng: HD - Vietsub</span><span class="pill">Ngôn ngữ: Vietsub</span><span class="pill">Định dạng: Phim bộ</span></div>
+        <div class="meta-lines">Trailer: <button class="trailer-btn" id="trailerBtn" hidden><span class="tb-icon">▶</span> Xem trailer/PV</button> <button class="trailer-btn" id="teaserBtn" hidden><span class="tb-icon">▶</span> Xem teaser</button></div>
+        <p class="watch-desc" id="desc">Ở thế giới mà ngựa đua nổi tiếng được tái sinh thành "cô gái ngựa đua" mạnh mẽ, Oguri Cap ao ước trở thành tay đua vô địch mặc dù có phong cách khác thường.</p>
+        
+      </div>
+    </div>
+    <section class="ep-section">
+      <div class="ep-head">
+        <h3>Xem phim</h3>
+        <div class="lang-select" id="langSelect"></div>
+      </div>
+      <div class="ep-grid" id="epGrid"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <div class="modal-overlay" id="playerModal">
+    <div class="modal">
+      <div class="modal-head">
+        <span class="modal-title" id="modalTitle"></span>
+        <button class="close-btn" id="closeBtn">&times;</button>
+      </div>
+      <div class="modal-body"><iframe id="playerIframe" src="" allowfullscreen></iframe></div>
+    </div>
+  </div>
+  <script>
+        var episodes=[{num:1,url:'https://embed11.streamc.xyz/embed.php?hash=900f121884828419a9efe8c3b51fbfc1'},{num:2,url:'https://embed13.streamc.xyz/embed.php?hash=7a2b2ddac6b4cd1dcaf03b67b39a765e'},{num:3,url:'https://embed12.streamc.xyz/embed.php?hash=670ac14b72a776f61bdd83c354acca1f'},{num:4,url:'https://embed14.streamc.xyz/embed.php?hash=c3280a23e46c54440efbc3e019f58f5b'},{num:5,url:'https://embed11.streamc.xyz/embed.php?hash=241e739bca91094425a13a590d90d335'},{num:6,url:'https://embed10.streamc.xyz/embed.php?hash=e64c8e35eb556b8a44597feab0719173'},{num:7,url:'https://embed15.streamc.xyz/embed.php?hash=60bb769e85bf033e5145a288472dd721'},{num:8,url:'https://embed12.streamc.xyz/embed.php?hash=68d65da1f9c9e195a747257cbcac5dbe'},{num:9,url:'https://embed13.streamc.xyz/embed.php?hash=2d19708fbea356896f2872cc44288c54'},{num:10,url:'https://embed18.streamc.xyz/embed.php?hash=95ea46e4a331e0b2638e348ae1952b86'},{num:11,url:'https://embed14.streamc.xyz/embed.php?hash=717f14caf8050feaae5c66a38e082913'},{num:12,url:'https://embed15.streamc.xyz/embed.php?hash=c33eff0de35ed88b3bc1f7783c226bcb'},{num:13,url:'https://embed14.streamc.xyz/embed.php?hash=18600ac334bbdd83bafb5d21ac08ce2a'},{num:14,url:'https://embed14.streamc.xyz/embed.php?hash=10bb3eadc435c4c01ffd1ed4b285a40d'},{num:15,url:'https://embed12.streamc.xyz/embed.php?hash=417ed005a5a537e3317abf487c38692b'},{num:16,url:'https://embed13.streamc.xyz/embed.php?hash=565116c50fea8705ac353fcf1b6edb58'},{num:17,url:'https://embed12.streamc.xyz/embed.php?hash=55f6563f00383940dd22a1d455774bb6'},{num:18,url:'https://embed11.streamc.xyz/embed.php?hash=870265207c04960c656668f59340bcdf'},{num:19,url:'https://embed13.streamc.xyz/embed.php?hash=fcbc8404f539d75cf8b9be2015ea1bff'},{num:20,url:'https://embed12.streamc.xyz/embed.php?hash=b0beec007dc47cfae251a9a2f21e9c51'},{num:21,url:'https://embed11.streamc.xyz/embed.php?hash=cccb7c6c01df55ebcae86f78b63f4c25'},{num:22,url:'https://embed13.streamc.xyz/embed.php?hash=5b1ccde1b558047b7067b3bef7428e6f'},{num:23,url:'https://embed11.streamc.xyz/embed.php?hash=4c5d4e2aa88b3846a55482aeb3885361'}];
+    var list=document.getElementById('epGrid'),modal=document.getElementById('playerModal'),iframe=document.getElementById('playerIframe'),modalTitle=document.getElementById('modalTitle'),closeBtn=document.getElementById('closeBtn');
+    var HAS_SERVERS=(typeof servers!=='undefined');
+    var CL=HAS_SERVERS?(typeof currentLang!=='undefined'?currentLang:Object.keys(servers)[0]):null;
+    var LABELS={vietsub:'Vietsub',longtieng:'Lồng tiếng',thuyetminh:'Thuyết minh'};
+    function renderEps(){
+      list.innerHTML='';
+      var frag=document.createDocumentFragment();
+      var eps=HAS_SERVERS?(servers[CL]||[]):episodes;
+      eps.forEach(function(ep){
+        var c=document.createElement('button');c.className='ep';c.textContent=ep.num;
+        c.addEventListener('click',function(){openPlayer(ep.num,ep.url)});
+        frag.appendChild(c);
+      });
+      list.appendChild(frag);
+    }
+    if(HAS_SERVERS){
+      var sel=document.getElementById('langSelect');
+      sel.innerHTML=Object.keys(servers).map(function(k){return '<button class="chip'+(k===CL?' active':'')+'" data-lang="'+k+'">'+(LABELS[k]||k)+'</button>'}).join('');
+      sel.addEventListener('click',function(e){
+        var b=e.target.closest('.chip');if(!b)return;
+        this.querySelectorAll('.chip').forEach(function(x){x.classList.remove('active')});
+        b.classList.add('active');CL=b.getAttribute('data-lang');renderEps();
+      });
+    }
+    renderEps();
+    function openPlayer(num,url){modalTitle.textContent=num;iframe.src=url;modal.classList.add('active');document.body.style.overflow='hidden'}
+    function closePlayer(){modal.classList.remove('active');iframe.src='';document.body.style.overflow=''}
+    closeBtn.addEventListener('click',closePlayer);modal.addEventListener('click',function(e){if(e.target===modal)closePlayer()});
+    document.addEventListener('keydown',function(e){if(e.key==='Escape')closePlayer()});
+    var descEl=document.getElementById('desc'),dt=document.getElementById('descToggle');
+    if(dt){dt.style.display='inline-block';dt.addEventListener('click',function(){var open=descEl.classList.toggle('open');dt.textContent=open?'Thu gọn':'Xem thêm';});}
+  </script>
+<script src="../../../../../chatbox.js"></script>
+</body>
+</html>

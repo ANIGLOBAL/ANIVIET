@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="../">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='%23ff5e00' text-anchor='middle'>A</text></svg>">
+<title>ANIVIETDB - NSFW</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    :root {
+      --accent: #ff4b5c;
+      --accent-hover: #ff6b7a;
+      --bg: #131018;
+      --card: #1d1822;
+      --border: #2e2733;
+      --muted: #9a86a8;
+    }
+    * { box-sizing: border-box; }
+    body {
+      background: var(--bg);
+      color: #fff;
+      font-family: "Inter", system-ui, -apple-system, sans-serif;
+      padding: 0 !important;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { text-decoration: none; }
+
+    /* ===== Top nav ===== */
+    .topnav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(19,16,24,.92);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(255,75,92,.14);
+    }
+    .nav-inner {
+      max-width: 1280px; margin-inline: auto;
+      display: flex; align-items: center; gap: 10px;
+      padding: 10px 20px 8px;
+    }
+    .brand {
+      display: flex; align-items: center; gap: 10px;
+      font-family: "Space Grotesk", sans-serif; font-weight: 700;
+      color: #fff; white-space: nowrap; flex-shrink: 0;
+    }
+    .brand-logo {
+      width: 36px; height: 36px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent), #7a2d8f);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff; font-size: 18px;
+    }
+    .brand-text small { font-size: 10px; color: var(--accent); letter-spacing: .1em; margin-left: 6px; vertical-align: middle; }
+    .search-box { flex: 1; min-width: 140px; display: flex; gap: 6px; }
+    .search-box input {
+      flex: 1; min-width: 0; background: #1d1d1d; border: 1px solid var(--border);
+      border-radius: 999px; color: #fff; padding: 9px 16px; font: inherit; font-size: .9rem;
+      outline: none; transition: border-color .15s ease;
+    }
+    .search-box input::placeholder { color: #777; }
+    .search-box input:focus { border-color: var(--accent); }
+    .icon-btn {
+      width: 38px; height: 38px; flex-shrink: 0; border-radius: 50%;
+      background: #1d1d1d; border: 1px solid var(--border); color: #fff;
+      font-size: 15px; cursor: pointer; transition: all .15s ease;
+    }
+    .icon-btn:hover { border-color: var(--accent); background: rgba(255,255,255,.06); }
+    .btn-random {
+      flex-shrink: 0; border-radius: 999px; border: 1px solid var(--border);
+      background: transparent; color: #ddd; font: inherit; font-size: .85rem; font-weight: 600;
+      padding: 9px 14px; cursor: pointer; transition: all .15s ease; white-space: nowrap;
+    }
+    .btn-random:hover { border-color: var(--accent); color: var(--accent); }
+    .auth-link {
+      flex-shrink: 0; margin-left: auto;
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.12);
+      color: #fff; border-radius: 999px; padding: 8px 14px;
+      font-size: 13px; font-weight: 600; white-space: nowrap;
+      max-width: 180px; overflow: hidden; text-overflow: ellipsis;
+      transition: all .15s ease;
+    }
+    .auth-link:hover { border-color: var(--accent); background: rgba(255,255,255,.1); }
+
+    /* ===== Category chips ===== */
+    .cat-row {
+      max-width: 1280px; margin-inline: auto;
+      display: flex; gap: 8px; padding: 2px 20px 12px;
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .cat-row::-webkit-scrollbar { display: none; }
+    .cat-row a {
+      flex-shrink: 0; cursor: pointer;
+      border: 1px solid var(--border); border-radius: 999px;
+      color: #bbb; font-size: 13px; font-weight: 600;
+      padding: 7px 14px; transition: all .15s ease;
+    }
+    .cat-row a:hover { color: #fff; border-color: #555; }
+    .cat-row a.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+    /* ===== Content ===== */
+    .page-wrap { max-width: 1280px; margin-inline: auto; padding: 18px 20px 30px; }
+    .stats-bar { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; padding: 4px 0 14px; }
+    .stat-item {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--card); color: #ccc; border: 1px solid var(--border);
+      padding: 4px 12px; border-radius: 999px; font-size: 13px; font-weight: 500;
+    }
+    .stat-item span { font-weight: 700; color: var(--accent); }
+    .search-info { color: var(--muted); font-size: 13px; padding: 2px 0 10px; }
+    .search-info b { color: var(--accent); }
+
+    /* ===== Anime/gallery card grid ===== */
+    .movie-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 16px; }
+    .movie-card {
+      position: relative; background: var(--card); border-radius: 14px; overflow: hidden;
+      border: 1px solid rgba(255,255,255,.08);
+      transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+    }
+    .movie-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 14px 32px rgba(255,75,92,.18);
+      border-color: var(--accent);
+    }
+    .movie-thumb { position: relative; aspect-ratio: 2 / 3; overflow: hidden; background: #222; }
+    .movie-thumb img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease; }
+    .movie-card:hover .movie-thumb img { transform: scale(1.06); }
+    .movie-thumb::after {
+      content: ""; position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(19,16,24,.55), transparent 40%);
+      pointer-events: none;
+    }
+    .movie-type {
+      position: absolute; top: .5rem; left: .5rem; z-index: 2;
+      background: var(--accent); color: #fff;
+      border-radius: 999px; font-size: 10px; font-weight: 700;
+      padding: 3px 9px; letter-spacing: .4px;
+    }
+    .movie-ep {
+      position: absolute; bottom: .5rem; right: .5rem; z-index: 2;
+      background: rgba(15,12,18,.78); backdrop-filter: blur(4px);
+      border-radius: 999px; font-size: 11px; font-weight: 600;
+      padding: 3px 9px; color: #eee;
+    }
+    .movie-info { padding: 10px 12px 12px; }
+    .movie-title {
+      margin: 0; font-size: 14px; font-weight: 600; color: #fff; line-height: 1.35;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .movie-original {
+      margin: 3px 0 0; font-size: 12px; color: var(--muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    /* ===== Manga list rows ===== */
+    .manga-list { display: flex; flex-direction: column; gap: 10px; }
+    .manga-list-item {
+      display: flex; gap: 14px; align-items: center;
+      background: var(--card); border: 1px solid rgba(255,255,255,.08);
+      border-radius: 14px; padding: 10px 14px 10px 10px; overflow: hidden;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease;
+    }
+    .manga-list-item:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 24px rgba(255,75,92,.15);
+      border-color: var(--accent);
+    }
+    .manga-list-thumb {
+      position: relative; width: 64px; flex-shrink: 0;
+      border-radius: 10px; overflow: hidden; background: #222;
+    }
+    .manga-list-thumb img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; display: block; }
+    .manga-list-badge {
+      position: absolute; bottom: 4px; left: 4px;
+      background: rgba(15,12,18,.82); color: #ccc;
+      border-radius: 999px; font-size: 9px; font-weight: 700; padding: 2px 7px;
+    }
+    .manga-list-badge.vi { background: var(--accent); color: #fff; }
+    .manga-list-info { flex: 1; min-width: 0; }
+    .manga-list-name { margin: 2px 0; font-size: 15px; font-weight: 700; color: #fff; }
+    .manga-list-orig {
+      margin: 0; font-size: 12px; color: var(--muted);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .manga-list-meta { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+    .manga-list-chip {
+      background: #262130; color: #aaa; border-radius: 999px;
+      font-size: 11px; padding: 2px 10px;
+    }
+    .ln-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 7px; }
+    .ln-tag {
+      background: rgba(255,255,255,.05); border: 1px solid var(--border);
+      color: #bbb; border-radius: 999px; font-size: 11px; padding: 2px 10px;
+    }
+
+    /* ===== Pagination / empty ===== */
+    .pagination { display: flex; justify-content: center; flex-wrap: wrap; gap: 6px; padding: 22px 0 6px; }
+    .pg-btn {
+      min-width: 36px; height: 36px; padding: 0 10px;
+      background: #1d1d1d; border: 1px solid var(--border); color: #ccc;
+      border-radius: 10px; font: inherit; font-size: 13px; font-weight: 600;
+      cursor: pointer; transition: all .15s ease;
+    }
+    .pg-btn:hover:not(.disabled):not(.active) { border-color: var(--accent); color: #fff; }
+    .pg-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+    .pg-btn.disabled { opacity: .4; cursor: default; }
+    .empty-state { padding: 60px 20px; text-align: center; }
+    .empty-title { font-size: 17px; font-weight: 600; color: var(--accent); margin: 0; }
+    .empty-sub { font-size: 13px; color: var(--muted); margin: 8px 0 0; }
+
+    /* ===== Footer ===== */
+    .site-footer {
+      border-top: 1px solid rgba(255,75,92,.14);
+      padding: 22px 20px 26px; text-align: center;
+      color: #888; font-size: 13px; line-height: 1.7; margin-top: 26px;
+    }
+    .site-footer p { margin: 4px 0; }
+
+    @media (max-width: 720px) {
+      .nav-inner { flex-wrap: wrap; }
+      .brand-text { font-size: .95rem; }
+      .search-box { order: 10; flex-basis: 100%; }
+      .auth-link { max-width: 130px; }
+      .movie-grid { grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 10px; }
+      .page-wrap { padding: 14px 14px 24px; }
+      .cat-row { padding: 2px 14px 10px; }
+      .nav-inner { padding: 10px 14px 8px; }
+    }
+  </style>
+</head>
+<body class="adult-mode">
+  <nav class="topnav">
+    <div class="nav-inner">
+      <a class="brand" href="index.html" title="V&#7873; trang ch&#7911;">
+        <span class="brand-logo">A</span>
+        <span class="brand-text">ANIVIETDB<small>NSFW</small></span>
+      </a>
+      <div class="search-box">
+        <input type="text" id="searchInput" placeholder="T&#236;m anime, manga..." autocomplete="off">
+        <button id="searchBtn" class="icon-btn" title="T&#236;m ki&#7871;m">&#128269;</button>
+        <button id="refreshBtn" class="icon-btn" title="L&#224;m m&#7899;i">&#128260;</button>
+      </div>
+      <button id="randomBtn" class="btn-random" title="Kh&#244;ng bi&#7871;t xem g&#236;? Random!">&#127922; Random</button>
+      <a href="login.html" class="auth-link" id="authLink">&#128100; &#272;&#259;ng nh&#7853;p</a>
+    </div>
+    <div class="cat-row" id="categoryNav">
+      <a data-category="anime" class="active">&#127916; Anime</a>
+      <a data-category="manga">&#128214; Manga</a>
+      <a data-category="manhwa">&#128218; Manhwa</a>
+      <a data-category="manhua">&#128216; Manhua</a>
+      <a data-category="light-novel">&#128213; Light Novels</a>
+      <a data-category="gallery">&#128444;&#65039; Galleries</a>
+    </div>
+  </nav>
+  <main class="page-wrap">
+    <div class="stats-bar" id="statsBar"></div>
+    <div class="search-info" id="searchInfo" style="display:none;"></div>
+    <div id="categorySections"></div>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Nội dung 18+ chỉ dành cho người đủ 18 tuổi trở lên.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <script>
+    var items = [
+      { name: 'Nhà Phê Bình Dị Chủng', orig: 'Interspecies Reviewers', thumb: 'https://phim.nguonc.com/public/images/Film/2969.jpg', ep: 'Hoàn tất (12/12)', page: 'nsfw/anime/universal/ishuzoku-reviewers/', type: 'anime', adult: true },
+      { name: 'Aishiteru Game wo Owarasetai', orig: 'I Want to End This Love Game', thumb: 'https://phim.nguonc.com/public/images/Post/5/aishiteru-game-wo-owarasetai.jpg', ep: 'Hoàn tất (12/12)', page: 'anime/universal/aishiteru-game/', type: 'anime' },
+      { name: 'Slime (Phần 1)', orig: 'Tensei shitara Slime Datta Ken', thumb: 'https://phim.nguonc.com/public/images/Film/2658.jpg', ep: 'Hoàn tất (24/24)', page: 'anime/universal/tensei-slime/phan-1/', type: 'anime' },
+      { name: 'Slime (Phần 2)', orig: 'Tensei shitara Slime Datta Ken 2nd Season', thumb: 'https://phim.nguonc.com/public/images/Film/3166.jpg', ep: 'Hoàn tất (24/24)', page: 'anime/universal/tensei-slime/phan-2/', type: 'anime' },
+      { name: 'Slime (Phần 3)', orig: 'Tensei shitara Slime Datta Ken 3rd Season', thumb: 'https://phim.nguonc.com/public/images/Film/141789.jpg', ep: 'Hoàn tất (26/26)', page: 'anime/universal/tensei-slime/phan-3/', type: 'anime' },
+      { name: 'Slime (Phần 4)', orig: 'Tensei shitara Slime Datta Ken 4th Season', thumb: 'https://phim.nguonc.com/public/images/Post/6/luc-do-toi-da-chuyen-sinh-thanh-slime-phan-4.jpg', ep: 'Đang chiếu (16/24)', page: 'anime/universal/tensei-slime/phan-4/', type: 'anime' },
+      { name: 'Slime: Nhật Ký Của Rimuru', orig: 'Tensura Nikki: The Slime Diaries', thumb: 'https://phim.nguonc.com/public/images/Film/3221.jpg', ep: 'Hoàn tất (12/12)', page: 'anime/universal/tensei-slime/nhat-ky-rimuru/', type: 'anime' },
+      { name: 'Slime OVA', orig: 'Tensei shitara Slime Datta Ken OVA', thumb: 'https://phim.nguonc.com/public/images/Film/3194.jpg', ep: 'Hoàn tất (5/5)', page: 'anime/universal/tensei-slime/ova/', type: 'anime' },
+      { name: 'Slime Movie: Mối Liên Kết Đỏ Thẫm', orig: 'Scarlet Bond', thumb: 'https://phim.nguonc.com/public/images/Film/g03h9TULzJZOoXA34Abp5LE7lvt.jpg', ep: '108 phút', page: 'anime/universal/tensei-slime/moi-lien-ket-do-tham/', type: 'anime' },
+      { name: 'Slime Movie: Nước Mắt Đại Dương', orig: 'Tears of the Azure Sea', thumb: 'https://phim.nguonc.com/public/images/Film/4z6VWajbDWZ6CQFC3u4ApKMzGMk.jpg', ep: '105 phút', page: 'anime/universal/tensei-slime/nuoc-mat-dai-duong/', type: 'anime' },
+      { name: 'Slime: Giấc Mộng Coleus', orig: 'Visions of Coleus', thumb: 'https://phim.nguonc.com/public/images/Film/135813.jpg', ep: 'Hoàn tất (3/3)', page: 'anime/universal/tensei-slime/giac-mong-coleus/', type: 'anime' },
+      { name: 'Arya Bàn Bên Thỉnh Thoảng Lại Trêu Ghẹo Tôi Bằng Tiếng Nga', orig: 'Alya Sometimes Hides Her Feelings in Russian', thumb: 'https://phim.nguonc.com/public/images/Film/142258.jpg', ep: 'Hoàn tất (12/12)', page: 'anime/universal/arya-ban-ben/', type: 'anime' },
+      { name: 'Thiên Sứ Nhà Bên (Phần 1)', orig: 'The Angel Next Door Spoils Me Rotten', thumb: 'https://phim.nguonc.com/public/images/Film/131525.jpg', ep: 'Hoàn tất (12/12)', page: 'anime/universal/thien-su-nha-ben/phan-1/', type: 'anime' },
+      { name: 'Thiên Sứ Nhà Bên (Phần 2)', orig: 'The Angel Next Door Spoils Me Rotten S2', thumb: 'https://phim.nguonc.com/public/images/Post/6/thien-su-nha-ben-phan-2.jpg', ep: 'Hoàn tất (12/12)', page: 'anime/universal/thien-su-nha-ben/phan-2/', type: 'anime' },
+      { name: 'Gundam 00 (Phần 1)', orig: 'Mobile Suit Gundam 00', thumb: 'https://phim.nguonc.com/public/images/Film/943.jpg', ep: 'Hoàn tất (25/25)', page: 'anime/multiversal/gundam/gundam-00/phan-1/', type: 'anime' },
+      { name: 'Gundam 00 (Phần 2)', orig: 'Mobile Suit Gundam 00 Second Season', thumb: 'https://phim.nguonc.com/public/images/Film/944.jpg', ep: 'Hoàn tất (25/25)', page: 'anime/multiversal/gundam/gundam-00/phan-2/', type: 'anime' },
+      { name: 'Gundam 00 Movie: A Wakening of the Trailblazer', orig: 'Gekijouban Kidou Senshi Gundam 00', thumb: 'https://phim.nguonc.com/public/images/Film/117867.jpg', ep: 'FULL', page: 'anime/multiversal/gundam/gundam-00/movie/', type: 'anime' },
+      { name: 'Build Fighters', orig: 'Gundam Build Fighters', thumb: 'https://phim.nguonc.com/public/images/Film/1155.jpg', ep: 'Hoàn tất (25/25)', page: 'anime/multiversal/gundam/gundam-build-fighters/phan-1/', type: 'anime' },
+      { name: 'Build Fighters Try', orig: 'Gundam Build Fighters Try', thumb: 'https://phim.nguonc.com/public/images/Film/1156.jpg', ep: 'Hoàn tất (25/25)', page: 'anime/multiversal/gundam/gundam-build-fighters/try/', type: 'anime' },
+      { name: 'Build Fighters: Island Wars', orig: 'Try: Island Wars', thumb: 'https://phim.nguonc.com/public/images/Film/80901.jpg', ep: '1 tập', page: 'anime/multiversal/gundam/gundam-build-fighters/island-wars/', type: 'anime' },
+      { name: 'Build Fighters Specials', orig: 'Gundam Build Fighters Specials', thumb: 'https://phim.nguonc.com/public/images/Film/1157.jpg', ep: '3 tập', page: 'anime/multiversal/gundam/gundam-build-fighters/specials/', type: 'anime' },
+      { name: 'Build Fighters Battlogue', orig: 'Gundam Build Fighters: Battlogue', thumb: 'https://phim.nguonc.com/public/images/Film/2338.jpg', ep: 'Hoàn tất (5/5)', page: 'anime/multiversal/gundam/gundam-build-fighters/battlogue/', type: 'anime' },
+      { name: 'Build Divers', orig: 'Gundam Build Divers', thumb: 'https://phim.nguonc.com/public/images/Film/2475.jpg', ep: 'Hoàn tất (25/25)', page: 'anime/multiversal/gundam/gundam-build-divers/phan-1/', type: 'anime' },
+      { name: 'Build Divers Re:Rise', orig: 'Gundam Build Divers Re:Rise', thumb: 'https://phim.nguonc.com/public/images/Film/2904.jpg', ep: 'Hoàn tất (13/13)', page: 'anime/multiversal/gundam/gundam-build-divers/rerise/', type: 'anime' },
+      { name: 'Build Divers Re:Rise S2', orig: 'Gundam Build Divers Re:Rise 2nd Season', thumb: 'https://phim.nguonc.com/public/images/Film/105909.jpg', ep: 'Hoàn tất (14/14)', page: 'anime/multiversal/gundam/gundam-build-divers/rerise-s2/', type: 'anime' },
+      { name: 'Build Divers Re:Rise OVA', orig: 'Gundam Build Divers Re:Rise OVA', thumb: 'https://i.ytimg.com/vi/CqeJDslcwnY/hqdefault.jpg', ep: 'FULL', page: 'anime/multiversal/gundam/gundam-build-divers/ova/', type: 'anime' },
+      { name: 'Gundam Build Metaverse', orig: 'Gundam Build Metaverse', thumb: 'https://phim.nguonc.com/public/images/Film/135919.jpg', ep: 'Hoàn tất (3/3)', page: 'anime/multiversal/gundam/gundam-build-metaverse/', type: 'anime' },
+      { name: 'JoJo Phần 1', orig: 'Phantom Blood & Battle Tendency', thumb: 'https://phim.nguonc.com/public/images/Film/40409.jpg', ep: '26 tập', page: 'anime/universal/jojo/phan-1/', type: 'anime' },
+      { name: 'JoJo Phần 2', orig: 'Stardust Crusaders', thumb: 'https://phim.nguonc.com/public/images/Film/1105.jpg', ep: '48 tập', page: 'anime/universal/jojo/phan-2/', type: 'anime' },
+      { name: 'JoJo Phần 3', orig: 'Diamond is Unbreakable', thumb: 'https://phim.nguonc.com/public/images/Film/1106.jpg', ep: '39 tập', page: 'anime/universal/jojo/phan-3/', type: 'anime' },
+      { name: 'JoJo Phần 4', orig: 'Golden Wind', thumb: 'https://phim.nguonc.com/public/images/Film/2673.jpg', ep: '39 tập', page: 'anime/universal/jojo/phan-4/', type: 'anime' },
+      { name: 'JoJo Phần 5', orig: 'Stone Ocean', thumb: 'https://phim.nguonc.com/public/images/Film/119844.jpg', ep: '38 tập', page: 'anime/universal/jojo/phan-5/', type: 'anime' },
+      { name: 'JoJo Steel Ball Run', orig: 'STEEL BALL RUN', thumb: 'https://phim.nguonc.com/public/images/Post/10/steel-ball-run-cuoc-phieu-luu-ki-la-cua-jojo-1.jpg', ep: 'FULL', page: 'anime/universal/jojo/steel-ball-run/', type: 'anime' },
+      { name: 'Bocchi the Rock!', orig: 'Tay rock Bocchi!', thumb: 'https://phim.nguonc.com/public/images/Film/127956.jpg', ep: '12 tập', page: 'anime/universal/bocchi-the-rock/phan-1/', type: 'anime' },
+      { name: 'Bocchi the Rock! Movie', orig: 'Bocchi the Rock! Re: / Re:Re:', thumb: 'https://phim.nguonc.com/public/images/Post/5/bocchi-the-rock-movie.jpg', ep: '2 tập', page: 'anime/universal/bocchi-the-rock/movie/', type: 'anime' },
+      { name: 'Death Note', orig: 'Quyển Sổ Sinh Mệnh', thumb: 'https://phim.nguonc.com/public/images/Film/244.jpg', ep: '37 tập', page: 'anime/universal/death-note/', type: 'anime' },
+      { name: 'Kết Hôn Với Người Mình Ghét Nhất Lớp', orig: 'Class no Daikirai na Joshi to Kekkon suru Koto ni Natta.', thumb: 'https://phim.nguonc.com/public/images/Post/6/class-no-daikirai-na-joshi-to-kekkon-suru-koto-ni-natta.jpg', ep: '12 tập', page: 'anime/universal/class-no-daikirai/', type: 'anime' },
+      { name: 'Công Chúa Ma Cà Rồng Tầm Thường', orig: 'The Vexations of a Shut-In Vampire Princess', thumb: 'https://phim.nguonc.com/public/images/Film/137893.jpg', ep: '12 tập', page: 'anime/universal/cong-chua-ma-ca-rong/', type: 'anime' },
+      { name: 'Vùng Đất Linh Hồn', orig: 'Spirited Away', thumb: 'https://phim.nguonc.com/public/images/Film/m4TUa2ciEWSlk37rOsjiSIvZDXE.jpg', ep: 'FULL', page: 'anime/universal/vung-dat-linh-hon/', type: 'anime' },
+      { name: 'Lời Thì Thầm Của Trái Tim', orig: 'Whisper of the Heart', thumb: 'https://phim.nguonc.com/public/images/Film/yVDvtPaouact2AFFTC4stQ8koq5.jpg', ep: 'FULL', page: 'anime/universal/loi-thi-tham-cua-trai-tim/', type: 'anime' },
+      { name: 'Lâu Đài Di Động Của Howl', orig: "Howl's Moving Castle", thumb: 'https://phim.nguonc.com/public/images/Film/nv5wwZou159v5OC61i4ElR7OqyY.jpg', ep: 'FULL', page: 'anime/universal/lau-dai-di-dong-cua-howl/', type: 'anime' },
+      { name: 'Shikimori-san', orig: "Shikimori's Not Just a Cutie", thumb: 'https://phim.nguonc.com/public/images/Film/3491.jpg', ep: '12+2 tập', page: 'anime/universal/shikimori-san/', type: 'anime' },
+      { name: 'Dr. Stone (Phần 1)', orig: 'Dr. Stone Season 1', thumb: 'https://phim.nguonc.com/public/images/Film/2826.jpg', ep: '24 tập', page: 'anime/universal/dr-stone/phan-1/', type: 'anime' },
+      { name: 'Dr. Stone (Phần 2)', orig: 'Dr. Stone Season 2: Stone Wars', thumb: 'https://phim.nguonc.com/public/images/Film/3171.jpg', ep: '11 tập', page: 'anime/universal/dr-stone/phan-2/', type: 'anime' },
+      { name: 'Dr. Stone (Phần 3)', orig: 'Dr. Stone Season 3: New World', thumb: 'https://phim.nguonc.com/public/images/Film/131775.jpg', ep: '22 tập', page: 'anime/universal/dr-stone/phan-3/', type: 'anime' },
+      { name: 'Dr. Stone (Phần 4)', orig: 'Dr. Stone Season 4: Future Engine', thumb: 'https://phim.nguonc.com/public/images/Post/5/dr-stone-4th-season-1.jpg', ep: '37 tập', page: 'anime/universal/dr-stone/phan-4/', type: 'anime' },
+      { name: 'Kimi ga Shinu made Koi wo Shitai', orig: 'I Want to Love You Till Your Dying Day', thumb: 'https://phim.nguonc.com/public/images/Post/7/kimi-ga-shinu-made-koi-wo-shitai.jpg', ep: 'Đang chiếu (Tập 4)', page: 'anime/universal/kimi-ga-shinu-made-koi-wo-shitai/', type: 'anime' },
+      { name: 'Oregairu OVA', orig: 'My Teen Romantic Comedy SNAFU OVA', thumb: 'https://phim.nguonc.com/public/images/Film/1687.jpg', ep: '1 tập', page: 'anime/universal/oregairu/ova/', type: 'anime' },
+      { name: 'Oregairu (Phần 1)', orig: 'My Teen Romantic Comedy SNAFU', thumb: 'https://phim.nguonc.com/public/images/Film/588.jpg', ep: '13 tập', page: 'anime/universal/oregairu/phan-1/', type: 'anime' },
+      { name: 'Oregairu (Phần 2) - Zoku', orig: 'My Teen Romantic Comedy SNAFU TOO!', thumb: 'https://phim.nguonc.com/public/images/Film/589.jpg', ep: '13 tập', page: 'anime/universal/oregairu/phan-2/', type: 'anime' },
+      { name: 'Oregairu Zoku OVA', orig: 'My Teen Romantic Comedy SNAFU TOO! OVA', thumb: 'https://phim.nguonc.com/public/images/Film/1688.jpg', ep: '1 tập', page: 'anime/universal/oregairu/zoku-ova/', type: 'anime' },
+      { name: 'Oregairu (Phần 3) - Kan', orig: 'My Teen Romantic Comedy SNAFU Climax!', thumb: 'https://phim.nguonc.com/public/images/Film/3067.jpg', ep: '12 tập', page: 'anime/universal/oregairu/phan-3/', type: 'anime' },
+      { name: 'Oregairu Kan OVA', orig: 'My Teen Romantic Comedy SNAFU Climax! OVA', thumb: 'https://phim.nguonc.com/public/images/Film/132921.jpg', ep: '1 tập', page: 'anime/universal/oregairu/kan-ova/', type: 'anime' },
+      { name: 'Classroom of the Elite (Phần 1)', orig: 'Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e', thumb: 'https://phim.nguonc.com/public/images/Film/2220.jpg', ep: '12 tập', page: 'anime/universal/classroom-of-the-elite/phan-1/', type: 'anime' },
+      { name: 'Classroom of the Elite (Phần 2)', orig: 'Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e 2nd Season', thumb: 'https://phim.nguonc.com/public/images/Film/124180.jpg', ep: '13 tập', page: 'anime/universal/classroom-of-the-elite/phan-2/', type: 'anime' },
+      { name: 'Classroom of the Elite (Phần 3)', orig: 'Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e 3rd Season', thumb: 'https://phim.nguonc.com/public/images/Film/139318.jpg', ep: '13 tập', page: 'anime/universal/classroom-of-the-elite/phan-3/', type: 'anime' },
+      { name: 'Classroom of the Elite (Phần 4)', orig: 'Youkoso Jitsuryoku Shijou Shugi no Kyoushitsu e 4th Season', thumb: 'https://phim.nguonc.com/public/images/Post/6/chao-mung-den-lop-hoc-de-cao-thuc-luc-phan-4.jpg', ep: '16 tập', page: 'anime/universal/classroom-of-the-elite/phan-4/', type: 'anime' },
+      { name: 'Bukiyou na Senpai', orig: 'My Awkward Senpai', thumb: 'https://phim.nguonc.com/public/images/Post/10/bukiyou-na-senpai.jpg', ep: '12 tập', page: 'anime/universal/bukiyou-na-senpai/', type: 'anime' },
+      { name: 'Tomodachi no Imouto', orig: "My Friend's Little Sister Has It In for Me", thumb: 'https://phim.nguonc.com/public/images/Post/2/tomodachi-no-imouto-ga-ore-ni-dake-uzai.jpg', ep: '12 tập', page: 'anime/universal/tomodachi-no-imouto/', type: 'anime' },
+      { name: 'Class de 2-banme ni Kawaii', orig: 'I Made Friends with the Second Prettiest Girl in My Class', thumb: 'https://phim.nguonc.com/public/images/Post/8/class-de-2-banme-ni-kawaii-onnanoko-to-tomodachi-ni-natta.jpg', ep: '12 tập', page: 'anime/universal/class-de-2-banme/', type: 'anime' },
+      { name: 'Kẻ Ngây Thơ, Người Từng Trải', orig: 'Keikenzumi na Kimi to, Keiken Zero na Ore ga, Otsukiai suru Hanashi.', thumb: 'https://phim.nguonc.com/public/images/Film/138503.jpg', ep: '12 tập', page: 'anime/universal/ke-ngay-tho/', type: 'anime' },
+      { name: 'Cô Bạn Tôi Thầm Thích Lại Quên Mang Kính Rồi', orig: 'Suki na Ko ga Megane wo Wasureta', thumb: 'https://phim.nguonc.com/public/images/Film/136325.jpg', ep: '13 tập', page: 'anime/universal/co-ban-toi-tham-thich/', type: 'anime' },
+      { name: 'Shigatsu wa Kimi no Uso', orig: 'Your Lie in April', thumb: 'https://phim.nguonc.com/public/images/Film/75.jpg', ep: '22+1 tập', page: 'anime/universal/shigatsu-wa-kimi-no-uso/', type: 'anime' },
+      { name: 'Kanojo mo Kanojo (Phần 1)', orig: 'Girlfriend, Girlfriend S1', thumb: 'https://phim.nguonc.com/public/images/Film/3270.jpg', ep: '12 tập', page: 'anime/universal/kanojo-mo-kanojo/phan-1/', type: 'anime' },
+      { name: 'Kanojo mo Kanojo (Phần 2)', orig: 'Girlfriend, Girlfriend S2', thumb: 'https://phim.nguonc.com/public/images/Film/137100.jpg', ep: '12 tập', page: 'anime/universal/kanojo-mo-kanojo/phan-2/', type: 'anime' },
+      { name: 'BokuBen OVA', orig: 'We Never Learn OVA', thumb: 'https://phim.nguonc.com/public/images/Film/2924.jpg', ep: '2 tập', page: 'anime/universal/bokutachi-wa-benkyou-ga-dekinai/ova/', type: 'anime' },
+      { name: 'BokuBen (Phần 1)', orig: 'We Never Learn S1', thumb: 'https://phim.nguonc.com/public/images/Film/2784.jpg', ep: '13 tập', page: 'anime/universal/bokutachi-wa-benkyou-ga-dekinai/phan-1/', type: 'anime' },
+      { name: 'BokuBen (Phần 2)', orig: 'We Never Learn S2', thumb: 'https://phim.nguonc.com/public/images/Film/2888.jpg', ep: '13 tập', page: 'anime/universal/bokutachi-wa-benkyou-ga-dekinai/phan-2/', type: 'anime' },
+      { name: 'Umayon (Spin-off)', orig: 'Uma Musume Spinoff', thumb: 'https://phim.nguonc.com/public/images/Film/3075.jpg', ep: '12 tập', page: 'anime/universal/uma-musume/umayon/', type: 'anime' },
+      { name: 'Uma Musume (Phần 1)', orig: 'Uma Musume: Pretty Derby S1', thumb: 'https://phim.nguonc.com/public/images/Film/2495.jpg', ep: '13 tập', page: 'anime/universal/uma-musume/phan-1/', type: 'anime' },
+      { name: 'Uma Musume: BNW no Chikai', orig: 'Uma Musume Specials', thumb: 'https://phim.nguonc.com/public/images/Film/93479.jpg', ep: '3 tập', page: 'anime/universal/uma-musume/bnw-no-chikai/', type: 'anime' },
+      { name: 'Uma Musume (Phần 2)', orig: 'Uma Musume: Pretty Derby S2', thumb: 'https://phim.nguonc.com/public/images/Film/3288.jpg', ep: '13 tập', page: 'anime/universal/uma-musume/phan-2/', type: 'anime' },
+      { name: 'Uma Musume (Phần 3)', orig: 'Uma Musume: Pretty Derby S3', thumb: 'https://phim.nguonc.com/public/images/Film/138948.jpg', ep: '13 tập', page: 'anime/universal/uma-musume/phan-3/', type: 'anime' },
+      { name: 'Uma Musume Movie: Shin Jidai', orig: 'Beginning of a New Era', thumb: 'https://phim.nguonc.com/public/images/Film/esAgvmvwh6dincWHr057iyPAtQR.jpg', ep: '108 phút', page: 'anime/universal/uma-musume/movie/', type: 'anime' },
+      { name: 'Uma Musume: Road to the Top', orig: 'Uma Musume: Pretty Derby - Road to the Top', thumb: 'https://phim.nguonc.com/public/images/Post/2/uma-musume-pretty-derby-road-to-the-top.jpg', ep: '4 tập', page: 'anime/universal/uma-musume/road-to-the-top/', type: 'anime' },
+      { name: 'Uma Musume: Cinderella Gray', orig: 'Uma Musume: Cinderella Gray', thumb: 'https://phim.nguonc.com/public/images/Post/2/uma-musume-cinderella-gray.jpg', ep: '23 tập', page: 'anime/universal/uma-musume/cinderella-gray/', type: 'anime' },
+      { name: 'Record of Ragnarok (P1)', orig: 'Shuumatsu no Valkyrie S1', thumb: 'https://phim.nguonc.com/public/images/Film/3261.jpg', ep: '12 tập', page: 'anime/universal/record-of-ragnarok/phan-1/', type: 'anime' },
+      { name: 'Record of Ragnarok (P2)', orig: 'Shuumatsu no Valkyrie S2', thumb: 'https://phim.nguonc.com/public/images/Film/3712.jpg', ep: '15 tập', page: 'anime/universal/record-of-ragnarok/phan-2/', type: 'anime' },
+      { name: 'Record of Ragnarok (P3)', orig: 'Shuumatsu no Valkyrie S3', thumb: 'https://phim.nguonc.com/public/images/Post/2/dai-chien-nguoi-va-than-phan-3.jpg', ep: '15 tập', page: 'anime/universal/record-of-ragnarok/phan-3/', type: 'anime' },
+      { name: 'Eminence in Shadow (P1)', orig: 'Kage no Jitsuryokusha ni Naritakute! S1', thumb: 'https://phim.nguonc.com/public/images/Film/121869.jpg', ep: '20 tập', page: 'anime/universal/emine-in-shadow/phan-1/', type: 'anime' },
+      { name: 'Eminence in Shadow (P2)', orig: 'Kage no Jitsuryokusha ni Naritakute! S2', thumb: 'https://phim.nguonc.com/public/images/Film/138295.jpg', ep: '12 tập', page: 'anime/universal/emine-in-shadow/phan-2/', type: 'anime' },
+      { name: "Nhà Phê Bình Dị Chủng", orig: "Ishuzoku Reviewers", thumb: "https://uploads.mangadex.org/covers/1b2fddf9-1385-4f3c-b37a-cf86a9428b1a/4c0dc86d-1b46-4b14-ac92-88ee623a01b4.jpg", page: "nsfw/manga/ishuzoku-reviewers/", type: "manga", adult: true, hasVi: false, year: 2016, status: "Đang ra", langs: "Spanish, Portuguese, English, Russian, French", tags: ["Monsters","Comedy","Adventure","Magic","Fantasy","Monster Girls","Slice of Life"] },
+      { name: "Ii kedo, Naisho ne.", orig: "Ii kedo, Naisho ne.", thumb: "https://uploads.mangadex.org/covers/a30f2637-6c03-4a8f-bc60-019a59f2b642/564e21ee-decb-4358-81a0-557925acd932.jpg.512.jpg", page: "nsfw/manga/ii-kedo-naisho/", type: "manga", adult: true, hasVi: false, year: 2014, status: "Hoàn thành", langs: "English", tags: ["Romance","Comedy","Ecchi","School Life"] },
+];
+
+    var container = document.getElementById('categorySections');
+    var searchInput = document.getElementById('searchInput');
+    var searchBtn = document.getElementById('searchBtn');
+    var navLinks = document.querySelectorAll('#categoryNav a');
+    var currentCategory = 'anime';
+    var currentPage = 1;
+    var PER_PAGE = 36;
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+
+    var typeLabels = { 'anime': 'Anime', 'manga': 'Manga', 'manhwa': 'Manhwa', 'manhua': 'Manhua', 'light-novel': 'Light Novel', 'gallery': 'Galleries' };
+
+    var statsBar = document.getElementById('statsBar');
+    function updateStats() {
+      var counts = {};
+      items.forEach(function(m) {
+        if (!m.adult) return;
+        var t = m.type;
+        counts[t] = (counts[t] || 0) + 1;
+        counts._total = (counts._total || 0) + 1;
+      });
+      var order = ['anime','manga','manhwa','manhua','light-novel','gallery'];
+      var html = '<span class="stat-item">Tổng: <span>' + (counts._total||0) + '</span></span>';
+      order.forEach(function(t) {
+        if (counts[t]) html += '<span class="stat-item">' + typeLabels[t] + ': <span>' + counts[t] + '</span></span>';
+      });
+      statsBar.innerHTML = html;
+    }
+
+
+    function renderMangaList(pageItems) {
+      var list = document.createElement('div');
+      list.className = 'manga-list';
+      pageItems.forEach(function(item) {
+        var row = document.createElement('a');
+        row.className = 'manga-list-item';
+        row.href = item.page;
+        var thumb = document.createElement('div');
+        thumb.className = 'manga-list-thumb';
+        thumb.innerHTML = '<img src="' + item.thumb + '" alt="' + (item.name || '').replace(/</g, '&lt;') + '" loading="lazy">';
+        var badge = document.createElement('span');
+        badge.className = 'manga-list-badge' + (item.hasVi ? ' vi' : '');
+        badge.textContent = item.hasVi ? 'Vietsub' : 'EN';
+        thumb.appendChild(badge);
+        var info = document.createElement('div');
+        info.className = 'manga-list-info';
+        var name = document.createElement('h3');
+        name.className = 'manga-list-name';
+        name.textContent = item.name;
+        info.appendChild(name);
+        if (item.orig && item.orig !== item.name) {
+          var orig = document.createElement('p');
+          orig.className = 'manga-list-orig';
+          orig.textContent = item.orig;
+          info.appendChild(orig);
+        }
+        var meta = document.createElement('div');
+        meta.className = 'manga-list-meta';
+        var chips = [];
+        if (item.year) chips.push('Năm: ' + item.year);
+        if (item.status) chips.push(item.status);
+        if (item.langs) chips.push(item.langs);
+        chips.forEach(function(t) {
+          var c = document.createElement('span');
+          c.className = 'manga-list-chip';
+          c.textContent = t;
+          meta.appendChild(c);
+        });
+        info.appendChild(meta);
+        if (item.tags && item.tags.length) {
+          var tg = document.createElement('div');
+          tg.className = 'ln-tags';
+          item.tags.forEach(function(t) {
+            var s = document.createElement('span');
+            s.className = 'ln-tag';
+            s.textContent = t;
+            tg.appendChild(s);
+          });
+          info.appendChild(tg);
+        }
+        row.appendChild(thumb);
+        row.appendChild(info);
+        list.appendChild(row);
+      });
+      return list;
+    }
+
+    function filter() {
+      var kw = (searchInput.value || '').toLowerCase().trim();
+      var category = currentCategory;
+
+      var filtered = items.filter(function(m) {
+        if (!m.adult) return false;
+        if (m.type !== category) return false;
+        if (!kw) return true;
+        return m.name.toLowerCase().indexOf(kw) !== -1 || m.orig.toLowerCase().indexOf(kw) !== -1;
+      });
+
+      // Dòng thông báo số kết quả tìm thấy (giống shop).
+      var searchInfo = document.getElementById('searchInfo');
+      if (kw) {
+        searchInfo.style.display = 'block';
+        searchInfo.innerHTML = 'T&#236;m th&#7845;y <b>' + filtered.length + '</b> k&#7871;t qu&#7843; cho &ldquo;' + esc(kw) + '&rdquo;';
+      } else {
+        searchInfo.style.display = 'none';
+        searchInfo.innerHTML = '';
+      }
+
+      var totalPages = Math.max(1, Math.ceil(filtered.length / PER_PAGE));
+      if (currentPage > totalPages) currentPage = totalPages;
+      var start = (currentPage - 1) * PER_PAGE;
+      var pageItems = filtered.slice(start, start + PER_PAGE);
+
+      container.innerHTML = '';
+      if (category === 'manga' || category === 'manhwa' || category === 'manhua') {
+        if (pageItems.length > 0) {
+          container.appendChild(renderMangaList(pageItems));
+        } else {
+          container.innerHTML = '<div class="empty-state"><p class="empty-title">Chưa có nội dung 18+</p><p class="empty-sub">Kho mục này chưa có gì, quay lại sau.</p></div>';
+        }
+      } else {
+      var grid = document.createElement('div');
+      grid.className = 'movie-grid';
+
+      pageItems.forEach(function(item) {
+        var card = document.createElement('a');
+        card.className = 'movie-card';
+        card.href = item.page;
+        var thumb = document.createElement('div');
+        thumb.className = 'movie-thumb';
+        thumb.innerHTML = '<img src="' + item.thumb + '" alt="' + item.name + '" loading="lazy">';
+        var typeBadge = document.createElement('span');
+        typeBadge.className = 'movie-type adult-type-badge';
+        typeBadge.textContent = '18+';
+        var ep = document.createElement('span');
+        ep.className = 'movie-ep';
+        ep.textContent = item.ep;
+        var info = document.createElement('div');
+        info.className = 'movie-info';
+        var title = document.createElement('h3');
+        title.className = 'movie-title';
+        title.textContent = item.name;
+        var orig = document.createElement('p');
+        orig.className = 'movie-original';
+        orig.textContent = item.orig;
+        info.appendChild(title);
+        info.appendChild(orig);
+        thumb.appendChild(typeBadge);
+        thumb.appendChild(ep);
+        card.appendChild(thumb);
+        card.appendChild(info);
+        grid.appendChild(card);
+      });
+
+      if (pageItems.length > 0) {
+        container.appendChild(grid);
+      } else {
+        container.innerHTML = '<div class="empty-state"><p class="empty-title">Chưa có nội dung 18+</p><p class="empty-sub">Kho mục này chưa có gì, quay lại sau.</p></div>';
+      }
+      }
+
+      if (totalPages > 1) {
+        var pg = document.createElement('div');
+        pg.className = 'pagination';
+        var prev = document.createElement('button');
+        prev.textContent = '\u00AB';
+        prev.className = 'pg-btn' + (currentPage <= 1 ? ' disabled' : '');
+        if (currentPage > 1) { prev.addEventListener('click', function() { currentPage--; filter(); }); pg.appendChild(prev); } else { var span = document.createElement('span'); span.className = 'pg-btn disabled'; span.textContent = '\u00AB'; pg.appendChild(span); }
+        for (var i = 1; i <= totalPages; i++) {
+          var btn = document.createElement('button');
+          btn.textContent = i;
+          btn.className = 'pg-btn' + (i === currentPage ? ' active' : '');
+          btn.addEventListener('click', (function(p) { return function() { currentPage = p; filter(); }; })(i));
+          pg.appendChild(btn);
+        }
+        var next = document.createElement('button');
+        next.textContent = '\u00BB';
+        next.className = 'pg-btn' + (currentPage >= totalPages ? ' disabled' : '');
+        if (currentPage < totalPages) { next.addEventListener('click', function() { currentPage++; filter(); }); pg.appendChild(next); } else { var span2 = document.createElement('span'); span2.className = 'pg-btn disabled'; span2.textContent = '\u00BB'; pg.appendChild(span2); }
+        container.appendChild(pg);
+      }
+    }
+
+    navLinks.forEach(function(link) {
+      link.addEventListener('click', function() {
+        navLinks.forEach(function(l) { l.classList.remove('active'); });
+        link.classList.add('active');
+        currentCategory = link.getAttribute('data-category');
+        currentPage = 1;
+        filter();
+      });
+    });
+
+    searchBtn.addEventListener('click', function() { currentPage = 1; filter(); });
+    searchInput.addEventListener('keydown', function(e) { if (e.key === 'Enter') { currentPage = 1; filter(); } });
+    searchInput.addEventListener('input', function() { currentPage = 1; filter(); });
+    document.getElementById('refreshBtn').addEventListener('click', function() { location.reload(); });
+
+    document.getElementById('randomBtn').addEventListener('click', function() {
+      var kw = (searchInput.value || '').toLowerCase().trim();
+      var pool = items.filter(function(m) {
+        if (!m.adult) return false;
+        if (m.type !== currentCategory) return false;
+        if (!kw) return true;
+        return m.name.toLowerCase().indexOf(kw) !== -1 || m.orig.toLowerCase().indexOf(kw) !== -1;
+      });
+      if (pool.length === 0) return;
+      var pick = pool[Math.floor(Math.random() * pool.length)];
+      window.location.href = pick.page;
+    });
+
+
+    updateStats(); currentPage = 1; filter();
+
+    (function () {
+      var link = document.getElementById('authLink');
+      var adminBtn = document.getElementById('adminLink');
+      var s = document.createElement('script');
+      s.src = 'signup-loginsystem.js';
+      s.onload = function () {
+        if (!window.AuthSystem) return;
+        window.AuthSystem.me().then(function (user) {
+          if (user) {
+            link.title = 'Tài khoản: ' + (user.username || user.email);
+            link.innerHTML = '&#128100; ' + (user.username || 'Tài khoản');
+          } else {
+            link.innerHTML = '&#128100; Đăng nhập';
+          }
+        });
+        if (adminBtn) adminBtn.addEventListener('click', function () {
+          if (window.AuthSystem.isAdmin()) {
+            window.location.href = 'control-panel.html';
+          } else {
+            showAdminDenied();
+          }
+        });
+      };
+      document.head.appendChild(s);
+
+      function showAdminDenied() {
+        var m = document.getElementById('adminDeniedPopup');
+        m.classList.add('active');
+        m.addEventListener('click', function (e) {
+          if (e.target === m || e.target.closest('.admin-denied-close')) m.classList.remove('active');
+        });
+      }
+    })();
+  </script>
+
+  <div class="admin-denied-overlay" id="adminDeniedPopup">
+    <div class="admin-denied-popup">
+      <p>Bạn không có quyền admin</p>
+      <button class="admin-denied-close">Đóng</button>
+    </div>
+  </div>
+
+  
+
+  <style>
+    .chat-floating {
+      position: fixed; right: 16px; bottom: 16px; width: 56px; height: 56px;
+      border-radius: 50%; border: none; cursor: pointer; font-size: 24px; z-index: 9998;
+      background: linear-gradient(135deg, #e84393, #a29bfe); color: #fff;
+      box-shadow: 0 8px 24px rgba(232,67,147,.5); display: flex; align-items: center; justify-content: center;
+      transition: transform .2s;
+    }
+    .chat-floating:hover { transform: scale(1.08); }
+    .chatbox { position: fixed; right: 16px; bottom: 16px; width: 340px; max-width: calc(100vw - 32px); background: #14141f; color: #fff; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,.5); z-index: 9999; font-family: Roboto, Arial, sans-serif; }
+    .chatbox-header { background: #1d1d2e; padding: 12px 16px; border-bottom: 1px solid #333; display: flex; justify-content: space-between; align-items: center; }
+    .chatbox-header h3 { margin: 0; font-size: 15px; color: #fff; }
+    .chatbox-close { background: none; border: none; color: #aaa; font-size: 15px; cursor: pointer; padding: 0 4px; }
+    .chatbox-close:hover { color: #fff; }
+    .chatbox-messages { padding: 14px; max-height: 340px; overflow-y: auto; font-size: 14px; line-height: 1.5; background: #fff; color: #222; }
+    .chatbox-messages .msg-user { text-align: right; margin: 6px 0; }
+    .chatbox-messages .msg-user::before { content: "Bạn: "; color: #007aff; font-weight: 700; }
+    .chatbox-messages .msg-ai { margin: 6px 0; white-space: pre-wrap; word-break: break-word; }
+    .chatbox-input { display: flex; border-top: 1px solid #333; background: #1d1d2e; }
+    .chatbox-input input { flex: 1; padding: 10px 12px; border: none; outline: none; background: #1d1d2e; color: #fff; font-size: 14px; }
+    .chatbox-input button { background: #e53935; color: #fff; border: none; padding: 0 16px; cursor: pointer; font-size: 14px; }
+    .chatbox-input button:hover { background: #c62828; }
+    .admin-denied-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.6); display: none; align-items: center; justify-content: center; z-index: 10000; }
+    .admin-denied-overlay.active { display: flex; }
+    .admin-denied-popup { background: #1d1d2e; border: 1px solid #e53935; border-radius: 12px; padding: 24px 32px; text-align: center; color: #fff; font-family: Roboto, Arial, sans-serif; }
+    .admin-denied-popup p { margin: 0 0 16px; font-size: 15px; }
+    .admin-denied-close { background: #e53935; color: #fff; border: none; padding: 8px 24px; border-radius: 8px; cursor: pointer; font-size: 14px; font-weight: 600; }
+  </style>
+<script src="../chatbox.js"></script>
+</body>
+</html>

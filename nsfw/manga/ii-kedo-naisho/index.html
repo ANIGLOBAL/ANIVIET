@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='%23ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Ii kedo, Naisho ne. - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    :root { --accent:#ff4b5c; --bg:#131018; --card:#1d1822; --border:#2e2733; --muted:#9a86a8; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; padding:0 !important; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1000px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:230px minmax(0,1fr); gap:24px; padding:22px 0 0; }
+    @media (max-width:720px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:200px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.4rem,4vw,2rem); letter-spacing:-.02em; line-height:1.18; }
+    .adult-badge-tag { display:inline-block; vertical-align:middle; margin-left:8px; background:var(--accent); color:#fff; font-family:"Inter",sans-serif; font-size:.6rem; font-weight:800; padding:3px 8px; border-radius:6px; letter-spacing:.06em; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff4b5c66; color:var(--accent); font-weight:700; }
+    .watch-desc { margin-top:1.1rem; color:#aaa; font-size:.9rem; line-height:1.75; }
+
+    /* ===== Chapter list (transformed from grid) ===== */
+    .episodes, .volumes { margin-top:1.9rem; }
+    .episodes h2, .volumes h2 { margin:0 0 .85rem; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-note { color:#d8b24a; font-size:.8rem; margin-bottom:.7rem; }
+    .chapter-list { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .chapter-card {
+      display:flex !important; align-items:center; gap:14px; text-align:left;
+      padding:11px 16px; background:var(--card);
+      border-bottom:1px solid var(--border); border-radius:0 !important;
+      transition:background .15s ease;
+    }
+    .chapter-card:last-child { border-bottom:none; }
+    .chapter-card:hover { transform:none !important; box-shadow:none !important; background:#26262a; border-color:var(--border); }
+    .ch-num { color:var(--accent) !important; font-weight:700; font-size:.85rem; min-width:96px; flex-shrink:0; }
+    .ch-title { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--muted) !important; font-size:.8rem; margin:0 !important; }
+    .ch-loader { padding:34px 16px; text-align:center; color:var(--muted); font-size:.85rem; }
+
+    /* ===== Volume blocks ===== */
+    .volume-block { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; overflow:hidden; background:var(--card); }
+    .volume-title { display:flex; align-items:center; justify-content:space-between; padding:13px 16px; cursor:pointer; user-select:none; transition:background .15s ease; }
+    .volume-title:hover { background:#242428; }
+    .v-name { font-weight:700; font-size:.95rem; color:#fff; }
+    .v-meta { color:var(--muted); font-size:.78rem; margin-left:10px; }
+    .v-arrow { color:var(--muted); transition:transform .2s ease; }
+    .volume-title.open .v-arrow { transform:rotate(180deg); }
+    .chapter-grid { display:none; flex-direction:column; border-top:1px solid var(--border); }
+    .volume-block.open .chapter-grid { display:flex; }
+    .volume-block .chapter-card { padding-left:20px; }
+
+    /* ===== Footer ===== */
+    .footer { border-top:1px solid rgba(255,255,255,.08); margin-top:30px; padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; }
+    .footer p { margin:4px 0; }
+  </style>
+</head>
+<body class="adult-mode">
+  <div class="container">
+    <div class="back-row">
+      <a href="../../index.html" class="back-link">&larr; NSFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://uploads.mangadex.org/covers/a30f2637-6c03-4a8f-bc60-019a59f2b642/564e21ee-decb-4358-81a0-557925acd932.jpg.512.jpg" alt="Ii kedo, Naisho ne." loading="lazy"></div>
+      <div>
+        <h1 class="watch-title">Ii kedo, Naisho ne.</h1>
+        <p class="watch-orig">Ii kedo, Naisho ne.</p>
+        <div class="watch-meta"><span class="pill hot">Tình trạng: Hoàn thành</span><span class="pill">Năm: 2014</span><span class="pill">Nhóm tuổi: N/A</span><span class="pill">Tác giả: Miyamoto Issa</span><span class="pill">Họa sĩ: Miyamoto Issa</span><span class="pill">Nguồn: MangaDex</span><span class="pill">Loli</span><span class="pill">Romance</span><span class="pill">Anthology</span><span class="pill">Incest</span><span class="pill">Crossdressing</span><span class="pill">School Life</span><span class="pill">Monster Girls</span><span class="pill">Shota</span></div>
+      </div>
+    </div>
+    <p class="watch-desc">Unable to move, pampered, made to feel good…<br>The feast of pleasure never ends…<br><br>A collection of 15 comics and illustrations spanning 288 pages. All are works with the very finest **pampering** and **female dominance**. Please enjoy a blissful time to your heart&#39;s content.<br><br>**Included Works:**<br>1. Girls forM Vol. 5 color comic (Girls forM Vol. 05, 2013)<br>2. At The Pair&#39;s Mercy (Girls forM Vol. 07, 2014)<br>3. Black Strawberry (Girls forM Vol. 19, 2019)<br>4. Welcome to the Shadow Garden (Girls forM Vol. 12, 2016)<br>5. A Certain Noble&#39;s Happiness (Girls forM Vol. 18, 2019)<br>6. Push-up Sisters (Girls forM Vol. 17, 2018)<br>7. LOVE STORY (Girls forM Vol. 16, 2018)<br>8. TAKEN!!!! (Girls forM Vol. 15, 2017)<br>9. Henpecked Encouragement (Girls forM Vol. 14, 2017) - **Official English:** [FAKKU!](https://www.fakku.net/hentai/henpecked-encouragement-english)<br>10. A Dream of Pleasure Corruption (Girls forM Vol. 13, 2016) - **Official English:** [FAKKU!](https://www.fakku.net/hentai/a-dream-of-pleasure-corruption-english)<br>11. Awkward Part-time Job (Girls forM Vol. 11, 2016)<br>12. Active Girl (Girls forM Vol. 10, 2015)<br>13. The Two (Older Sister And Younger Brother) Are Good Friends (Girls forM Vol. 09, 2015)<br>14. ●REC Secret Sister (Girls forM Vol. 08, 2014)<br>15. Body Warmth and Thawing Snow (Girls forM Vol. 20, 2020)<br><br>| Namespace | Tags |<br>| --- | --- |<br>| Female | Anal, Anal Intercourse, Beauty Mark, Big Breasts, Big Lips, Blowjob, Dark Sclera, Dark Skin, Drill Hair, Exposed Clothing, Femdom, Footjob, Garter Belt, Glasses, Gloves, Hairy, Handjob, Horns, Impregnation, Inverted Nipples, Kissing, Lactation, Leg Lock, Lingerie, Maid, Milf, Monster Girl, Oni, Paizuri, Rimjob, Schoolgirl Uniform, Sole Female, Stockings, Tall Girl, Twins, Twintails, Unusual Teeth, X-Ray<br>| Male | Piss Drinking, Shota, Shotacon, Sole Male<br>| Mixed | FFM Threesome, Group, Mosaic Censorship<br>___<br>**Buy:**<br>- [DLsite](https://www.dlsite.com/books/work/=/product_id/BJ01150917.html)<br>- [FANZA](https://book.dmm.co.jp/product/4357571/b425aakkg00560/)<br>- [Melonbooks](https://www.melonbooks.co.jp/detail/detail.php?product_id=1987303)<br>- [Surua-ya](https://www.suruga-ya.jp/product/detail/XA24347)<br>- [TORANOANA](https://ec.toranoana.jp/tora_r/ec/item/200012510794/)</p>
+    <div class="episodes">
+      <h2>Danh sách chương</h2>
+      <div class="lang-note" id="langNote" style="display:none;"></div>
+      <div id="chapterList"><div class="ch-loader">Đang tải danh sách chương...</div></div>
+    </div>
+    <div class="footer"><p>&copy; 2026 ANIVIETDB. Nội dung thuộc bản quyền chủ sở hữu. Nguồn: MangaDex.</p><p>Trang web sưu tầm cá nhân - Phi thương mại.</p></div>
+  </div>
+
+  <script src="../../../manga-config.js"></script>
+  <script src="../../../manga-api.js"></script>
+  <script src="data.js"></script>
+  <script>
+    var MANGA_ID = "a30f2637-6c03-4a8f-bc60-019a59f2b642";
+    var NSFW = true;
+    var listEl = document.getElementById('chapterList');
+    var langNoteEl = document.getElementById('langNote');
+    var chapterLang = 'vi';
+
+    window.MANGA_API.chooseChapters(MANGA_ID, NSFW, 'vi').then(function (res) {
+      var chapters = res.chapters;
+      if (!chapters.length) {
+        listEl.innerHTML = '<div class="ch-loader">Chưa có chương nào trên MangaDex.</div>';
+        return;
+      }
+      chapterLang = res.lang;
+      langNoteEl.textContent = 'Đang hiển thị bản: ' + window.MANGA_API.langName(chapterLang);
+      langNoteEl.style.display = '';
+      listEl.innerHTML = '';
+      var grid = document.createElement('div');
+      grid.className = 'chapter-list';
+      chapters.forEach(function (ch, i) {
+        var a = ch.attributes;
+        var label = a.chapter ? 'Chương ' + a.chapter : 'Chương khác';
+        var aEl = document.createElement('a');
+        aEl.className = 'chapter-card';
+        aEl.href = 'reader.html?ch=' + ch.id + (i > 0 ? '&p=' + i : '') + '&lang=' + chapterLang;
+        var num = document.createElement('span');
+        num.className = 'ch-num';
+        num.textContent = label;
+        aEl.appendChild(num);
+        if (a.title) {
+          var t = document.createElement('span');
+          t.className = 'ch-title';
+          t.textContent = a.title;
+          aEl.appendChild(t);
+        }
+        grid.appendChild(aEl);
+      });
+      listEl.appendChild(grid);
+    }).catch(function (e) {
+      var msg = window.MANGA_API.errorMessage(e);
+      if (msg) {
+        listEl.innerHTML = '<div class="ch-loader">' + esc(msg) + '</div>';
+        return;
+      }
+      listEl.innerHTML = '<div class="ch-loader">Không tải được danh sách chương: ' + esc(e && e.message || '') + '</div>';
+    });
+  </script>
+<script src="../../../chatbox.js"></script>
+</body>
+</html>

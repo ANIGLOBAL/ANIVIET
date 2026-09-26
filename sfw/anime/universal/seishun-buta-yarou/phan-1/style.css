@@ -1,0 +1,63 @@
+/* ANIVIETDB - Seishun Buta Yarou movie (dark theme) */
+:root{
+  --header-gradient:linear-gradient(135deg,#e84393,#6c5ce7);
+  --accent-color:#e84393;
+  --ep-color:#e84393
+}
+
+body{background:linear-gradient(160deg,#0f0c29 0%,#302b63 45%,#24243e 100%);color:#c4c4e8;padding:20px}
+
+.container{max-width:1000px;margin:0 auto 40px;background:#181b34;border:1px solid rgba(167,139,250,.2);border-radius:20px;box-shadow:0 20px 60px rgba(0,0,0,.5);overflow:hidden}
+
+.back-link{display:inline-block;color:#a78bfa;text-decoration:none;font-weight:600;font-size:.9rem;margin:16px 0 0 16px;padding:8px 14px;border:1px solid rgba(167,139,250,.4);border-radius:999px;background:rgba(167,139,250,.08);transition:.2s}
+.back-link:hover{background:rgba(167,139,250,.22);color:#fff}
+.next-link{margin-left:4px}
+
+.header{display:flex;background:linear-gradient(135deg,rgba(232,67,147,.14),rgba(108,92,231,.14));padding:28px;align-items:center;gap:28px;border-bottom:1px solid rgba(167,139,250,.15)}
+
+.poster-wrapper{flex-shrink:0;width:210px;border-radius:14px;overflow:hidden;box-shadow:0 12px 32px rgba(0,0,0,.5);border:2px solid rgba(167,139,250,.35)}
+.poster{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover;background:#222}
+
+.info{margin-left:0;color:#fff;flex:1;min-width:0}
+.info h1{margin:0 0 6px;font-size:28px;font-weight:800;background:linear-gradient(90deg,#ff6fb3,#a29bfe);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.alt-title{margin:0 0 16px;font-size:14px;opacity:.7;font-style:italic;color:#a78bfa}
+.info-table td{padding:4px 12px 4px 0;vertical-align:top;font-size:14px;color:#c4c4e8}
+.info-table td:nth-child(2){color:#fff}
+.info-table .label{font-weight:600;opacity:.6;white-space:nowrap;color:#a78bfa}
+
+.description{padding:24px 28px;font-size:15px;line-height:1.8;color:#c4c4e8;border-bottom:1px solid rgba(167,139,250,.12)}
+
+.details{display:flex;flex-wrap:wrap;padding:12px 20px 20px}
+.detail-item{flex:1 1 180px;margin:8px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.18);padding:12px 14px;border-radius:10px;font-size:13px;color:#c4c4e8}
+.detail-item strong{color:#ff6fb3}
+
+.episodes{padding:8px 28px 28px;background:rgba(15,12,41,.35)}
+.episodes h2{margin:16px 0 15px;font-size:22px;color:#fff;border-left:4px solid var(--accent-color);padding-left:12px}
+
+.episode-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(120px,1fr));gap:14px}
+.episode-card{background:#22264a;border:1px solid rgba(167,139,250,.25);border-radius:12px;text-align:center;padding:14px 10px;cursor:pointer;transition:transform .2s,box-shadow .2s,border-color .2s;user-select:none}
+.episode-card:hover{transform:translateY(-5px);box-shadow:0 8px 24px rgba(232,67,147,.35);border-color:#e84393;background:#2a2e58}
+.ep-num{font-weight:700;font-size:14px;color:#ff6fb3}
+
+.footer{margin-top:0;padding:20px;border-top:1px solid rgba(167,139,250,.2);text-align:center}
+.footer p{color:#7a7ca0;font-size:.8rem;margin:4px 0}
+
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(5,4,15,.92);z-index:1000;justify-content:center;align-items:center;padding:20px;backdrop-filter:blur(6px)}
+.modal-overlay.active{display:flex}
+.modal-content{background:#111;border-radius:16px;overflow:hidden;width:100%;max-width:960px;box-shadow:0 20px 60px rgba(0,0,0,.8);border:1px solid rgba(167,139,250,.3);animation:modalIn .25s ease-out}
+.modal-header{display:flex;justify-content:space-between;align-items:center;padding:12px 18px;background:#1a1a2e}
+.modal-title{font-weight:700;font-size:15px;color:#fff}
+.close-btn{background:none;border:none;color:#999;font-size:28px;cursor:pointer;line-height:1;padding:0 4px;transition:color .2s}
+.close-btn:hover{color:#fff}
+.modal-body{position:relative;width:100%;padding-top:56.25%}
+.modal-body iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
+
+@keyframes modalIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+
+@media (max-width:720px){
+  .header{flex-direction:column;text-align:center;padding:20px}
+  .poster-wrapper{width:170px}
+  .info h1{font-size:22px}
+  .episode-list{grid-template-columns:repeat(3,1fr);gap:8px}
+  .modal-overlay{padding:4px}
+}

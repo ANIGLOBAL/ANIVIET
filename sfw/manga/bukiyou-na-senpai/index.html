@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='%23ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Bukiyou na Senpai. - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    :root { --accent:#ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; padding:0 !important; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1000px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:230px minmax(0,1fr); gap:24px; padding:22px 0 0; }
+    @media (max-width:720px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:200px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.4rem,4vw,2rem); letter-spacing:-.02em; line-height:1.18; }
+    .adult-badge-tag { display:inline-block; vertical-align:middle; margin-left:8px; background:var(--accent); color:#fff; font-family:"Inter",sans-serif; font-size:.6rem; font-weight:800; padding:3px 8px; border-radius:6px; letter-spacing:.06em; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .watch-desc { margin-top:1.1rem; color:#aaa; font-size:.9rem; line-height:1.75; }
+
+    /* ===== Chapter list (transformed from grid) ===== */
+    .episodes, .volumes { margin-top:1.9rem; }
+    .episodes h2, .volumes h2 { margin:0 0 .85rem; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-note { color:#d8b24a; font-size:.8rem; margin-bottom:.7rem; }
+    .chapter-list { display:flex; flex-direction:column; border:1px solid var(--border); border-radius:12px; overflow:hidden; }
+    .chapter-card {
+      display:flex !important; align-items:center; gap:14px; text-align:left;
+      padding:11px 16px; background:var(--card);
+      border-bottom:1px solid var(--border); border-radius:0 !important;
+      transition:background .15s ease;
+    }
+    .chapter-card:last-child { border-bottom:none; }
+    .chapter-card:hover { transform:none !important; box-shadow:none !important; background:#26262a; border-color:var(--border); }
+    .ch-num { color:var(--accent) !important; font-weight:700; font-size:.85rem; min-width:96px; flex-shrink:0; }
+    .ch-title { flex:1; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--muted) !important; font-size:.8rem; margin:0 !important; }
+    .ch-loader { padding:34px 16px; text-align:center; color:var(--muted); font-size:.85rem; }
+
+    /* ===== Volume blocks ===== */
+    .volume-block { border:1px solid var(--border); border-radius:12px; margin-bottom:10px; overflow:hidden; background:var(--card); }
+    .volume-title { display:flex; align-items:center; justify-content:space-between; padding:13px 16px; cursor:pointer; user-select:none; transition:background .15s ease; }
+    .volume-title:hover { background:#242428; }
+    .v-name { font-weight:700; font-size:.95rem; color:#fff; }
+    .v-meta { color:var(--muted); font-size:.78rem; margin-left:10px; }
+    .v-arrow { color:var(--muted); transition:transform .2s ease; }
+    .volume-title.open .v-arrow { transform:rotate(180deg); }
+    .chapter-grid { display:none; flex-direction:column; border-top:1px solid var(--border); }
+    .volume-block.open .chapter-grid { display:flex; }
+    .volume-block .chapter-card { padding-left:20px; }
+
+    /* ===== Footer ===== */
+    .footer { border-top:1px solid rgba(255,255,255,.08); margin-top:30px; padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; }
+    .footer p { margin:4px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="back-row">
+      <a href="../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://uploads.mangadex.org/covers/d7166757-6022-45f7-bab3-ceb92b0f5113/f69ec575-1214-4184-8675-84c199d986d1.jpg.512.jpg" alt="Bukiyou na Senpai." loading="lazy"></div>
+      <div>
+        <h1 class="watch-title">Bukiyou na Senpai.</h1>
+        <p class="watch-orig">Bukiyou na Senpai.</p>
+        <div class="watch-meta"><span class="pill hot">Tình trạng: Hoàn thành</span><span class="pill">Năm: 2019</span><span class="pill">Nhóm tuổi: Seinen</span><span class="pill">Tác giả: Kudo Makoto</span><span class="pill">Họa sĩ: Kudo Makoto</span><span class="pill">Nguồn: MangaDex</span><span class="pill">Romance</span><span class="pill">Comedy</span><span class="pill">Office Workers</span><span class="pill">Slice of Life</span></div>
+      </div>
+    </div>
+    <p class="watch-desc">Kannawa-senpai is considered many things, but smooth is definitely not one of them. Then she meets Kamegawa, her new Kouhai. He&#39;s cute, a little nerdy, and easy to talk to. How will this awkward Senpai be able to handle these new feelings!?<br><br>(Source: Manga UP! Global)</p>
+    <div class="episodes">
+      <h2>Danh sách chương</h2>
+      <div class="lang-note" id="langNote" style="display:none;"></div>
+      <div id="chapterList"><div class="ch-loader">Đang tải danh sách chương...</div></div>
+    </div>
+    <div class="footer"><p>&copy; 2026 ANIVIETDB. Nội dung thuộc bản quyền chủ sở hữu. Nguồn: MangaDex.</p><p>Trang web sưu tầm cá nhân - Phi thương mại.</p></div>
+  </div>
+
+  <script src="../../../manga-config.js"></script>
+  <script src="../../../manga-api.js"></script>
+  <script src="data.js"></script>
+  <script>
+    var MANGA_ID = "d7166757-6022-45f7-bab3-ceb92b0f5113";
+    var NSFW = false;
+    var listEl = document.getElementById('chapterList');
+    var langNoteEl = document.getElementById('langNote');
+    var chapterLang = 'vi';
+
+    window.MANGA_API.chooseChapters(MANGA_ID, NSFW, 'vi').then(function (res) {
+      var chapters = res.chapters;
+      if (!chapters.length) {
+        listEl.innerHTML = '<div class="ch-loader">Chưa có chương nào trên MangaDex.</div>';
+        return;
+      }
+      chapterLang = res.lang;
+      langNoteEl.textContent = 'Đang hiển thị bản: ' + window.MANGA_API.langName(chapterLang);
+      langNoteEl.style.display = '';
+      listEl.innerHTML = '';
+      var grid = document.createElement('div');
+      grid.className = 'chapter-list';
+      chapters.forEach(function (ch, i) {
+        var a = ch.attributes;
+        var label = a.chapter ? 'Chương ' + a.chapter : 'Chương khác';
+        var aEl = document.createElement('a');
+        aEl.className = 'chapter-card';
+        aEl.href = 'reader.html?ch=' + ch.id + (i > 0 ? '&p=' + i : '') + '&lang=' + chapterLang;
+        var num = document.createElement('span');
+        num.className = 'ch-num';
+        num.textContent = label;
+        aEl.appendChild(num);
+        if (a.title) {
+          var t = document.createElement('span');
+          t.className = 'ch-title';
+          t.textContent = a.title;
+          aEl.appendChild(t);
+        }
+        grid.appendChild(aEl);
+      });
+      listEl.appendChild(grid);
+    }).catch(function (e) {
+      var msg = window.MANGA_API.errorMessage(e);
+      if (msg) {
+        listEl.innerHTML = '<div class="ch-loader">' + esc(msg) + '</div>';
+        return;
+      }
+      listEl.innerHTML = '<div class="ch-loader">Không tải được danh sách chương: ' + esc(e && e.message || '') + '</div>';
+    });
+  </script>
+<script src="../../../chatbox.js"></script>
+</body>
+</html>

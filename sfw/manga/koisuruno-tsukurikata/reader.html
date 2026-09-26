@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='%23ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Đọc truyện - Koisuru (Otome) no Tsukurikata - ANIVIETDB</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../style.css">
+  <style>
+    *{box-sizing:border-box}
+    body.reader-mode{background:#111;min-height:100vh;font-family:'Roboto',sans-serif;margin:0;padding:0}
+    .reader-bar{position:sticky;top:0;z-index:100;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;background:#1a1a2e;flex-wrap:wrap;border-bottom:1px solid #333}
+    .reader-bar .reader-left{display:flex;align-items:center;gap:10px;min-width:0;flex:1}
+    .reader-bar a{color:#fff;text-decoration:none;font-size:14px;white-space:nowrap}
+    .reader-bar a:hover{color:#a78bfa}
+    .reader-bar .reader-title{color:#eee;font-size:14px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+    .reader-bar .reader-lang{font-size:11px;font-weight:700;color:#111;background:#ffd75e;border-radius:10px;padding:3px 10px;white-space:nowrap}
+    .reader-bar .reader-nav{display:flex;gap:8px}
+    .reader-bar button{padding:8px 16px;border:none;border-radius:6px;background:#e84393;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+    .reader-bar button:disabled{opacity:.4;cursor:default}
+    .reader-pages{max-width:980px;margin:0 auto;padding:16px 8px 60px}
+    .reader-pages img{display:block;width:100%;height:auto;margin:0 auto 2px;border-radius:2px;background:#000}
+    .reader-loading{padding:80px 20px;text-align:center;color:#888}
+    @media (max-width:600px){.reader-bar .reader-title{display:none}.reader-bar a{font-size:13px}}
+  </style>
+</head>
+<body class="reader-mode">
+  <div class="reader-bar">
+    <div class="reader-left">
+      <a href="index.html">&larr; Về trang truyện</a>
+      <span class="reader-title" id="readerTitle">Đang tải...</span>
+      <span class="reader-lang" id="readerLang">Vietsub</span>
+    </div>
+    <div class="reader-nav">
+      <button id="readerPrev" disabled>&#9664; Chương trước</button>
+      <button id="readerNext" disabled>Chương sau &#9654;</button>
+    </div>
+  </div>
+  <div class="reader-pages" id="readerPages"></div>
+
+  <script src="../../../manga-config.js"></script>
+  <script src="../../../manga-api.js"></script>
+  <script>
+    var MANGA_ID = "3bcc56f0-1b71-4542-b7b1-74db4fab2d72";
+    var NSFW = false;
+    var chapterList = [];
+    var currentIndex = 0;
+    var currentLang = 'vi';
+    var pagesEl = document.getElementById('readerPages');
+    var titleEl = document.getElementById('readerTitle');
+    var langEl = document.getElementById('readerLang');
+    var prevBtn = document.getElementById('readerPrev');
+    var nextBtn = document.getElementById('readerNext');
+
+    function showError(msg) {
+      pagesEl.innerHTML = '<div class="reader-loading">' + String(msg).replace(/</g, '&lt;') + '</div>';
+    }
+
+    function errMsg(e) {
+      var m = window.MANGA_API.errorMessage(e);
+      return m ? m : ('Không tải được: ' + (e && e.message || 'lỗi không xác định'));
+    }
+
+    window.MANGA_API.chooseChapters(MANGA_ID, NSFW, window.MANGA_API.qs('lang') || 'vi').then(function (res) {
+      if (!res.chapters.length) { showError('Chưa có chương nào trên MangaDex.'); return; }
+      chapterList = res.chapters;
+      currentLang = res.lang;
+      langEl.textContent = window.MANGA_API.langName(currentLang);
+      start();
+    }).catch(function (e) { showError(errMsg(e)); });
+
+    function start() {
+      var want = window.MANGA_API.qs('ch');
+      var pi = parseInt(window.MANGA_API.qs('p'), 10);
+      currentIndex = -1;
+      for (var i = 0; i < chapterList.length; i++) {
+        if (chapterList[i].id === want) { currentIndex = i; break; }
+      }
+      if (currentIndex === -1 && !isNaN(pi) && pi >= 0 && pi < chapterList.length) currentIndex = pi;
+      if (currentIndex === -1) currentIndex = 0;
+      openChapter(currentIndex);
+    }
+
+    function openChapter(i) {
+      if (i < 0 || i >= chapterList.length) return;
+      currentIndex = i;
+      var ch = chapterList[i];
+      titleEl.textContent = window.MANGA_API.chapterLabel(ch);
+      history.replaceState(null, '', '?ch=' + ch.id + '&p=' + i + '&lang=' + currentLang);
+      pagesEl.innerHTML = '<div class="reader-loading">Đang tải...</div>';
+      function loadImg(img, src, altSrc, attempt) {
+        img.onload = function () { img.onerror = null; };
+        img.onerror = function () {
+          if (attempt < 3) {
+            setTimeout(function () {
+              loadImg(img, src.split('?')[0] + '?r=' + Date.now() + '_' + attempt, altSrc, attempt + 1);
+            }, 2000 * attempt);
+          } else if (altSrc) {
+            setTimeout(function () {
+              loadImg(img, altSrc.split('?')[0] + '?r=' + Date.now() + '_s', null, 3);
+            }, 500);
+          }
+        };
+        img.src = src;
+      }
+
+      window.MANGA_API.chapterPages(ch.id).then(function (pg) {
+        pagesEl.innerHTML = '';
+        pg.files.forEach(function (f, i) {
+          var img = document.createElement('img');
+          img.loading = 'lazy';
+          var altSrc = pg.saver && pg.saver[i] ? window.MANGA_API.pageSrc(pg.base, pg.hash, pg.saver[i], true) : null;
+          loadImg(img, window.MANGA_API.pageSrc(pg.base, pg.hash, f), altSrc, 1);
+          img.alt = '';
+          pagesEl.appendChild(img);
+        });
+        window.scrollTo(0, 0);
+      }).catch(function (e) { showError(errMsg(e)); });
+      prevBtn.disabled = currentIndex <= 0;
+      nextBtn.disabled = currentIndex >= chapterList.length - 1;
+    }
+
+    prevBtn.addEventListener('click', function () { if (currentIndex > 0) openChapter(currentIndex - 1); });
+    nextBtn.addEventListener('click', function () { if (currentIndex < chapterList.length - 1) openChapter(currentIndex + 1); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft' && currentIndex > 0) openChapter(currentIndex - 1);
+      if (e.key === 'ArrowRight' && currentIndex < chapterList.length - 1) openChapter(currentIndex + 1);
+    });
+  </script>
+<script src="../../../chatbox.js"></script>
+</body>
+</html>

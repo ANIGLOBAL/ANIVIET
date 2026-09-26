@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%23151515'/><text x='50' y='68' font-size='52' font-family='Arial' font-weight='bold' fill='ff5e00' text-anchor='middle'>A</text></svg>">
+<title>Doraemon Series - ANIVIETDB</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --accent: #ff5e00; --bg:#151515; --card:#1b1b1b; --border:#2a2a2a; --muted:#8c8c8c; }
+    * { box-sizing: border-box; }
+    body { margin:0; background:var(--bg); color:#fff; font-family:"Inter",system-ui,sans-serif; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; }
+    img { display:block; }
+    .container { max-width:1080px; margin-inline:auto; padding:0 20px 40px; }
+    .back-row { padding-top:18px; display:flex; align-items:center; justify-content:space-between; gap:12px; }
+    .back-link { color:var(--muted); font-size:.88rem; font-weight:600; padding:7px 14px; border:1px solid var(--border); border-radius:999px; transition:all .15s ease; }
+    .back-link:hover { color:#fff; border-color:var(--accent); }
+    .brand-mini { font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:.9rem; color:#666; letter-spacing:.04em; }
+    .brand-mini b { color:var(--accent); }
+    .watch-wrap { display:grid; grid-template-columns:250px minmax(0,1fr); gap:26px; padding:22px 0 0; }
+    @media (max-width:760px){ .watch-wrap{ grid-template-columns:1fr; } .watch-poster{ max-width:220px; } }
+    .watch-poster img { width:100%; border-radius:14px; border:1px solid rgba(255,255,255,.1); }
+    .watch-title { margin:0; font-family:"Space Grotesk",sans-serif; font-weight:700; font-size:clamp(1.5rem,4vw,2.2rem); letter-spacing:-.02em; line-height:1.15; }
+    .watch-orig { margin:.35rem 0 0; color:var(--muted); font-size:.92rem; font-style:italic; }
+    .watch-meta { display:flex; flex-wrap:wrap; gap:.45rem; margin-top:.9rem; }
+    .pill { border-radius:999px; border:1px solid var(--border); background:#1d1d1d; color:#bbb; font-size:.74rem; padding:.28rem .75rem; }
+    .pill.hot { border-color:#ff5e0066; color:var(--accent); font-weight:700; }
+    .meta-lines { margin-top:.9rem; color:var(--muted); font-size:.82rem; line-height:1.7; }
+    .watch-desc { margin-top:1rem; color:#aaa; font-size:.9rem; line-height:1.75; display:-webkit-box; -webkit-line-clamp:4; -webkit-box-orient:vertical; overflow:hidden; }
+    .watch-desc.open { -webkit-line-clamp:unset; }
+    .desc-toggle { background:none; border:none; color:var(--accent); font:inherit; font-size:.8rem; font-weight:600; cursor:pointer; padding:.3rem 0; display:none; }
+    .ep-section { margin-top:1.9rem; }
+    .ep-head { display:flex; align-items:center; justify-content:space-between; gap:1rem; flex-wrap:wrap; margin-bottom:.85rem; }
+    .ep-head h3 { margin:0; font-family:"Space Grotesk",sans-serif; font-size:1.08rem; }
+    .lang-select { display:flex; flex-wrap:wrap; gap:.5rem; }
+    .chip { border-radius:999px; border:1px solid var(--border); background:transparent; color:#bbb; font:inherit; font-size:.78rem; font-weight:600; padding:.38rem .85rem; cursor:pointer; transition:all .15s ease; }
+    .chip:hover { color:#fff; border-color:#555; }
+    .chip.active { background:var(--accent); border-color:var(--accent); color:#000; }
+    .ep-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(64px,1fr)); gap:.5rem; }
+    .ep { border:1px solid var(--border); background:#1c1c1c; color:#fff; border-radius:9px; font:inherit; font-size:.78rem; font-weight:600; padding:.55rem .2rem; text-align:center; cursor:pointer; transition:all .15s ease; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ep:hover { border-color:var(--accent); background:rgba(255,255,255,.05); transform:translateY(-1px); }
+    .site-footer { border-top:1px solid rgba(255,255,255,.08); padding:20px; text-align:center; color:#777; font-size:.8rem; line-height:1.7; margin-top:34px; }
+    .site-footer p { margin:4px 0; }
+    .modal-overlay { position:fixed; inset:0; z-index:100; background:rgba(0,0,0,.78); backdrop-filter:blur(5px); display:none; align-items:center; justify-content:center; padding:1.25rem; }
+    .modal-overlay.active { display:flex; }
+    .modal { width:min(960px,100%); background:#101010; border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    .modal-head { display:flex; align-items:center; justify-content:space-between; padding:.75rem 1rem; border-bottom:1px solid var(--border); gap:10px; }
+    .modal-title { font-weight:700; font-size:.9rem; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .close-btn { background:none; border:none; color:var(--muted); font-size:1.5rem; line-height:1; cursor:pointer; padding:0 .25rem; flex-shrink:0; }
+    .close-btn:hover { color:#fff; }
+    .modal-body iframe { display:block; width:100%; aspect-ratio:16/9; border:0; background:#000; }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="back-row">
+      <a href="../../../index.html" class="back-link">&larr; SFW Danh m&#7909;c</a>
+      <span class="brand-mini">ANI<b>VIETDB</b></span>
+    </div>
+    <div class="watch-wrap">
+      <div class="watch-poster"><img src="https://phim.nguonc.com/public/images/Film/aTs9M7JAOdBIrulQ8AaACTAHTZc.jpg" alt="Doraemon"></div>
+      <div>
+        <h1 class="watch-title">Doraemon</h1>
+        <p class="watch-orig">ドラえもん</p>
+        <p class="watch-desc" style="-webkit-line-clamp:unset;margin-top:.8rem;">Series robot mèo ú và cậu bé Nobita - biểu tượng tuổi thơ của nhiều thế hệ. Bao gồm series truyền hình 2005 và toàn bộ phim điện ảnh được xếp theo năm phát hành.</p>
+      </div>
+    </div>
+    <section class="ep-section"><div class="ep-head"><h3>Th&#7913; t&#7921; xem &#273;&#250;ng</h3></div><div class="watch-meta"><span class="pill hot">Series TV 2005</span> <span class="pill">&#8594;</span><span class="pill hot">Phim điện ảnh theo năm</span></div></section>
+    <section class="ep-section">
+      <div class="ep-head"><h3>C&#225;c ph&#7847;n</h3></div>
+      <div class="hub-grid" id="hubGrid"></div>
+    </section>
+  </main>
+  <footer class="site-footer">
+    <p>&copy; 2026 ANIVIETDB. Tất cả nội dung thuộc bản quyền của chủ sở hữu tương ứng.</p>
+    <p>Trang web sưu tầm cá nhân - Phi thương mại.</p>
+  </footer>
+  <script>
+        var entries = [
+      { label: 'Doraemon: Chú Khủng Long của Nobita', sub: 'FULL (100 phút) &bull; 1980', thumb: 'https://phim.nguonc.com/public/images/Film/aTs9M7JAOdBIrulQ8AaACTAHTZc.jpg', page: 'doraemon-chu-khung-long-cua-nobita/', color: '#457b9d' },
+      { label: 'Doraemon: Nobita và Lịch Sử Khai Phá Vũ Trụ', sub: 'FULL (90 phút) &bull; 1981', thumb: 'https://phim.nguonc.com/public/images/Film/28yzZLTEyGpALMVU894CqgEy7Co.jpg', page: 'doraemon-nobita-va-lich-su-khai-pha-vu-tru/', color: '#2a9d8f' },
+      { label: 'Doraemon: Nobita Thám Hiểm Vùng Đất Mới', sub: 'FULL (92 phút) &bull; 1982', thumb: 'https://phim.nguonc.com/public/images/Film/jegKbTwp9mC8RMsYQAEMRgveSVW.jpg', page: 'doraemon-nobita-tham-hiem-vung-dat-moi/', color: '#f77f00' },
+      { label: 'Doraemon: Nobita và Lâu Đài Dưới Đáy Biển', sub: 'FULL (94 phút) &bull; 1983', thumb: 'https://phim.nguonc.com/public/images/Film/t5aoFDZj4fn5TiSkzj7u5vD5Gib.jpg', page: 'doraemon-nobita-va-lau-dai-duoi-day-bien/', color: '#6a0572' },
+      { label: 'Doraemon: Nobita và Chuyến Phiêu Lưu Vào Xứ Quỷ', sub: 'FULL (97 phút) &bull; 1984', thumb: 'https://phim.nguonc.com/public/images/Film/wF7AUbAux8syMPkYhLE3H3V7yTL.jpg', page: 'doraemon-nobita-va-chuyen-phieu-luu-vao-xu-quy/', color: '#e63946' },
+      { label: 'Doraemon: Nobita và Cuộc Chiến Vũ Trụ', sub: 'FULL (98 phút) &bull; 1985', thumb: 'https://phim.nguonc.com/public/images/Film/wBBONMlfnrU2GxxN7X2pFDdZuRB.jpg', page: 'doraemon-nobita-va-cuoc-chien-vu-tru/', color: '#0077b6' },
+      { label: 'Doraemon: Nobita và Binh Đoàn Người Sắt', sub: 'FULL (97 phút) &bull; 1986', thumb: 'https://phim.nguonc.com/public/images/Film/af4fSKXcLasXRoCjt0Hto9W53Ko.jpg', page: 'doraemon-nobita-va-binh-doan-nguoi-sat/', color: '#e9c46a' },
+      { label: 'Doraemon: Nobita và Hiệp Sĩ Rồng', sub: 'FULL (91 phút) &bull; 1987', thumb: 'https://phim.nguonc.com/public/images/Film/r32j1J9fPBCFtYNsTUDa2K0Jzcr.jpg', page: 'doraemon-nobita-va-hiep-si-rong/', color: '#457b9d' },
+      { label: 'Doraemon: Nobita Tây Du Kí', sub: 'FULL (90 phút) &bull; 1988', thumb: 'https://phim.nguonc.com/public/images/Film/1CWMhTGlbjwTW0lMLzXP3C5g3f7.jpg', page: 'doraemon-nobita-tay-du-ki/', color: '#2a9d8f' },
+      { label: 'Doraemon: Nobita và Nước Nhật Thời Nguyên Thủy', sub: 'FULL (100 phút) &bull; 1989', thumb: 'https://phim.nguonc.com/public/images/Film/pPwR2VBB1Bo1SB5Tf205bY7vqbt.jpg', page: 'doraemon-nobita-va-nuoc-nhat-thoi-nguyen-thuy/', color: '#f77f00' },
+      { label: 'Doraemon: Nobita và Hành Tinh Muông Thú', sub: 'FULL (100 phút) &bull; 1990', thumb: 'https://phim.nguonc.com/public/images/Film/brKa6PMfnSyvdcDRPgLILYjNXRQ.jpg', page: 'doraemon-nobita-va-hanh-tinh-muong-thu/', color: '#6a0572' },
+      { label: 'Doraemon: Nobita Ở Xứ Sở Nghìn Lẻ Một Đêm', sub: 'FULL (99 phút) &bull; 1991', thumb: 'https://phim.nguonc.com/public/images/Film/zPeMn87CADz6hWLUGrkp1NFephH.jpg', page: 'doraemon-nobita-o-xu-so-nghin-le-mot-dem/', color: '#e63946' },
+      { label: 'Doraemon: Nobita và Vương Quốc Trên Mây', sub: 'FULL (98 phút) &bull; 1992', thumb: 'https://phim.nguonc.com/public/images/Film/zYGkFxhkECVW8f7wtF52ckpQak.jpg', page: 'doraemon-nobita-va-vuong-quoc-tren-may/', color: '#0077b6' },
+      { label: 'Doraemon: Nobita và Mê Cung Thiếc', sub: 'FULL (100 phút) &bull; 1993', thumb: 'https://phim.nguonc.com/public/images/Film/j3pr1JEpKmDL3n6h6CQwXHY0gkU.jpg', page: 'doraemon-nobita-va-me-cung-thiec/', color: '#e9c46a' },
+      { label: 'Doraemon: Nobita và Ba Chàng Hiệp Sĩ Mộng Mơ', sub: 'FULL (99 phút) &bull; 1994', thumb: 'https://phim.nguonc.com/public/images/Film/2UEvUquou085rRxVZvDOfWtNjZY.jpg', page: 'doraemon-nobita-va-ba-chang-hiep-si-mong-mo/', color: '#457b9d' },
+      { label: 'Doraemon: Đấng Toàn Năng Nobita', sub: 'FULL (98 phút) &bull; 1995', thumb: 'https://phim.nguonc.com/public/images/Film/6WBiGc4T69QRd2RNNRFOzgE3Eew.jpg', page: 'doraemon-dang-toan-nang-nobita/', color: '#2a9d8f' },
+      { label: 'Doraemon: Nobita và Chuyến Tàu Tốc Hành Ngân Hà', sub: 'FULL (97 phút) &bull; 1996', thumb: 'https://phim.nguonc.com/public/images/Film/qblWrkMEUKhMpfry51Hs3rJCj7n.jpg', page: 'doraemon-nobita-va-chuyen-tau-toc-hanh-ngan-ha/', color: '#f77f00' },
+      { label: 'Doraemon: Nobita và Cuộc Phiêu Lưu Ở Thành Phố Dây Cót', sub: 'FULL (99 phút) &bull; 1997', thumb: 'https://phim.nguonc.com/public/images/Film/m5uDx0xQhu2wA3Fc4AiqINrvdaT.jpg', page: 'doraemon-nobita-va-cuoc-phieu-luu-o-thanh-pho-day-cot/', color: '#6a0572' },
+      { label: 'Doraemon: Nobita Du Hành Biển Phương Nam', sub: 'FULL (91 phút) &bull; 1998', thumb: 'https://phim.nguonc.com/public/images/Film/iiZP2Jfj0FAD2ErNaEAEsFBcz7j.jpg', page: 'doraemon-nobita-du-hanh-bien-phuong-nam/', color: '#e63946' },
+      { label: 'Doraemon: Nobita Vũ Trụ Phiêu Lưu Kí', sub: 'FULL (93 phút) &bull; 1999', thumb: 'https://phim.nguonc.com/public/images/Film/2VwTQaGE1YX5S2ocp3NQTsTF1NP.jpg', page: 'doraemon-nobita-vu-tru-phieu-luu-ki/', color: '#0077b6' },
+      { label: 'Doraemon: Nobita và Truyền Thuyết Vua Mặt Trời', sub: 'FULL (93 phút) &bull; 2000', thumb: 'https://phim.nguonc.com/public/images/Film/eA2kZbNOpzHzmXvF6LMlDVma7do.jpg', page: 'doraemon-nobita-va-truyen-thuyet-vua-mat-troi/', color: '#e9c46a' },
+      { label: 'Doraemon: Nobita và Những Dũng Sĩ Có Cánh', sub: 'FULL (91 phút) &bull; 2001', thumb: 'https://phim.nguonc.com/public/images/Film/iW4dd1BuAhtYSKMLtt3vGX4C1um.jpg', page: 'doraemon-nobita-va-nhung-dung-si-co-canh/', color: '#457b9d' },
+      { label: 'Doraemon: Nobita và Vương Quốc Robot', sub: 'FULL (80 phút) &bull; 2002', thumb: 'https://phim.nguonc.com/public/images/Film/oYp4mptxvVaJTutVXSS9Akzet5j.jpg', page: 'doraemon-nobita-va-vuong-quoc-robot/', color: '#2a9d8f' },
+      { label: 'Doraemon: Nobita và Những Pháp Sư Gió Bí Ẩn', sub: 'FULL (84 phút) &bull; 2003', thumb: 'https://phim.nguonc.com/public/images/Film/mJc4c2eN1bwRhNZfjDKukzNerYx.jpg', page: 'doraemon-nobita-va-nhung-phap-su-gio-bi-an/', color: '#f77f00' },
+      { label: 'Doraemon: Nobita Ở Vương Quốc Chó Mèo', sub: 'FULL (89 phút) &bull; 2004', thumb: 'https://phim.nguonc.com/public/images/Film/5I3oMCGtpm17QhOt2eMy0pfCu3P.jpg', page: 'doraemon-nobita-o-vuong-quoc-cho-meo/', color: '#6a0572' },
+      { label: 'Doraemon (2005)', sub: 'Đang chiếu (919/1000) &bull; 2005', thumb: 'https://phim.nguonc.com/public/images/Film/292.jpg', page: 'doraemon-2005/', color: '#e63946' },
+      { label: 'Doraemon: Chú Khủng Long của Nobita (2006)', sub: 'FULL (107 phút) &bull; 2006', thumb: 'https://phim.nguonc.com/public/images/Film/jfTL29RnWaVRqW3VEcAtXUGx53v.jpg', page: 'doraemon-chu-khung-long-cua-nobita-2006/', color: '#0077b6' },
+      { label: 'Doraemon: Nobita và Chuyến Phiêu Lưu Vào Xứ Quỷ (Remake)', sub: 'FULL (112 phút) &bull; 2007', thumb: 'https://phim.nguonc.com/public/images/Film/fCrErWTy5YXrzN3NbDoolHwB4b.jpg', page: 'doraemon-nobita-va-chuyen-phieu-luu-vao-xu-quy-remake/', color: '#e9c46a' },
+      { label: 'Doraemon: Nobita và Người Khổng Lồ Xanh', sub: 'FULL (112 phút) &bull; 2008', thumb: 'https://phim.nguonc.com/public/images/Film/9kRAyJHknHsNUnavRAFC29OSy7C.jpg', page: 'doraemon-nobita-va-nguoi-khong-lo-xanh/', color: '#457b9d' },
+      { label: 'Doraemon: Nobita và Lịch Sử Khai Phá Vũ Trụ (remake)', sub: 'FULL (102 phút) &bull; 2009', thumb: 'https://phim.nguonc.com/public/images/Film/4VFRn5xcD8o3qUMrSShm3I6zpfl.jpg', page: 'doraemon-nobita-va-lich-su-khai-pha-vu-tru-remake/', color: '#2a9d8f' },
+      { label: 'Doraemon: Nobita và Cuộc Đại Thủy Chiến Ở Xứ Sở Người Cá', sub: 'FULL (100 phút) &bull; 2010', thumb: 'https://phim.nguonc.com/public/images/Film/6Aj4LfIOhG85obqGE3O0WvpQzqw.jpg', page: 'doraemon-nobita-va-cuoc-dai-thuy-chien-o-xu-so-nguoi-ca/', color: '#f77f00' },
+      { label: 'Doraemon: Nobita và Hòn Đảo Diệu Kì - Cuộc Phiêu Lưu Của Loài Thú', sub: 'FULL (100 phút) &bull; 2012', thumb: 'https://phim.nguonc.com/public/images/Film/jxIcuIIHEGeT9RZ1zE9UBI3WzxS.jpg', page: 'doraemon-nobita-va-hon-dao-dieu-ki-cuoc-phieu-luu-cua-loai-thu/', color: '#6a0572' },
+      { label: 'Doraemon: Nobita và Viện Bảo Tàng Bảo Bối', sub: 'FULL (104 phút) &bull; 2013', thumb: 'https://phim.nguonc.com/public/images/Film/4aLWocthuU4pDIv6UjRJpmOuNB5.jpg', page: 'doraemon-nobita-va-vien-bao-tang-bao-boi/', color: '#e63946' },
+      { label: 'Doraemon: Đôi Bạn Thân', sub: 'FULL (94 phút) &bull; 2014', thumb: 'https://phim.nguonc.com/public/images/Film/1aABIiqBY7yoQESE8qWvR0w9bJZ.jpg', page: 'doraemon-doi-ban-than/', color: '#0077b6' },
+      { label: 'Doraemon: Nobita Thám Hiểm Vùng Đất Mới - Peko và 5 Nhà Thám Hiểm', sub: 'FULL (109 phút) &bull; 2014', thumb: 'https://phim.nguonc.com/public/images/Film/u9S16gXvAO9QbeNu8Y81fUwgWm7.jpg', page: 'doraemon-nobita-tham-hiem-vung-dat-moi-peko-va-5-nha-tham-hiem/', color: '#e9c46a' },
+      { label: 'Doraemon: Nobita và Những Hiệp Sĩ Không Gian', sub: 'FULL (100 phút) &bull; 2015', thumb: 'https://phim.nguonc.com/public/images/Film/zy1laRytpaHGv5LTcU2xFh6KsGI.jpg', page: 'doraemon-nobita-va-nhung-hiep-si-khong-gian/', color: '#457b9d' },
+      { label: 'Doraemon: Nobita và Nước Nhật Thời Nguyên Thủy (Remake)', sub: 'FULL (104 phút) &bull; 2016', thumb: 'https://phim.nguonc.com/public/images/Film/tzrcGi28kAIEsrCNMuiyAOFrToG.jpg', page: 'doraemon-nobita-va-nuoc-nhat-thoi-nguyen-thuy-remake/', color: '#2a9d8f' },
+      { label: 'Doraemon: Nobita và Chuyến Thám Hiểm Nam Cực Kachi Kochi', sub: 'FULL (101 phút) &bull; 2017', thumb: 'https://phim.nguonc.com/public/images/Film/39XQf9sk2qyyleVOX6QdS9o8v53.jpg', page: 'doraemon-nobita-va-chuyen-tham-hiem-nam-cuc-kachi-kochi/', color: '#f77f00' },
+      { label: 'Doraemon: Nobita và Đảo Giấu Vàng', sub: 'FULL (108 phút) &bull; 2018', thumb: 'https://phim.nguonc.com/public/images/Film/anb6GDkC5dOnBDkGehxZdPdUrfr.jpg', page: 'doraemon-nobita-va-dao-giau-vang/', color: '#6a0572' },
+      { label: 'Doraemon: Nobita và Mặt Trăng Phiêu Lưu Ký', sub: 'FULL (110 phút) &bull; 2019', thumb: 'https://phim.nguonc.com/public/images/Film/oEqxT6hA2w8WpYRLmD1pJOS9rww.jpg', page: 'doraemon-nobita-va-mat-trang-phieu-luu-ky/', color: '#e63946' },
+      { label: 'Doraemon: Đôi Bạn Thân 2', sub: 'FULL (96 phút) &bull; 2020', thumb: 'https://phim.nguonc.com/public/images/Film/fStC0dSCRQslE9NzXa36EyOom81.jpg', page: 'doraemon-doi-ban-than-2/', color: '#0077b6' },
+      { label: 'Doraemon: Nobita và Những Bạn Khủng Long Mới', sub: 'FULL (110 phút) &bull; 2020', thumb: 'https://phim.nguonc.com/public/images/Film/8HK8Ce6JpAb8EJTjHKAWhnYy0xi.jpg', page: 'doraemon-nobita-va-nhung-ban-khung-long-moi/', color: '#e9c46a' },
+      { label: 'Doraemon: Nobita và Cuộc Chiến Vũ Trụ Tí Hon', sub: 'FULL (109 phút) &bull; 2022', thumb: 'https://phim.nguonc.com/public/images/Film/iflKt34Ck2JpY2PY9wW1zwdJgJi.jpg', page: 'doraemon-nobita-va-cuoc-chien-vu-tru-ti-hon/', color: '#457b9d' },
+      { label: 'Doraemon: Nobita và Vùng Đất Lý Tưởng Trên Bầu Trời', sub: 'FULL (107 phút) &bull; 2023', thumb: 'https://phim.nguonc.com/public/images/Film/tG3uKlzypyRZzEOh9b6ohFHOk3c.jpg', page: 'doraemon-nobita-va-vung-dat-ly-tuong-tren-bau-troi/', color: '#2a9d8f' },
+      { label: 'Doraemon: Nobita và Bản Giao Hưởng Địa Cầu', sub: 'FULL (115 phút) &bull; 2024', thumb: 'https://phim.nguonc.com/public/images/Film/Z3mSxuPRNiFYxf1LBoGz3YrJzC.jpg', page: 'doraemon-nobita-va-ban-giao-huong-dia-cau/', color: '#f77f00' },
+      { label: 'Doraemon: Nobita Và Cuộc Phiêu Lưu Vào Thế Giới Trong Tranh', sub: 'FULL (105 phút) &bull; 2025', thumb: 'https://phim.nguonc.com/public/images/Film/vncMpsAUDnL1JOb73e5q48gX32S.jpg', page: 'doraemon-nobita-va-cuoc-phieu-luu-vao-the-gioi-trong-tranh/', color: '#6a0572' }
+    ];
+    var grid=document.getElementById('hubGrid');
+    entries.forEach(function(e){
+      var card=document.createElement('a');
+      card.className='hub-card';
+      card.href=e.page;
+      card.innerHTML='<div class="hub-thumb"><img src="'+e.thumb+'" alt="'+e.label+'" loading="lazy"></div><div class="hub-body"><h3>'+e.label+'</h3><p>'+e.sub+'</p></div>';
+      grid.appendChild(card);
+    });
+  </script>
+  <style>
+    .hub-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(150px,1fr)); gap:14px; }
+    .hub-card { position:relative; background:var(--card); border-radius:14px; overflow:hidden; border:1px solid rgba(255,255,255,.08); transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease; }
+    .hub-card:hover { transform:translateY(-5px); box-shadow:0 14px 32px #ff5e002e; border-color:var(--accent); }
+    .hub-thumb { aspect-ratio:2/3; overflow:hidden; background:#222; }
+    .hub-thumb img { width:100%; height:100%; object-fit:cover; transition:transform .3s ease; }
+    .hub-card:hover .hub-thumb img { transform:scale(1.06); }
+    .hub-body { padding:10px 12px 12px; }
+    .hub-body h3 { margin:0; font-size:14px; font-weight:600; color:#fff; line-height:1.3; }
+    .hub-body p { margin:3px 0 0; font-size:12px; color:var(--muted); }
+  </style>
+<script src="../../../../chatbox.js"></script>
+</body>
+</html>
