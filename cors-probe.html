@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ANIVIET — CORS probe</title>
+<style>
+  body { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; background:#0b1020; color:#e5e7eb; margin:0; padding:24px; }
+  h1 { font-size:18px; margin:0 0 4px; }
+  p.sub { color:#94a3b8; font-size:13px; margin:0 0 20px; }
+  button { background:#4f46e5; color:#fff; border:0; border-radius:8px; padding:10px 18px; font-size:14px; cursor:pointer; margin-bottom:20px; }
+  table { border-collapse:collapse; width:100%; font-size:13px; }
+  th, td { border:1px solid #1e293b; padding:8px 10px; text-align:left; vertical-align:top; }
+  th { background:#111827; color:#cbd5e1; }
+  .ok { color:#4ade80; font-weight:bold; }
+  .bad { color:#f87171; font-weight:bold; }
+  .warn { color:#fbbf24; font-weight:bold; }
+  .mono { color:#94a3b8; font-size:12px; word-break:break-all; }
+  #summary { margin:16px 0; padding:12px; border-radius:8px; background:#111827; border:1px solid #1e293b; white-space:pre-wrap; font-size:13px; }
+</style>
+</head>
+<body>
+<h1>ANIVIET — CORS probe</h1>
+<p class="sub">Trang này chạy trên chính domain đã deploy. Mở DevTools &gt; Console trước rồi bấm nút bên dưới.</p>
+
+<button id="run">Chạy kiểm tra</button>
+<div id="summary">Chưa chạy.</div>
+
+<table>
+<thead>
+<tr><th>#</th><th>Worker / route</th><th>Loại</th><th>Kết quả</th><th>Chi tiết</th></tr>
+</thead>
+<tbody id="rows"></tbody>
+</table>
+
+<script>
+const cfg = (window.ANIVIET_CONFIG = window.ANIVIET_CONFIG || {});
+
+const TARGETS = [
+  { name: 'auth  /api/auth/me',              base: cfg.authApi,        path: '/api/auth/me',              method: 'GET'  },
+  { name: 'auth  register-send-code',        base: cfg.authApi,        path: '/api/auth/register-send-code',method: 'POST' },
+  { name: 'oauth /health',                    base: cfg.oauthSyncApi,   path: '/health',                    method: 'GET'  },
+  { name: 'oauth /api/sync/status',           base: cfg.oauthSyncApi,   path: '/api/sync/status',           method: 'GET'  },
+  { name: 'watch /health',                    base: cfg.watchPartyApi,  path: '/health',                    method: 'GET'  },
+  { name: 'watch /api/rooms/ws-ticket',       base: cfg.watchPartyApi,  path: '/api/rooms/ws-ticket',       method: 'POST' },
+];
+
+const tbody = document.getElementById('rows');
+const summary = document.getElementById('summary');
+
+function add(name, kind, cls, detail) {
+  const tr = document.createElement('tr');
+  tr.innerHTML =
+    '<td></td><td class="mono"></td><td></td><td class="' + cls + '"></td><td class="mono"></td>';
+  const td = tr.children;
+  td[0].textContent = tbody.children.length + 1;
+  td[1].textContent = name;
+  td[2].textContent = kind;
+  td[3].textContent = cls === 'ok' ? 'PASS' : cls === 'warn' ? 'RESPONDED' : 'BLOCKED';
+  td[4].textContent = detail;
+  tbody.appendChild(tr);
+}
+
+// GET don gian: khong preflight. Ket qua = CORS cap quyen basic.
+async function probeGet(t) {
+  try {
+    const res = await fetch(t.base + t.path + '?_t=' + Date.now(), {
+      method: 'GET', cache: 'no-store', credentials: 'omit',
+    });
+    // Doc body de trinh duyet that su ap dung CORS khi doc
+    const body = await res.text();
+    add(t.name, 'GET (no preflight)', res.ok || res.status === 401 ? 'ok' : 'warn',
+        'HTTP ' + res.status + ' | ' + (res.headers.get('access-control-allow-origin') || 'no ACAO') +
+        ' | ' + body.slice(0, 90).replace(/\s+/g, ' '));
+  } catch (e) {
+    add(t.name, 'GET (no preflight)', 'bad', String(e && e.message || e));
+  }
+}
+
+// POST co Authorization + JSON: se co preflight. Day la thu can kiem tra.
+async function probePost(t) {
+  try {
+    const res = await fetch(t.base + t.path + '?_t=' + Date.now(), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: 'Bearer probe-invalid' },
+      body: JSON.stringify({ email: 'not-an-email', roomCode: 'ZZZZZZ' }),
+      cache: 'no-store', credentials: 'omit',
+    });
+    const body = await res.text();
+    add(t.name, 'POST + preflight', res.ok || res.status === 401 ? 'ok' : 'warn',
+        'HTTP ' + res.status + ' | ' + (res.headers.get('access-control-allow-origin') || 'no ACAO') +
+        ' | ' + body.slice(0, 90).replace(/\s+/g, ' '));
+  } catch (e) {
+    add(t.name, 'POST + preflight', 'bad', String(e && e.message || e));
+  }
+}
+
+document.getElementById('run').addEventListener('click', async () => {
+  tbody.innerHTML = '';
+  summary.textContent = 'Đang chạy...';
+
+  const missing = TARGETS.filter((t) => !t.base).map((t) => t.name);
+  if (missing.length) {
+    summary.textContent = 'LỖI CẤU HÌNH — không có api-config.js hoặc thiếu key:\n' + missing.join('\n');
+    return;
+  }
+
+  for (const t of TARGETS) {
+    await probeGet(t);
+  }
+  for (const t of TARGETS) {
+    if (t.method === 'POST') await probePost(t);
+  }
+
+  const bad = tbody.querySelectorAll('td.bad').length;
+  const warn = tbody.querySelectorAll('td.warn').length;
+  const ok = tbody.querySelectorAll('td.ok').length;
+
+  let verdict;
+  if (bad === 0) {
+    verdict = 'KẾT LUẬN: KHÔNG CÓ LỖI CORS.\n' +
+      'Cả ' + ok + ' request đều tới được worker và đọc được response.\n' +
+      'Lỗi bạn gặp (429/500) là lỗi ở TẦNG ỨNG DỤNG, không phải CORS.';
+  } else {
+    verdict = 'KẾT LUẬN: CÓ LỖI CORS (' + bad + ' request bị chặn).\n' +
+      'Xem cột "Chi tiết" — message TypeError của trình duyệt là thông tin quyết định.\n' +
+      'Mở DevTools > Network > nhấp request bị chặn > tab Headers để xem preflight.';
+  }
+  summary.textContent = verdict +
+    '\n\nPASS=' + ok + '  RESPONDED(non-2xx)=' + warn + '  BLOCKED=' + bad +
+    '\nOrigin của trang: ' + location.origin;
+  console.log('[cors-probe]', verdict);
+});
+</script>
+</body>
+</html>
