@@ -33,6 +33,8 @@
 <tbody id="rows"></tbody>
 </table>
 
+<!-- BAT BUOC: trang nay phai doc api-config.js giong het trang index.html -->
+<script src="api-config.js"></script>
 <script>
 const cfg = (window.ANIVIET_CONFIG = window.ANIVIET_CONFIG || {});
 
@@ -99,9 +101,22 @@ document.getElementById('run').addEventListener('click', async () => {
   tbody.innerHTML = '';
   summary.textContent = 'Đang chạy...';
 
+  // Neu <script src="api-config.js"> bi chan, thu tai them mot lan nua.
+  if (!window.ANIVIET_CONFIG) {
+    try {
+      const txt = await (await fetch('api-config.js?_t=' + Date.now(), { cache: 'no-store' })).text();
+      (0, eval)(txt);
+    } catch (e) {
+      summary.textContent = 'LỖI: không tải được api-config.js — ' + e.message;
+      return;
+    }
+  }
+
   const missing = TARGETS.filter((t) => !t.base).map((t) => t.name);
   if (missing.length) {
-    summary.textContent = 'LỖI CẤU HÌNH — không có api-config.js hoặc thiếu key:\n' + missing.join('\n');
+    summary.textContent = 'LỖI CẤU HÌNH — api-config.js không có key cho:\n' + missing.join('\n') +
+      '\n\nNội dung đọc được:\n' + JSON.stringify(window.ANIVIET_CONFIG || {}, null, 2);
+    console.error('[cors-probe] config thieu key', window.ANIVIET_CONFIG);
     return;
   }
 
