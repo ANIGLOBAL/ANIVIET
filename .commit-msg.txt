@@ -1,8 +1,0 @@
-Point developer links at ANIGLOBAL-client
-
-The ANIGLOBAL_API repo was renamed to ANIGLOBAL-client, so the developer
-portal URL follows. The parent brand site now lives separately in ANIGLOBAL.
-
-Also carries the email-down work: skip-verification registration, admin
-password reset and 2FA disable, the shared maintenance dialog, and the
-After Auth navigation fix.
