@@ -14,6 +14,8 @@ window.ANIVIET_CONFIG = {
   anilistApi: "https://anilist-proxyql.aniviet.workers.dev",
   mywaifulistApi: "https://aniviet-to-mywaifulist.aniviet.workers.dev",
   watchPartyApi: "https://aniviet-watchparty.aniviet.workers.dev",
+  // Trang web ANIGLOBAL: them /ANIVIET de tao app, /docs de xem huong dan.
+  aniglobalSite: "https://aniglobal.github.io/ANIGLOBAL_API",
 };
 
 window.MD_WORKER = "https://anivietdb.aniviet.workers.dev";
