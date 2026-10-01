@@ -1,0 +1,73 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 1080" width="1920" height="1080" role="img" aria-label="ANIVIET">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#141019"/>
+      <stop offset="0.55" stop-color="#0d0a10"/>
+      <stop offset="1" stop-color="#070608"/>
+    </linearGradient>
+
+    <radialGradient id="glowWarm" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#ff7a2f" stop-opacity="0.55"/>
+      <stop offset="0.5" stop-color="#ff5e00" stop-opacity="0.18"/>
+      <stop offset="1" stop-color="#ff5e00" stop-opacity="0"/>
+    </radialGradient>
+
+    <radialGradient id="glowViolet" cx="0.5" cy="0.5" r="0.5">
+      <stop offset="0" stop-color="#a855f7" stop-opacity="0.34"/>
+      <stop offset="0.55" stop-color="#7c3aed" stop-opacity="0.1"/>
+      <stop offset="1" stop-color="#7c3aed" stop-opacity="0"/>
+    </radialGradient>
+
+    <linearGradient id="ray" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffb27a" stop-opacity="0.22"/>
+      <stop offset="1" stop-color="#ffb27a" stop-opacity="0"/>
+    </linearGradient>
+
+    <linearGradient id="fadeBottom" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#070608" stop-opacity="0"/>
+      <stop offset="0.62" stop-color="#070608" stop-opacity="0.55"/>
+      <stop offset="1" stop-color="#070608" stop-opacity="0.95"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#sky)"/>
+
+  <ellipse cx="1180" cy="300" rx="820" ry="560" fill="url(#glowWarm)"/>
+  <ellipse cx="330" cy="240" rx="700" ry="480" fill="url(#glowViolet)"/>
+
+  <!-- Tia sang toa ra tu dia giua, nhu nen anime chup ngoai doi -->
+  <g transform="translate(1180 980)">
+    <polygon points="0,0 -300,-1080 60,-1080" fill="url(#ray)"/>
+    <polygon points="0,0 40,-1080 210,-1080" fill="url(#ray)" opacity="0.7"/>
+    <polygon points="0,0 400,-1080 560,-1080" fill="url(#ray)" opacity="0.5"/>
+    <polygon points="0,0 -700,-1080 -560,-1080" fill="url(#ray)" opacity="0.45"/>
+  </g>
+
+  <!-- Duong ngang mo mong, tao chieu sau -->
+  <g stroke="#ff9a5a" stroke-opacity="0.1" fill="none">
+    <path d="M0 300 Q 480 250 960 300 T 1920 300"/>
+    <path d="M0 420 Q 480 370 960 420 T 1920 420"/>
+    <path d="M0 545 Q 480 495 960 545 T 1920 545"/>
+    <path d="M0 675 Q 480 625 960 675 T 1920 675"/>
+    <path d="M0 810 Q 480 760 960 810 T 1920 810"/>
+  </g>
+
+  <!-- Hat sang nho, rai rac khong deu de co chuyen dong khi mo trang -->
+  <g fill="#ffd9b3">
+    <circle cx="180" cy="150" r="2.4" opacity="0.5"/>
+    <circle cx="412" cy="330" r="1.6" opacity="0.35"/>
+    <circle cx="655" cy="120" r="3" opacity="0.28"/>
+    <circle cx="880" cy="420" r="1.8" opacity="0.45"/>
+    <circle cx="1075" cy="180" r="2.2" opacity="0.4"/>
+    <circle cx="1290" cy="520" r="1.5" opacity="0.32"/>
+    <circle cx="1470" cy="260" r="2.8" opacity="0.36"/>
+    <circle cx="1650" cy="600" r="1.7" opacity="0.3"/>
+    <circle cx="1810" cy="170" r="2.1" opacity="0.44"/>
+    <circle cx="320" cy="640" r="1.9" opacity="0.3"/>
+    <circle cx="760" cy="720" r="2.5" opacity="0.26"/>
+    <circle cx="1180" cy="800" r="1.6" opacity="0.34"/>
+    <circle cx="1540" cy="860" r="2.3" opacity="0.28"/>
+  </g>
+
+  <rect width="1920" height="1080" fill="url(#fadeBottom)"/>
+</svg>
