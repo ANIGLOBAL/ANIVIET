@@ -1,1 +1,0 @@
-import{j as s,Z as a}from"./index-CcYJwpCm.js";function n({className:e,shimmer:r=!0,...t}){return s.jsx("div",{"aria-hidden":!0,className:a(r?"skeleton-shimmer relative overflow-hidden":"animate-pulse",e),...t})}export{n as S};
