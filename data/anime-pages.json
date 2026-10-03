@@ -9900,14 +9900,13 @@
     "kind": "entry"
   },
   "sfw/anime/universal/jojo/steel-ball-run/": {
-    "title": "Steel Ball Run - ANIVIETDB",
+    "title": "Steel Ball Run 1st Stage - ANIVIETDB",
     "episodes": [
       {
-        "num": "FULL",
-        "url": "https://embed15.streamc.xyz/embed.php?hash=978afba40d1b1236f7598ae4be9684c7"
+        "num": "1",
+        "url": "https://embed12.streamc.xyz/embed.php?hash=6103585670eed354ab555cd0014a6d59"
       }
-    ],
-    "kind": "entry"
+    ]
   },
   "sfw/anime/universal/kanojo-mo-kanojo/": {
     "title": "Kanojo mo Kanojo Series - ANIVIETDB",
@@ -18421,6 +18420,19 @@
         "num": "12",
         "url": "https://embed1.streamc.xyz/embed.php?hash=a51b1529b3313ec87edf76b0d18192dd",
         "server": "Vietsub #1"
+      }
+    ]
+  },
+  "sfw/anime/universal/jojo/steel-ball-run-2nd-3rd-stage/": {
+    "title": "Steel Ball Run 2nd-3rd Stage - ANIVIETDB",
+    "episodes": [
+      {
+        "num": "2",
+        "url": "https://embed13.streamc.xyz/embed.php?hash=7d16a34b60bd28dee122fa48cf872573"
+      },
+      {
+        "num": "3",
+        "url": "https://embed12.streamc.xyz/embed.php?hash=8cf30d3469508dcf237f7909b5bee931"
       }
     ]
   }
